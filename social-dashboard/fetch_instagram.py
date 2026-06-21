@@ -64,8 +64,8 @@ def find_ig_account_id(token):
 
 
 def fetch_post_insights(media_id, media_type, token):
-    metrics = "reach,saved,plays" if media_type == "VIDEO" else "reach,saved,impressions"
-    result = api_get(f"/{media_id}/insights", {"metric": metrics}, token)
+    # impressions removed in v22+; plays not a valid insights metric — use reach,saved,total_interactions
+    result = api_get(f"/{media_id}/insights", {"metric": "reach,saved,total_interactions"}, token)
     if not result:
         return {}
     out = {}

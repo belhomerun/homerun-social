@@ -1,5 +1,6 @@
 .token
 growth_history.json
 dashboard.html
+platform_news_snapshot.json
 __pycache__/
 *.pyc
