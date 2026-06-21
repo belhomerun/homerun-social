@@ -1,0 +1,5 @@
+.token
+growth_history.json
+dashboard.html
+__pycache__/
+*.pyc

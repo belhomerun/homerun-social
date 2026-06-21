@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homerun — Social Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #fdfcfc; --surface: #ffffff; --surface2: #fcefe3; --border: #d7d6d5;
+  --orange: #fc8f29; --orange-dark: #ea7e03; --orange-light: #fcefe3;
+  --text: #24211e; --text2: #3f3b37; --muted: #5c5451; --warm1: #c25500;
+  --radius: 11px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5; }
+header { display: flex; align-items: center; gap: 16px; padding: 20px 36px; border-bottom: 1px solid var(--border); }
+.wordmark { font-size: 20px; font-weight: 700; letter-spacing: -.3px; }
+.wordmark span { color: var(--orange); }
+.updated { margin-left: auto; color: var(--muted); font-size: 12px; }
+nav { display: flex; gap: 0; padding: 0 36px; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 10; overflow-x: auto; }
+.tab-btn { padding: 13px 18px; font-size: 13px; font-weight: 600; color: var(--muted); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: color .12s; }
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--orange-dark); border-bottom-color: var(--orange); }
+main { padding: 28px 36px; max-width: 1400px; }
+section { display: none; }
+section.active { display: block; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; }
+.stat-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+.stat-value { font-size: 32px; font-weight: 700; letter-spacing: -.5px; }
+.stat-value.accent { color: var(--orange); }
+.row2 { display: grid; grid-template-columns: 3fr 2fr; gap: 12px; margin-bottom: 20px; }
+.row3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 20px; }
+.card:last-child { margin-bottom: 0; }
+.card h2, .table-wrap h2 { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 16px; }
+.table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 20px; }
+.table-wrap h2 { padding: 20px 24px 14px; margin-bottom: 0; }
+table { width: 100%; border-collapse: collapse; }
+th { padding: 9px 14px; text-align: left; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid var(--border); background: var(--surface2); }
+td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; color: var(--text2); }
+tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: #fdf8f4; }
+.pill { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: .04em; }
+.pill-photo { background: #f5e6d3; color: var(--text2); }
+.pill-reel { background: var(--orange-light); color: var(--orange-dark); }
+.pill-carousel { background: #fcd5aa; color: var(--warm1); }
+.pill-ig { background: #fce4d6; color: #b03020; }
+.pill-tiktok { background: #e0f2f7; color: #1565a0; }
+.pill-fb { background: #e8eaf6; color: #3949ab; }
+.cap { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
+.na { color: var(--border); }
+.footer-note { color: var(--muted); font-size: 12px; padding-top: 8px; }
+.mock-banner { background: #fff8e6; border: 1px solid #f0c060; border-radius: 6px; padding: 8px 14px; font-size: 12px; color: #7a5a00; margin-bottom: 16px; }
+.news-list { list-style: none; }
+.news-item { padding: 14px 0; border-bottom: 1px solid var(--border); display: flex; gap: 12px; align-items: flex-start; }
+.news-item:last-child { border-bottom: none; }
+.news-item-body { flex: 1; min-width: 0; }
+.news-title { font-weight: 600; font-size: 14px; color: var(--text); text-decoration: none; display: block; }
+.news-title:hover { color: var(--orange-dark); }
+.news-meta { font-size: 12px; color: var(--muted); margin-top: 3px; }
+.news-pills { display: flex; gap: 4px; flex-shrink: 0; padding-top: 3px; }
+.ideas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.idea-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+.idea-platforms { display: flex; gap: 5px; margin-bottom: 10px; }
+.idea-pillar { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 3px; display: inline-block; margin-bottom: 9px; letter-spacing: .03em; }
+.idea-hook { font-weight: 600; font-size: 14px; margin-bottom: 6px; line-height: 1.4; }
+.idea-format { font-size: 12px; color: var(--muted); }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.cal-header { font-size: 11px; font-weight: 700; color: var(--muted); text-align: center; padding: 8px 4px; text-transform: uppercase; letter-spacing: .05em; }
+.cal-day { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; min-height: 84px; padding: 8px; }
+.cal-day.empty { background: none; border: none; min-height: 0; }
+.cal-day.today { border-color: var(--orange); border-width: 2px; }
+.cal-num { font-weight: 700; font-size: 13px; margin-bottom: 5px; }
+.cal-entry { background: var(--orange-light); border-radius: 3px; padding: 2px 5px; font-size: 10px; margin-bottom: 2px; color: var(--orange-dark); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.top-posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+.top-post-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+.top-post-platform { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+.top-post-caption { font-size: 13px; color: var(--text2); margin-bottom: 12px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.top-post-metrics { display: flex; gap: 20px; }
+.tpm-item { font-size: 12px; color: var(--muted); }
+.tpm-item strong { color: var(--text); display: block; font-size: 18px; font-weight: 700; }
+.section-hd { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+</style>
+</head>
+<body>
+<script>const DATA = __DATA__;</script>
+
+<header>
+  <div class="wordmark">home<span>run</span></div>
+  <div class="updated" id="updated"></div>
+</header>
+
+<nav>
+  <button class="tab-btn active" data-tab="overview">Overview</button>
+  <button class="tab-btn" data-tab="instagram">Instagram</button>
+  <button class="tab-btn" data-tab="tiktok">TikTok</button>
+  <button class="tab-btn" data-tab="facebook">Facebook</button>
+  <button class="tab-btn" data-tab="trends">Trending Intel</button>
+  <button class="tab-btn" data-tab="ideas">Content Ideas</button>
+  <button class="tab-btn" data-tab="platform-news">Platform News</button>
+  <button class="tab-btn" data-tab="calendar">Calendar</button>
+</nav>
+
+<main>
+
+<!-- ── OVERVIEW ─────────────────────────────────── -->
+<section id="tab-overview" class="active">
+  <div class="stats" id="overview-stats"></div>
+  <div class="section-hd">Top post per platform</div>
+  <div class="top-posts-grid" id="overview-top-posts"></div>
+</section>
+
+<!-- ── INSTAGRAM ────────────────────────────────── -->
+<section id="tab-instagram">
+  <div id="ig-banner"></div>
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Followers</div><div class="stat-value accent" id="ig-followers"></div></div>
+    <div class="stat"><div class="stat-label">Avg engagement (last 30)</div><div class="stat-value" id="ig-eng"></div></div>
+    <div class="stat"><div class="stat-label">Total posts</div><div class="stat-value" id="ig-posts"></div></div>
+  </div>
+  <div class="row2">
+    <div class="card"><h2>Follower growth</h2><canvas id="ig-growthChart"></canvas></div>
+    <div class="card"><h2>Content breakdown (last 50)</h2><canvas id="ig-typeChart"></canvas></div>
+  </div>
+  <div class="card"><h2>Engagement rate — last 30 posts (chronological)</h2><canvas id="ig-engChart" height="70"></canvas></div>
+  <div class="table-wrap">
+    <h2>Post performance — most recent first</h2>
+    <table>
+      <thead><tr><th>Caption</th><th>Type</th><th>Date</th><th>Likes</th><th>Comments</th><th>Engagement</th><th>Reach</th><th>Saves</th></tr></thead>
+      <tbody id="ig-tbody"></tbody>
+    </table>
+  </div>
+  <p class="footer-note">Engagement = (likes + comments) / followers × 100. Reach + saves require instagram_manage_insights permission.</p>
+</section>
+
+<!-- ── TIKTOK ───────────────────────────────────── -->
+<section id="tab-tiktok">
+  <div class="mock-banner">TikTok: mock data — real API connection coming soon</div>
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Followers</div><div class="stat-value accent" id="tt-followers"></div></div>
+    <div class="stat"><div class="stat-label">Avg views</div><div class="stat-value" id="tt-views"></div></div>
+    <div class="stat"><div class="stat-label">Total videos</div><div class="stat-value" id="tt-videos"></div></div>
+  </div>
+  <div class="table-wrap">
+    <h2>Top videos</h2>
+    <table>
+      <thead><tr><th>Caption</th><th>Date</th><th>Views</th><th>Likes</th><th>Comments</th><th>Shares</th></tr></thead>
+      <tbody id="tt-tbody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── FACEBOOK ──────────────────────────────────── -->
+<section id="tab-facebook">
+  <div id="fb-banner"></div>
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Page fans</div><div class="stat-value accent" id="fb-fans"></div></div>
+    <div class="stat"><div class="stat-label">Recent posts</div><div class="stat-value" id="fb-post-count"></div></div>
+  </div>
+  <div class="table-wrap">
+    <h2>Recent posts</h2>
+    <table>
+      <thead><tr><th>Caption</th><th>Date</th><th>Reactions</th><th>Comments</th></tr></thead>
+      <tbody id="fb-tbody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── TRENDING INTEL ────────────────────────────── -->
+<section id="tab-trends">
+  <div id="trends-banner"></div>
+  <div class="row2" style="margin-bottom:16px">
+    <div class="card" style="margin-bottom:0"><h2>Sharehouse &amp; renting niche</h2><ul class="news-list" id="trends-niche"></ul></div>
+    <div class="card" style="margin-bottom:0"><h2>Adjacent niches</h2><ul class="news-list" id="trends-adjacent"></ul></div>
+  </div>
+  <div class="card" style="margin-bottom:0">
+    <h2>What's working by platform</h2>
+    <div class="row3" id="trends-by-platform"></div>
+  </div>
+</section>
+
+<!-- ── CONTENT IDEAS ─────────────────────────────── -->
+<section id="tab-ideas">
+  <p style="color:var(--muted);font-size:13px;margin-bottom:20px">Ideas based on trending intel + your top-performing formats. Claude API integration coming soon — these are curated starting points.</p>
+  <div class="ideas-grid" id="ideas-grid"></div>
+</section>
+
+<!-- ── PLATFORM NEWS ─────────────────────────────── -->
+<section id="tab-platform-news">
+  <div id="pn-banner"></div>
+  <div class="card" style="margin-bottom:0">
+    <h2>Latest platform updates</h2>
+    <ul class="news-list" id="pn-list"></ul>
+  </div>
+</section>
+
+<!-- ── CALENDAR ──────────────────────────────────── -->
+<section id="tab-calendar">
+  <div class="mock-banner">Calendar: placeholder — Notion connection coming soon</div>
+  <div style="margin-bottom:16px">
+    <div class="section-hd" id="cal-month-label" style="margin-bottom:0"></div>
+  </div>
+  <div class="card" style="margin-bottom:0">
+    <div class="calendar-grid" id="cal-grid"></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+const D = DATA;
+const C = { orange: '#fc8f29', orangeDark: '#ea7e03', warm1: '#c25500', muted: '#5c5451', border: '#d7d6d5', orangeLight: '#fcefe3' };
+const axisStyle = (opts = {}) => ({ ticks: { color: C.muted, font: { size: 11 }, maxTicksLimit: 7, ...(opts.ticks || {}) }, grid: { color: C.border } });
+const pillMap = { instagram: 'pill-ig', tiktok: 'pill-tiktok', facebook: 'pill-fb' };
+const pillarColour = { 'Better Times Together': '#fce4d6', 'Better Value Together': '#deeef8', 'Better Standards Together': '#dff0df' };
+
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('main section').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+document.getElementById('updated').textContent = 'Updated ' + (D.today || '');
+
+// ── OVERVIEW ──────────────────────────────────────────────────────────────────
+[
+  { label: 'Instagram followers', value: (D.instagram.followers || 0).toLocaleString(), accent: true },
+  { label: 'TikTok followers',    value: (D.tiktok.followers || 0).toLocaleString(),    accent: false },
+  { label: 'Facebook fans',       value: (D.facebook.fans || 0).toLocaleString(),       accent: false },
+  { label: 'IG avg engagement',   value: (D.instagram.avg_engagement || 0) + '%',       accent: false },
+].forEach(s => {
+  document.getElementById('overview-stats').innerHTML +=
+    `<div class="stat"><div class="stat-label">${s.label}</div><div class="stat-value${s.accent ? ' accent' : ''}">${s.value}</div></div>`;
+});
+
+const makeTopPost = (platform, post, m1l, m1, m2l, m2) =>
+  post
+    ? `<div class="top-post-card"><div class="top-post-platform">${platform}</div><div class="top-post-caption">${post.caption || '—'}</div><div class="top-post-metrics"><div class="tpm-item"><strong>${Number(m1).toLocaleString()}</strong>${m1l}</div><div class="tpm-item"><strong>${String(m2)}</strong>${m2l}</div></div></div>`
+    : `<div class="top-post-card"><div class="top-post-platform">${platform}</div><div class="top-post-caption" style="color:var(--muted)">No data yet</div></div>`;
+
+const igTop = (D.instagram.posts || [])[0];
+const ttTop = (D.tiktok.top_videos || [])[0];
+const fbTop = D.facebook.top_post;
+document.getElementById('overview-top-posts').innerHTML =
+  makeTopPost('Instagram', igTop, 'likes', igTop ? igTop.likes : 0, 'engagement', igTop ? igTop.engagement + '%' : '—') +
+  makeTopPost('TikTok',    ttTop, 'views', ttTop ? ttTop.views : 0, 'likes',      ttTop ? ttTop.likes : 0) +
+  makeTopPost('Facebook',  fbTop, 'reactions', fbTop ? fbTop.likes : 0, 'comments', fbTop ? fbTop.comments : 0);
+
+// ── INSTAGRAM ─────────────────────────────────────────────────────────────────
+const ig = D.instagram;
+if (ig.error) document.getElementById('ig-banner').innerHTML = `<div class="mock-banner">Instagram: ${ig.error}</div>`;
+document.getElementById('ig-followers').textContent = (ig.followers || 0).toLocaleString();
+document.getElementById('ig-eng').textContent       = (ig.avg_engagement || 0) + '%';
+document.getElementById('ig-posts').textContent     = (ig.post_count || 0).toLocaleString();
+
+if ((ig.growth || {}).dates && ig.growth.dates.length > 0) {
+  new Chart(document.getElementById('ig-growthChart'), {
+    type: 'line',
+    data: { labels: ig.growth.dates, datasets: [{ data: ig.growth.counts, borderColor: C.orange, backgroundColor: 'rgba(252,143,41,0.07)', fill: true, tension: 0.35, pointRadius: ig.growth.dates.length > 10 ? 2 : 4, pointBackgroundColor: C.orange, borderWidth: 2 }] },
+    options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: axisStyle(), y: { ...axisStyle(), beginAtZero: false } } }
+  });
+}
+new Chart(document.getElementById('ig-typeChart'), {
+  type: 'doughnut',
+  data: { labels: ['Photos', 'Reels', 'Carousels'], datasets: [{ data: ig.type_counts || [0,0,0], backgroundColor: ['#f5e6d3', C.orangeLight, C.orange], borderWidth: 0, hoverOffset: 6 }] },
+  options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: C.muted, padding: 16, font: { size: 12 }, boxWidth: 12, boxHeight: 12 } } } }
+});
+if ((ig.eng_values || []).length > 0) {
+  new Chart(document.getElementById('ig-engChart'), {
+    type: 'bar',
+    data: { labels: ig.eng_labels, datasets: [{ data: ig.eng_values, backgroundColor: 'rgba(252,143,41,0.4)', borderColor: C.orange, borderWidth: 1, borderRadius: 3 }] },
+    options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: axisStyle({ ticks: { maxTicksLimit: 10 } }), y: { ...axisStyle(), ticks: { color: C.muted, font: { size: 11 }, callback: v => v + '%' } } } }
+  });
+}
+const typeLabel = { IMAGE: 'Photo', VIDEO: 'Reel', CAROUSEL_ALBUM: 'Carousel' };
+const typePill  = { IMAGE: 'pill-photo', VIDEO: 'pill-reel', CAROUSEL_ALBUM: 'pill-carousel' };
+(ig.posts || []).forEach(p => {
+  const tr = document.createElement('tr');
+  const reach = p.reach != null ? p.reach.toLocaleString() : '<span class="na">—</span>';
+  const saves = p.saves != null ? p.saves.toLocaleString() : '<span class="na">—</span>';
+  tr.innerHTML = `<td class="cap" title="${p.caption}">${p.caption || '<span class="na">no caption</span>'}</td><td><span class="pill ${typePill[p.type] || ''}">${typeLabel[p.type] || p.type}</span></td><td>${p.date}</td><td>${p.likes.toLocaleString()}</td><td>${p.comments.toLocaleString()}</td><td>${p.engagement}%</td><td>${reach}</td><td>${saves}</td>`;
+  document.getElementById('ig-tbody').appendChild(tr);
+});
+
+// ── TIKTOK ────────────────────────────────────────────────────────────────────
+const tt = D.tiktok;
+document.getElementById('tt-followers').textContent = (tt.followers || 0).toLocaleString();
+document.getElementById('tt-views').textContent     = (tt.avg_views || 0).toLocaleString();
+document.getElementById('tt-videos').textContent    = (tt.total_videos || 0).toLocaleString();
+(tt.top_videos || []).forEach(v => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="cap">${v.caption}</td><td>${v.date}</td><td>${v.views.toLocaleString()}</td><td>${v.likes.toLocaleString()}</td><td>${v.comments.toLocaleString()}</td><td>${v.shares.toLocaleString()}</td>`;
+  document.getElementById('tt-tbody').appendChild(tr);
+});
+
+// ── FACEBOOK ──────────────────────────────────────────────────────────────────
+const fb = D.facebook;
+if (fb.mock) document.getElementById('fb-banner').innerHTML = '<div class="mock-banner">Facebook: add FACEBOOK_PAGE_ID to homerun/.env to connect live data</div>';
+document.getElementById('fb-fans').textContent       = (fb.fans || 0).toLocaleString();
+document.getElementById('fb-post-count').textContent = (fb.posts || []).length.toLocaleString();
+(fb.posts || []).forEach(p => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="cap">${p.caption || '<span class="na">no caption</span>'}</td><td>${p.date}</td><td>${p.likes.toLocaleString()}</td><td>${p.comments.toLocaleString()}</td>`;
+  document.getElementById('fb-tbody').appendChild(tr);
+});
+
+// ── TRENDING INTEL ────────────────────────────────────────────────────────────
+const tr_data = D.trends;
+if (tr_data.mock) document.getElementById('trends-banner').innerHTML = '<div class="mock-banner">Trending intel: mock data — Apify connection coming soon</div>';
+const renderNicheList = (items, id) => {
+  document.getElementById(id).innerHTML = items.map(item =>
+    `<li class="news-item"><div class="news-item-body"><a class="news-title" href="${item.url || '#'}" target="_blank">${item.headline}</a><div class="news-meta">${item.source} · ${item.date}</div></div></li>`
+  ).join('');
+};
+renderNicheList(tr_data.niche || [], 'trends-niche');
+renderNicheList(tr_data.adjacent || [], 'trends-adjacent');
+const platformNames = { instagram: 'Instagram', tiktok: 'TikTok', facebook: 'Facebook' };
+document.getElementById('trends-by-platform').innerHTML = Object.entries(tr_data.by_platform || {}).map(([platform, items]) =>
+  `<div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px">${platformNames[platform] || platform}</div>` +
+  items.map(item => `<div style="margin-bottom:14px"><div style="font-weight:600;font-size:13px;margin-bottom:3px">${item.format}: ${item.topic}</div><div style="font-size:12px;color:var(--muted)">${item.why}</div></div>`).join('') +
+  '</div>'
+).join('');
+
+// ── CONTENT IDEAS ─────────────────────────────────────────────────────────────
+document.getElementById('ideas-grid').innerHTML = (D.ideas || []).map(idea =>
+  `<div class="idea-card">
+    <div class="idea-platforms">${(idea.platforms || []).map(p => `<span class="pill ${pillMap[p] || ''}">${p}</span>`).join('')}</div>
+    <div class="idea-pillar" style="background:${pillarColour[idea.pillar] || '#f0f0f0'};color:#444">${idea.pillar}</div>
+    <div class="idea-hook">${idea.hook}</div>
+    <div class="idea-format">${idea.format}</div>
+  </div>`
+).join('');
+
+// ── PLATFORM NEWS ─────────────────────────────────────────────────────────────
+const pn = D.platform_news;
+if (pn.mock) document.getElementById('pn-banner').innerHTML = '<div class="mock-banner">Platform news: RSS feeds unreachable — showing fallback items</div>';
+document.getElementById('pn-list').innerHTML = (pn.items || []).map(item =>
+  `<li class="news-item">
+    <div class="news-pills">${(item.platforms || []).map(p => `<span class="pill ${pillMap[p] || ''}">${p}</span>`).join('')}</div>
+    <div class="news-item-body"><a class="news-title" href="${item.url || '#'}" target="_blank">${item.title}</a><div class="news-meta">${item.source} · ${item.date}</div></div>
+  </li>`
+).join('');
+
+// ── CALENDAR ──────────────────────────────────────────────────────────────────
+const calEntries = D.calendar_entries || [];
+const now = new Date();
+const year = now.getFullYear(), month = now.getMonth();
+const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+document.getElementById('cal-month-label').textContent = monthNames[month] + ' ' + year;
+const daysInMonth = new Date(year, month + 1, 0).getDate();
+const firstDay    = new Date(year, month, 1).getDay();
+const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+let calHtml = dayNames.map(d => `<div class="cal-header">${d}</div>`).join('');
+for (let i = 0; i < firstDay; i++) calHtml += '<div class="cal-day empty"></div>';
+for (let d = 1; d <= daysInMonth; d++) {
+  const isToday = d === now.getDate();
+  const entries = calEntries.filter(e => parseInt(e.day) === d);
+  calHtml += `<div class="cal-day${isToday ? ' today' : ''}"><div class="cal-num">${d}</div>${entries.map(e => `<div class="cal-entry">${e.platform ? e.platform + ': ' : ''}${e.label}</div>`).join('')}</div>`;
+}
+document.getElementById('cal-grid').innerHTML = calHtml;
+</script>
+</body>
+</html>
