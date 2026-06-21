@@ -9,9 +9,10 @@ import urllib.error
 import xml.etree.ElementTree as ET
 
 FEEDS = [
-    {"name": "Social Media Today", "url": "https://www.socialmediatoday.com/feeds/all.rss"},
-    {"name": "Later Blog", "url": "https://later.com/blog/feed/"},
-    {"name": "Hootsuite Blog", "url": "https://blog.hootsuite.com/feed/"},
+    {"name": "Hootsuite Blog",        "url": "https://blog.hootsuite.com/feed/"},
+    {"name": "Buffer Blog",           "url": "https://buffer.com/resources/feed/"},
+    {"name": "Sprout Social",         "url": "https://sproutsocial.com/insights/feed/"},
+    {"name": "Social Media Examiner", "url": "https://www.socialmediaexaminer.com/feed/"},
 ]
 
 PLATFORM_KEYWORDS = {
