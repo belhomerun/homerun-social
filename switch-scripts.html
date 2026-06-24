@@ -1,0 +1,1526 @@
+<meta name="robots" content="noindex,nofollow">
+<title>Homerun Switch — Video Script Pack</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #fc8f29;
+    --orange-light: #fff3e6;
+    --orange-mid: #fde3c4;
+    --dark: #24211e;
+    --mid: #5c5650;
+    --faint: #8a837d;
+    --bg: #f7f4f0;
+    --card: #ffffff;
+    --border: #e8e3dc;
+    --chip-th: #e8f4ff;
+    --chip-th-text: #1a5276;
+    --chip-pov: #eaf4ea;
+    --chip-pov-text: #1a5c1a;
+    --chip-warn: #fff0e0;
+    --chip-warn-text: #7a3d00;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    line-height: 1.5;
+    font-size: 15px;
+  }
+
+  header {
+    background: var(--dark);
+    padding: 20px 24px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--orange);
+  }
+
+  header .top-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  header h1 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+
+  header .badge {
+    font-size: 12px;
+    color: var(--orange);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .filters {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .filter-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.75);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .filter-btn:hover { background: rgba(255,255,255,0.18); color: #fff; }
+  .filter-btn.active { background: var(--orange); border-color: var(--orange); color: var(--dark); font-weight: 700; }
+
+  main {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+  }
+
+  .notice {
+    background: var(--chip-warn);
+    border: 1px solid #f7c88a;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--chip-warn-text);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .notice strong { font-weight: 700; }
+
+  .count-row {
+    font-size: 12px;
+    color: var(--faint);
+    margin-bottom: 16px;
+    letter-spacing: 0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .scripts-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .card.hidden { display: none; }
+
+  .card-header {
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    user-select: none;
+  }
+
+  .card-header:hover { background: #fdf9f5; }
+
+  .card-header-left { flex: 1; }
+
+  .card-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 8px;
+  }
+
+  .chip {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .chip-th { background: var(--chip-th); color: var(--chip-th-text); }
+  .chip-pov { background: var(--chip-pov); color: var(--chip-pov-text); }
+  .chip-warn { background: var(--chip-warn); color: var(--chip-warn-text); }
+  .chip-neutral { background: #f0ede9; color: var(--mid); }
+
+  .chevron {
+    color: var(--faint);
+    font-size: 18px;
+    line-height: 1;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .card.open .chevron { transform: rotate(180deg); }
+
+  .card-body {
+    display: none;
+    padding: 0;
+  }
+
+  .card.open .card-body { display: block; }
+
+  .section {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--faint);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .hook-box {
+    background: var(--orange-light);
+    border-left: 3px solid var(--orange);
+    padding: 10px 14px;
+    border-radius: 0 6px 6px 0;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--dark);
+    line-height: 1.4;
+  }
+
+  .script-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--dark);
+    white-space: pre-wrap;
+  }
+
+  .overlay-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .overlay-list li {
+    font-size: 13px;
+    color: var(--mid);
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .overlay-list li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-weight: 700;
+  }
+
+  .visual-note {
+    font-size: 13px;
+    color: var(--mid);
+    font-style: italic;
+    padding: 8px 12px;
+    background: #f7f4f0;
+    border-radius: 6px;
+    line-height: 1.5;
+  }
+
+  .text-seq {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .text-seq-item {
+    font-size: 13px;
+    color: var(--dark);
+    padding: 5px 10px;
+    background: #f0ede9;
+    border-radius: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .text-seq-item .step-num {
+    font-size: 10px;
+    color: var(--faint);
+    margin-right: 6px;
+    font-weight: 600;
+  }
+
+  .cta-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+  }
+
+  .caption-text {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--mid);
+    white-space: pre-wrap;
+  }
+
+  .copy-btn {
+    margin-top: 8px;
+    background: var(--dark);
+    color: #fff;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .copy-btn:hover { background: var(--orange); color: var(--dark); }
+  .copy-btn.copied { background: #2d6e2d; color: #fff; }
+
+  @media (max-width: 600px) {
+    header { padding: 14px 14px 12px; }
+    main { padding: 16px 12px 40px; }
+  }
+</style>
+
+<header>
+  <div class="top-row">
+    <h1>Homerun Switch</h1>
+    <span class="badge">Video Script Pack · Jun 2026</span>
+  </div>
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">All (24)</button>
+    <button class="filter-btn" data-filter="th">Talking Head</button>
+    <button class="filter-btn" data-filter="pov">POV / Voiceover</button>
+
+  </div>
+</header>
+
+<main>
+  <div class="notice">
+    <span>⚠️</span>
+    <span>No scripts name CIMET directly — CIMET sign-off not required. ACCC stats attributed throughout. Never use "guaranteed savings", "cheapest", "best deal" or "whole of market".</span>
+  </div>
+
+  <div class="count-row" id="count-row">Showing all 24 scripts</div>
+
+  <div class="scripts-grid" id="grid">
+
+    <!-- SCRIPT 1 -->
+    <div class="card" data-format="th">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 01 · Talking Head · ~25s</div>
+          <div class="card-title">69% stat hook</div>
+          <div class="meta-row">
+            <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-neutral">Reluctant Lifer</span>
+            <span class="chip chip-neutral">Data authority</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Hook (on-screen text)</div>
+          <div class="hook-box">69% of Aussie sharehouses haven't done this 👀</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Script</div>
+          <div class="script-text">"69% of Australian sharehouses haven't compared their energy plan in the last 12 months — according to a 2026 survey of over 3,600 people. Which means most of us are just on whatever plan we landed on. And quietly paying more for it every quarter. The ACCC found households on the same plan for three or more years pay about $221 a year more than people on newer plans. They literally call it the loyalty penalty. Takes under three minutes to compare. Link in bio."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">On-screen overlays</div>
+          <ul class="overlay-list">
+            <li>69% haven't compared in 12 months (2026 survey, 3,672 sharehouses)</li>
+            <li>The loyalty penalty — ACCC, December 2025</li>
+            <li>$221/yr more — average, results vary</li>
+            <li>switch.homerun.app</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-label">CTA</div>
+          <div class="cta-text">Compare offers for your house at switch.homerun.app — link in bio.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Most Aussie sharehouses are on whatever energy plan they started with. The ACCC calls it the loyalty penalty — and it costs about $221 a year more on average. Takes under 3 minutes to compare. See if there's a better deal for your house.
+switch.homerun.app
+
+#sharehouse #australianrenting #electricitybills #energybills #housemates #sharehousetips #rentinginaustralia</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 2 -->
+    <div class="card" data-format="th">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 02 · Talking Head · ~30s</div>
+          <div class="card-title">Energy companies don't have a loyalty programme</div>
+          <div class="meta-row">
+            <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-neutral">Reluctant Lifer</span>
+            <span class="chip chip-neutral">Common enemy</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Hook (on-screen text)</div>
+          <div class="hook-box">Energy companies don't have a loyalty programme 👀</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Script</div>
+          <div class="script-text">"Have you noticed energy companies don't have loyalty points? No punch card. No rewards tier. And that's not an accident. Every other subscription rewards you for staying — gyms, streaming, coffee shops. Energy does the opposite. The longer you stay, the more they quietly charge you. New customers get the good deals. You get whatever rate you signed up for two years ago. The ACCC found households on stale plans pay about $221 a year more. They call it the loyalty penalty. The fix is just — not staying. Homerun Switch lets you compare offers from our partner retailers in under three minutes. See if there's a better deal for your house."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">On-screen overlays</div>
+          <ul class="overlay-list">
+            <li>No loyalty programme. Not by accident.</li>
+            <li>Loyalty penalty — ACCC, Dec 2025</li>
+            <li>$221/yr more (average — results vary)</li>
+            <li>3 minutes. switch.homerun.app</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-label">CTA</div>
+          <div class="cta-text">Link in bio — switch.homerun.app</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Gyms, streaming, coffee shops — they all reward you for staying. Energy companies don't. That's not an accident. The ACCC found households on old plans pay about $221/yr more on average. Compare offers for your house in under 3 minutes.
+switch.homerun.app
+
+#energybills #loyaltypenalty #electricitybill #sharehouse #australianrenting #housemates #rentinginaustralia</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 3 -->
+    <div class="card" data-format="th">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 03 · Talking Head · ~20s</div>
+          <div class="card-title">Just moved in — do this today</div>
+          <div class="meta-row">
+            <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-neutral">Fresh Start</span>
+            <span class="chip chip-neutral">Trigger moment</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Hook (on-screen text)</div>
+          <div class="hook-box">If you just moved into a sharehouse, do this today 👇</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Script</div>
+          <div class="script-text">"If you just moved into a new sharehouse, one of the first things you should sort is the energy plan. Because right now you're probably on whatever plan the last people had — which could be an old, expensive one. Moving house is actually the easiest time to compare and switch because you're already sorting everything else anyway. Homerun Switch compares offers from our partner retailers. Takes under three minutes. Just your postcode to start — no long forms, no sales calls."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">On-screen overlays</div>
+          <ul class="overlay-list">
+            <li>New place? Sort this today.</li>
+            <li>No long forms. No sales calls.</li>
+            <li>Under 3 minutes. switch.homerun.app</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-label">CTA</div>
+          <div class="cta-text">Link in bio — switch.homerun.app</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Just moved into a new sharehouse? Don't inherit an old energy plan. Sort it from day one — takes under 3 minutes and there are no sales calls.
+switch.homerun.app
+
+#movingin #newplace #sharehouse #housemates #sharehousetips #australianrenting #electricitybills</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 4 -->
+    <div class="card" data-format="pov">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 04 · POV / Text on screen · ~25s</div>
+          <div class="card-title">Bill shock group chat</div>
+          <div class="meta-row">
+            <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-neutral">Reluctant Lifer</span>
+            <span class="chip chip-neutral">Sharehouse scenario</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Visual direction</div>
+          <div class="visual-note">Group chat mockup on screen. Energy bill arrives. Chat explodes with reactions. Cuts to switch.homerun.app on phone.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Text sequence</div>
+          <div class="text-seq">
+            <div class="text-seq-item"><span class="step-num">1</span>When the electricity bill arrives 💀</div>
+            <div class="text-seq-item"><span class="step-num">2</span>$483?? why is it $483</div>
+            <div class="text-seq-item"><span class="step-num">3</span>idk??? it was $220 in winter???</div>
+            <div class="text-seq-item"><span class="step-num">4</span>does anyone know what plan we're even on</div>
+            <div class="text-seq-item"><span class="step-num">5</span>...</div>
+            <div class="text-seq-item"><span class="step-num">6</span>nobody knows.</div>
+            <div class="text-seq-item"><span class="step-num">7</span>Most Aussie sharehouses are on whatever plan they started with.</div>
+            <div class="text-seq-item"><span class="step-num">8</span>ACCC: households on old plans pay about $221/yr more — average, results vary</div>
+            <div class="text-seq-item"><span class="step-num">9</span>Compare offers for your house in under 3 minutes.</div>
+            <div class="text-seq-item"><span class="step-num">10</span>switch.homerun.app 🔗</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">Optional voiceover</div>
+          <div class="script-text">"Most sharehouses are on whatever plan the last people had. And rates have been creeping up. Takes under three minutes to see if there's a better deal."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">The group chat when the electricity bill arrives... Does anyone actually know what plan you're on? If it's been more than a year, you could be quietly overpaying. Compare offers in under 3 minutes — no sales calls.
+switch.homerun.app
+
+#sharehouse #electricitybill #housemates #australianrenting #sharehousetips #energybills</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 5 -->
+    <div class="card" data-format="pov">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 05 · POV / Screen recording · ~25s</div>
+          <div class="card-title">Under 3 minutes — live demo</div>
+          <div class="meta-row">
+            <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-neutral">Strategic Stacker</span>
+            <span class="chip chip-neutral">Done-for-you</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Visual direction</div>
+          <div class="visual-note">Screen recording of switch.homerun.app on phone. Real hands shown. Live walkthrough of the compare flow.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Text sequence</div>
+          <div class="text-seq">
+            <div class="text-seq-item"><span class="step-num">1</span>This is how sharehouse energy works in 2026</div>
+            <div class="text-seq-item"><span class="step-num">2</span>[postcode entry] Your postcode.</div>
+            <div class="text-seq-item"><span class="step-num">3</span>[fuel selection] Electricity, gas, or both.</div>
+            <div class="text-seq-item"><span class="step-num">4</span>[offers loading] Compare offers from partner retailers.</div>
+            <div class="text-seq-item"><span class="step-num">5</span>[results] Under 3 minutes.</div>
+            <div class="text-seq-item"><span class="step-num">6</span>No sales calls. No long forms. No logins.</div>
+            <div class="text-seq-item"><span class="step-num">7</span>switch.homerun.app</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">Voiceover</div>
+          <div class="script-text">"Go to switch.homerun.app. Enter your postcode. Pick electricity, gas or both. See offers from our partner retailers — not every plan on the market, a curated panel. If there's a better deal, switch. No phone calls, no forms. We may earn a commission if you switch."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Sharehouse energy in 2026: compare offers in under 3 minutes. No sales calls, no forms, no logins. We compare a panel of partner retailers and may earn a commission if you switch.
+switch.homerun.app
+
+#sharehouse #switchenergy #energybills #electricitybill #australianrenting #housemates</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 6 -->
+    <div class="card" data-format="pov">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 06 · POV / Lifestyle B-roll · ~20s</div>
+          <div class="card-title">Sort it as a house</div>
+          <div class="meta-row">
+            <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-neutral">Social Connector</span>
+            <span class="chip chip-neutral">Collective action</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Visual direction</div>
+          <div class="visual-note">Housemates at home — couch, kitchen, evening. Candid lifestyle shots, not staged.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Text sequence</div>
+          <div class="text-seq">
+            <div class="text-seq-item"><span class="step-num">1</span>A great sharehouse sorts this together 🏡</div>
+            <div class="text-seq-item"><span class="step-num">2</span>Energy plan.</div>
+            <div class="text-seq-item"><span class="step-num">3</span>One person. Three minutes.</div>
+            <div class="text-seq-item"><span class="step-num">4</span>Compare offers from partner retailers.</div>
+            <div class="text-seq-item"><span class="step-num">5</span>Switch if there's a better deal.</div>
+            <div class="text-seq-item"><span class="step-num">6</span>The whole house wins.</div>
+            <div class="text-seq-item"><span class="step-num">7</span>switch.homerun.app</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">Voiceover</div>
+          <div class="script-text">"One housemate. Under three minutes. Compare energy offers from our partner retailers and see if there's a better deal for the house. Split the win like you split everything else."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">One housemate, under 3 minutes. That's all it takes to sort the house's energy plan. Compare offers — if there's a better deal, switch. Split the win like you split rent.
+switch.homerun.app
+
+#sharehouse #housemates #sharehousetips #australianrenting #electricitybill #bettervalue</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 7 -->
+    <div class="card" data-format="th">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 07 · Talking Head · ~20s</div>
+          <div class="card-title">No pushy call — objection kill</div>
+          <div class="meta-row">
+            <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-neutral">Reluctant Lifer</span>
+            <span class="chip chip-neutral">Objection / trust</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Hook (on-screen text)</div>
+          <div class="hook-box">Every comparison site ends in a sales call. This one doesn't.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Script</div>
+          <div class="script-text">"You know how it goes. You compare something online, you put in your details, and for the next three weeks you're getting called by a salesperson you've never heard of. Homerun Switch is different. Just your postcode to start — no phone number, no email, no long forms. You see offers from our partner retailers, and if you want to switch, you do it right there. No one calls you."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">On-screen overlays</div>
+          <ul class="overlay-list">
+            <li>No phone number required.</li>
+            <li>No sales calls. Ever.</li>
+            <li>Just your postcode to start.</li>
+            <li>switch.homerun.app</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-label">CTA</div>
+          <div class="cta-text">Link in bio — switch.homerun.app</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Most comparison sites sell your details. Homerun Switch doesn't ask for them. Just your postcode to start — compare energy offers for your house with no sales calls, no spam.
+switch.homerun.app
+
+#sharehouse #electricitybills #australianrenting #nospam #energycomparison #housemates</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 8 -->
+    <div class="card" data-format="th">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 08 · Talking Head · ~25s</div>
+          <div class="card-title">Your retailer is hoping you never look</div>
+          <div class="meta-row">
+            <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-neutral">All personas</span>
+            <span class="chip chip-neutral">Reverse-tell</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Hook (on-screen text)</div>
+          <div class="hook-box">Your energy retailer is hoping you never read this.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Script</div>
+          <div class="script-text">"Here's something energy companies know and don't say. Their best deals are reserved for new customers. The longer you stay on your current plan, the more you quietly pay. The ACCC found households on the same plan for three or more years pay about $221 a year more — they call it the loyalty penalty. Your retailer isn't going to tell you that. They're counting on you staying. So. Have a look. Takes three minutes. Link in bio."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">On-screen overlays</div>
+          <ul class="overlay-list">
+            <li>Their best deals are for new customers.</li>
+            <li>Loyalty penalty — ACCC, Dec 2025</li>
+            <li>$221/yr more — average, results vary</li>
+            <li>3 minutes. switch.homerun.app</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-label">CTA</div>
+          <div class="cta-text">Compare offers — switch.homerun.app — link in bio.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Your energy retailer's best deals are for new customers. The longer you stay on the same plan, the more you quietly pay. ACCC calls it the loyalty penalty — about $221/yr more on average. Takes 3 minutes to check.
+switch.homerun.app
+
+#loyaltypenalty #energybills #electricitybill #sharehouse #australianrenting #housemates</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 9 -->
+    <div class="card" data-format="th">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 09 · Talking Head · ~25s</div>
+          <div class="card-title">Big Three vs challengers</div>
+          <div class="meta-row">
+            <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-neutral">Strategic Stacker</span>
+            <span class="chip chip-neutral">Panel composition</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Hook (on-screen text)</div>
+          <div class="hook-box">We don't compare AGL, Origin or EnergyAustralia. Here's why.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Script</div>
+          <div class="script-text">"Homerun Switch doesn't compare the Big Three energy retailers. We compare a panel of value-challenger retailers — Alinta, Powershop, OVO, Dodo, ENGIE, 1st Energy and others. That's a deliberate call. The Big Three spend billions on brand. Challenger retailers compete on rates. We're transparent about who we compare and we may earn a commission if you switch. Worth having a look."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">On-screen overlays</div>
+          <ul class="overlay-list">
+            <li>Not AGL. Not Origin. Not EnergyAustralia.</li>
+            <li>Alinta · Powershop · OVO · Dodo · ENGIE · 1st Energy</li>
+            <li>Challenger retailers. Curated panel.</li>
+            <li>switch.homerun.app</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-label">CTA</div>
+          <div class="cta-text">Compare challenger retailers — link in bio.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Homerun Switch compares a panel of value-challenger retailers — Alinta, Powershop, OVO, Dodo, ENGIE, 1st Energy and others. Not the Big Three. Transparent about who we compare and we may earn a commission if you switch.
+switch.homerun.app
+
+#energycomparison #electricitybill #sharehouse #australianrenting #switchenergy #housemates</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 10 -->
+    <div class="card" data-format="th">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 10 · Talking Head · ~25s</div>
+          <div class="card-title">DMO — the default isn't your best deal</div>
+          <div class="meta-row">
+            <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-neutral">Cost-of-Living Senior</span>
+            <span class="chip chip-neutral">Education</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Hook (on-screen text)</div>
+          <div class="hook-box">The DMO isn't your best plan. It's just the safety net.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Script</div>
+          <div class="script-text">"In Australia, there's something called the Default Market Offer — the DMO. It's a government-set price cap on electricity. A lot of people assume because it's the 'default' it's a good deal. It's not. It's a regulated maximum — a safety net so you can't be completely gouged. But it doesn't mean you're on a good plan. Homerun Switch compares offers from partner retailers — free, takes under three minutes, no sales calls."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">On-screen overlays</div>
+          <ul class="overlay-list">
+            <li>DMO = Default Market Offer</li>
+            <li>A price cap. Not a good plan.</li>
+            <li>Compare offers below the DMO.</li>
+            <li>switch.homerun.app</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-label">CTA</div>
+          <div class="cta-text">See if there's a better deal — link in bio.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">The DMO (Default Market Offer) is a government price cap on electricity — not a good deal. It's the maximum retailers are allowed to charge, not the best offer available. Compare partner retailer offers in under 3 minutes.
+switch.homerun.app
+
+#electricitybill #energybills #DMO #sharehouse #australianrenting #rentinginaustralia</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 11 -->
+    <div class="card" data-format="th">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 11 · Talking Head · ~20s</div>
+          <div class="card-title">Honest about how we make money</div>
+          <div class="meta-row">
+            <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-neutral">All personas</span>
+            <span class="chip chip-neutral">Radical transparency</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Hook (on-screen text)</div>
+          <div class="hook-box">Here's exactly how Homerun Switch makes money.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Script</div>
+          <div class="script-text">"I want to be upfront about how this works. Homerun Switch is free to use. If you compare offers from our partner retailers and you switch, we may earn a referral commission from the retailer. That's it. We don't sell your details to anyone. We don't sign you up to anything when you compare. We also point you to Energy Made Easy — the government's free comparison tool — so you can check both."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">On-screen overlays</div>
+          <ul class="overlay-list">
+            <li>Free to compare.</li>
+            <li>We may earn a commission if you switch.</li>
+            <li>We don't sell your details.</li>
+            <li>switch.homerun.app</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-label">CTA</div>
+          <div class="cta-text">Compare with no obligation — link in bio.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Homerun Switch is free to use. If you switch through us, we may earn a referral commission from the retailer. We don't sell your details and we don't sign you up to anything just for comparing. Also pointing you to Energy Made Easy — the government's free tool.
+switch.homerun.app
+
+#transparency #energycomparison #sharehouse #australianrenting #electricitybill</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 12 -->
+    <div class="card" data-format="th">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 12 · Talking Head · ~20s</div>
+          <div class="card-title">Call the bluff in 3 minutes</div>
+          <div class="meta-row">
+            <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-neutral">Reluctant Lifer</span>
+            <span class="chip chip-neutral">Inertia / curiosity</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Hook (on-screen text)</div>
+          <div class="hook-box">Energy retailers are counting on you never checking. Call the bluff.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Script</div>
+          <div class="script-text">"Energy companies make more money from customers who never switch. That's a business model. They offer new customers good deals to bring them in, then quietly let existing customers drift onto more expensive plans. The ACCC calls it the loyalty penalty. You can call their bluff in three minutes. Just your postcode. Compare offers from partner retailers and see where your house stands. You might find you're on a fine plan. You might not."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">On-screen overlays</div>
+          <ul class="overlay-list">
+            <li>They're counting on your inertia.</li>
+            <li>Call the bluff in 3 minutes.</li>
+            <li>switch.homerun.app</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-label">CTA</div>
+          <div class="cta-text">Find out — link in bio.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Energy retailers make more money from customers who never switch. That's the model. Call their bluff in 3 minutes — just your postcode, no sales calls. See where your house stands.
+switch.homerun.app
+
+#loyaltypenalty #electricitybill #sharehouse #australianrenting #energybills #housemates</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 13 -->
+    <div class="card" data-format="th">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 13 · Talking Head · ~20s</div>
+          <div class="card-title">Run your sharehouse like a pro</div>
+          <div class="meta-row">
+            <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-neutral">Property Player</span>
+            <span class="chip chip-neutral">Identity / competence</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Hook (on-screen text)</div>
+          <div class="hook-box">If you're the one who runs the sharehouse — add this to the list. ✓</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Script</div>
+          <div class="script-text">"If you're the head tenant — you manage the lease, the bond, the bills, the drama. Energy is one you can actually sort quickly. Homerun Switch compares offers from our partner retailers in under three minutes. See if there's a better deal. If there is, switch. If there isn't, you've done due diligence and you know the house is on a reasonable plan. One less thing."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">On-screen overlays</div>
+          <ul class="overlay-list">
+            <li>✓ Lease</li>
+            <li>✓ Bond</li>
+            <li>✓ Bills</li>
+            <li>✓ Energy sorted — switch.homerun.app</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-label">CTA</div>
+          <div class="cta-text">Sort the energy — link in bio.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">If you're the one running the sharehouse — lease, bond, bills, all of it — here's the energy task that takes under 3 minutes. Compare offers, switch if there's a better deal, done.
+switch.homerun.app
+
+#headtenant #sharehouse #sharehousetips #australianrenting #housemates #electricitybill</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 14 -->
+    <div class="card" data-format="th">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 14 · Talking Head · ~25s</div>
+          <div class="card-title">Plain and simple — for the cautious</div>
+          <div class="meta-row">
+            <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-neutral">Cost-of-Living Senior</span>
+            <span class="chip chip-neutral">Trust-first</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Hook (on-screen text)</div>
+          <div class="hook-box">Been meaning to check your energy plan? This is the easy way.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Script</div>
+          <div class="script-text">"A lot of people have been meaning to look at their energy plan for a while and just haven't got around to it. Homerun Switch makes it simple. You just need your postcode — no forms, no phone number, no login. It compares offers from a panel of partner retailers and shows you clearly what's available. If there's something better, you can switch right there. If your plan is fine, at least you'll know. Free to use. No sales calls. No obligation."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">On-screen overlays</div>
+          <ul class="overlay-list">
+            <li>Just your postcode to start.</li>
+            <li>No forms. No phone number. No login.</li>
+            <li>Free to use. No obligation.</li>
+            <li>switch.homerun.app</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-label">CTA</div>
+          <div class="cta-text">Check your plan — link in bio.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Been meaning to check your energy plan for a while? Homerun Switch makes it simple. Just your postcode — no forms, no phone number, no login. Compare offers from partner retailers and see if there's a better deal. Free to use, no obligation.
+switch.homerun.app
+
+#energybills #electricitybill #australianrenting #costofliving #switchenergy</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 15 -->
+    <div class="card" data-format="pov">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 15 · POV / Text on screen · ~20s</div>
+          <div class="card-title">Post-switch reassurance — your lights stay on</div>
+          <div class="meta-row">
+            <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-neutral">Reluctant Lifer</span>
+            <span class="chip chip-neutral">Fear of switching</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Visual direction</div>
+          <div class="visual-note">Calm household shots — lights on, kettle boiling, everything working normally. Reassuring energy throughout.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Text sequence</div>
+          <div class="text-seq">
+            <div class="text-seq-item"><span class="step-num">1</span>"Will my power go off when I switch?"</div>
+            <div class="text-seq-item"><span class="step-num">2</span>No.</div>
+            <div class="text-seq-item"><span class="step-num">3</span>Your current provider keeps supplying until the new one takes over.</div>
+            <div class="text-seq-item"><span class="step-num">4</span>Usually 1–3 billing cycles.</div>
+            <div class="text-seq-item"><span class="step-num">5</span>No outage. No disruption. No reconnection fee.</div>
+            <div class="text-seq-item"><span class="step-num">6</span>The whole switch happens in the background.</div>
+            <div class="text-seq-item"><span class="step-num">7</span>Your lights stay on. 💡</div>
+            <div class="text-seq-item"><span class="step-num">8</span>switch.homerun.app</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">Voiceover</div>
+          <div class="script-text">"The most common worry about switching energy is that something will go wrong. It won't. Your current provider keeps supplying until the new one takes over — usually within a couple of billing cycles. No outage. No disruption. Your lights stay on the whole time."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">"Will my power go off when I switch?" — No. Your current provider keeps supplying until the new one takes over. No outage. No disruption. Your lights stay on. Compare offers and switch without the stress.
+switch.homerun.app
+
+#switchenergy #electricitybill #sharehouse #australianrenting #housemates #energyswitch</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 16 -->
+    <div class="card" data-format="pov">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 16 · POV / Text on screen · ~20s</div>
+          <div class="card-title">Myth bust — switching is complicated</div>
+          <div class="meta-row">
+            <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-neutral">Reluctant Lifer</span>
+            <span class="chip chip-neutral">Myth-busting</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Text sequence</div>
+          <div class="text-seq">
+            <div class="text-seq-item"><span class="step-num">1</span>Myth: switching energy is complicated.</div>
+            <div class="text-seq-item"><span class="step-num">2</span>What you actually need:</div>
+            <div class="text-seq-item"><span class="step-num">3</span>Your postcode.</div>
+            <div class="text-seq-item"><span class="step-num">4</span>That's it to start.</div>
+            <div class="text-seq-item"><span class="step-num">5</span>(Your bill helps later — you don't need it upfront.)</div>
+            <div class="text-seq-item"><span class="step-num">6</span>Homerun Switch does the rest.</div>
+            <div class="text-seq-item"><span class="step-num">7</span>Under 3 minutes. No paperwork. No calls.</div>
+            <div class="text-seq-item"><span class="step-num">8</span>switch.homerun.app</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">Voiceover</div>
+          <div class="script-text">"Switching energy feels complicated. It's not. You need your postcode to start. Homerun Switch compares offers from our partner retailers and walks you through the switch. Under three minutes. No paperwork. No phone calls."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Switching energy feels complicated. It isn't. You need your postcode to start — that's it. Homerun Switch does the rest in under 3 minutes. Compare offers for your house.
+switch.homerun.app
+
+#mythbusting #switchenergy #electricitybill #sharehouse #australianrenting #housemates</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 17 -->
+    <div class="card" data-format="pov">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 17 · POV / Text on screen · ~20s</div>
+          <div class="card-title">Myth bust — switching locks you in</div>
+          <div class="meta-row">
+            <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-neutral">Reluctant Lifer</span>
+            <span class="chip chip-neutral">Myth-busting / objection</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Text sequence</div>
+          <div class="text-seq">
+            <div class="text-seq-item"><span class="step-num">1</span>Myth: once you switch, you're locked in.</div>
+            <div class="text-seq-item"><span class="step-num">2</span>Most energy plans in Australia have:</div>
+            <div class="text-seq-item"><span class="step-num">3</span>No lock-in contracts.</div>
+            <div class="text-seq-item"><span class="step-num">4</span>A cooling-off period after you switch.</div>
+            <div class="text-seq-item"><span class="step-num">5</span>The right to switch again any time.</div>
+            <div class="text-seq-item"><span class="step-num">6</span>You are never stuck.</div>
+            <div class="text-seq-item"><span class="step-num">7</span>Compare. Switch if it makes sense. Move on if it doesn't.</div>
+            <div class="text-seq-item"><span class="step-num">8</span>switch.homerun.app</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">Voiceover</div>
+          <div class="script-text">"A lot of people don't switch because they think they'll be locked in. Most energy plans in Australia don't have lock-in contracts. You get a cooling-off period after switching and you can compare and switch again any time. You're never stuck."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">"What if I don't like my new plan?" Most energy plans in Australia have no lock-in contracts and a cooling-off period. You can switch again any time. Compare offers with no obligation.
+switch.homerun.app
+
+#mythbusting #switchenergy #electricitybill #sharehouse #australianrenting #nolockinterms</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 18 -->
+    <div class="card" data-format="pov">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 18 · POV / Text on screen · ~20s</div>
+          <div class="card-title">Myth bust — your provider would tell you if there's a better deal</div>
+          <div class="meta-row">
+            <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-neutral">Strategic Stacker</span>
+            <span class="chip chip-neutral">Myth-busting / ACCC</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Text sequence</div>
+          <div class="text-seq">
+            <div class="text-seq-item"><span class="step-num">1</span>Myth: your provider would tell you if there's a better deal.</div>
+            <div class="text-seq-item"><span class="step-num">2</span>Reality:</div>
+            <div class="text-seq-item"><span class="step-num">3</span>They're required to include a "better offer message" on your bill.</div>
+            <div class="text-seq-item"><span class="step-num">4</span>Some companies send this message...</div>
+            <div class="text-seq-item"><span class="step-num">5</span>...for the exact same plan under a different name.</div>
+            <div class="text-seq-item"><span class="step-num">6</span>Not making this up. ACCC flagged it.</div>
+            <div class="text-seq-item"><span class="step-num">7</span>Check for yourself.</div>
+            <div class="text-seq-item"><span class="step-num">8</span>switch.homerun.app</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">Voiceover</div>
+          <div class="script-text">"Energy companies are legally required to flag better offers on your bill. Some of them send 'better offer messages' for the same plan under a different name. The ACCC flagged this. Check for yourself — compare offers from our partner retailers in under three minutes."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Energy companies are legally required to flag better offers on your bill. Some of them send "better offer" notices for the same plan with a different name. The ACCC flagged this. Check for yourself — compare offers in under 3 minutes.
+switch.homerun.app
+
+#mythbusting #accc #electricitybill #sharehouse #australianrenting #energybills</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 19 -->
+    <div class="card" data-format="pov">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 19 · POV / Text on screen · ~25s</div>
+          <div class="card-title">Street vox-pop — "do you know what plan you're on?"</div>
+          <div class="meta-row">
+            <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-neutral">All personas</span>
+            <span class="chip chip-neutral">Awareness / relatable</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Visual direction</div>
+          <div class="visual-note">Text appears like typed chat responses to the question. Could also be filmed as actual street vox-pop or housemate-response format.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Text sequence</div>
+          <div class="text-seq">
+            <div class="text-seq-item"><span class="step-num">1</span>We asked sharehouses: "Do you know what electricity plan you're on?"</div>
+            <div class="text-seq-item"><span class="step-num">2</span>"honestly no idea"</div>
+            <div class="text-seq-item"><span class="step-num">3</span>"whatever came with the house I think"</div>
+            <div class="text-seq-item"><span class="step-num">4</span>"one of us set it up when we moved in 2 years ago"</div>
+            <div class="text-seq-item"><span class="step-num">5</span>"is that something we're supposed to check??"</div>
+            <div class="text-seq-item"><span class="step-num">6</span>69% of Aussie sharehouses haven't compared in 12 months.</div>
+            <div class="text-seq-item"><span class="step-num">7</span>(2026 survey, 3,672 sharehouses)</div>
+            <div class="text-seq-item"><span class="step-num">8</span>See if there's a better deal for yours.</div>
+            <div class="text-seq-item"><span class="step-num">9</span>switch.homerun.app</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">Voiceover</div>
+          <div class="script-text">"We asked sharehouses if they know what electricity plan they're on. Most of them don't. 69% of Australian sharehouses haven't compared their energy plan in the last 12 months. If that's yours, takes three minutes to check."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">"Do you know what electricity plan your sharehouse is on?" — Most people don't. 69% of Aussie sharehouses haven't compared in the last 12 months (2026 survey, 3,672 sharehouses). See if there's a better deal for yours.
+switch.homerun.app
+
+#sharehouse #housemates #electricitybill #australianrenting #sharehousetips #energybills</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 20 -->
+    <div class="card" data-format="pov">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 20 · POV / Text on screen · ~20s</div>
+          <div class="card-title">Winter bills just landed</div>
+          <div class="meta-row">
+            <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-neutral">All personas</span>
+            <span class="chip chip-neutral">Seasonal urgency</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Visual direction</div>
+          <div class="visual-note">Winter vibes — heater on, blankets, indoor shots. Cosy but bill-conscious.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Text sequence</div>
+          <div class="text-seq">
+            <div class="text-seq-item"><span class="step-num">1</span>Winter bills just landed.</div>
+            <div class="text-seq-item"><span class="step-num">2</span>If yours went up more than expected:</div>
+            <div class="text-seq-item"><span class="step-num">3</span>Step 1: Check what plan you're on.</div>
+            <div class="text-seq-item"><span class="step-num">4</span>Step 2: Compare offers from other retailers.</div>
+            <div class="text-seq-item"><span class="step-num">5</span>Step 3: Switch if there's a better deal.</div>
+            <div class="text-seq-item"><span class="step-num">6</span>ACCC: households on stale plans pay about $221/yr more.</div>
+            <div class="text-seq-item"><span class="step-num">7</span>Average — results vary.</div>
+            <div class="text-seq-item"><span class="step-num">8</span>Takes 3 minutes. switch.homerun.app</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">Voiceover</div>
+          <div class="script-text">"If your winter bill just came in higher than expected, the first thing worth doing is checking if your house is on the best available plan. The ACCC found households on old plans pay about $221 a year more on average. Takes three minutes to compare. Link in bio."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Winter bill just landed and it's higher than expected? Check if your house is on a stale plan. The ACCC found households on old plans pay about $221/yr more on average (results vary). Compare offers in under 3 minutes.
+switch.homerun.app
+
+#winterbills #electricitybill #energybills #sharehouse #australianrenting #housemates #costofliving</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 21 -->
+    <div class="card" data-format="pov">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 21 · POV / Split-screen · ~20s</div>
+          <div class="card-title">Same house, two prices</div>
+          <div class="meta-row">
+            <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-neutral">Strategic Stacker</span>
+            <span class="chip chip-neutral">Visual comparison</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Visual direction</div>
+          <div class="visual-note">Split screen or text sequence. Left: Sharehouse A — compared 6 months ago. Right: Sharehouse B — same suburb, never compared.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Text sequence</div>
+          <div class="text-seq">
+            <div class="text-seq-item"><span class="step-num">1</span>Same suburb.</div>
+            <div class="text-seq-item"><span class="step-num">2</span>Same size house.</div>
+            <div class="text-seq-item"><span class="step-num">3</span>Same usage.</div>
+            <div class="text-seq-item"><span class="step-num">4</span>Different electricity bill.</div>
+            <div class="text-seq-item"><span class="step-num">5</span>One house compared 6 months ago. One hasn't in 3 years.</div>
+            <div class="text-seq-item"><span class="step-num">6</span>The ACCC calls the difference the loyalty penalty.</div>
+            <div class="text-seq-item"><span class="step-num">7</span>About $221/yr more — average, results vary. (ACCC, Dec 2025)</div>
+            <div class="text-seq-item"><span class="step-num">8</span>Which house is yours?</div>
+            <div class="text-seq-item"><span class="step-num">9</span>switch.homerun.app</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">Voiceover</div>
+          <div class="script-text">"Two sharehouses. Same suburb, same usage. One compared their energy plan six months ago. One is still on the plan they signed up for three years ago. The ACCC calls that difference the loyalty penalty — about $221 a year more on average. Which house is yours?"</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Same suburb. Same usage. Different electricity bill. The ACCC calls it the loyalty penalty — households on stale plans pay about $221/yr more on average (results vary, ACCC Dec 2025). Which house is yours?
+switch.homerun.app
+
+#loyaltypenalty #electricitybill #sharehouse #australianrenting #energybills #accc</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 22 -->
+    <div class="card" data-format="pov">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 22 · POV / Text on screen · ~15s</div>
+          <div class="card-title">Cooling-off period — nothing is permanent</div>
+          <div class="meta-row">
+            <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-neutral">Reluctant Lifer</span>
+            <span class="chip chip-neutral">De-risk</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Text sequence</div>
+          <div class="text-seq">
+            <div class="text-seq-item"><span class="step-num">1</span>Changed your mind after switching energy?</div>
+            <div class="text-seq-item"><span class="step-num">2</span>You have a cooling-off period.</div>
+            <div class="text-seq-item"><span class="step-num">3</span>Most energy plans: no lock-in contracts.</div>
+            <div class="text-seq-item"><span class="step-num">4</span>If you switch and regret it — you can switch again.</div>
+            <div class="text-seq-item"><span class="step-num">5</span>Nothing is permanent.</div>
+            <div class="text-seq-item"><span class="step-num">6</span>Compare with no obligation.</div>
+            <div class="text-seq-item"><span class="step-num">7</span>switch.homerun.app</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">Voiceover</div>
+          <div class="script-text">"If you switch and change your mind, most energy plans have a cooling-off period. No lock-in. No penalty. You can switch again any time. Nothing is permanent. Compare with no obligation."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Worried about making the wrong call by switching? Most energy plans in Australia have a cooling-off period and no lock-in contracts. Nothing is permanent — compare with no obligation.
+switch.homerun.app
+
+#switchenergy #electricitybill #sharehouse #australianrenting #nolockinterms #energyswitch</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 23 -->
+    <div class="card" data-format="pov">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 23 · POV / Hands + text · ~20s</div>
+          <div class="card-title">Appliance sticker bridge</div>
+          <div class="meta-row">
+            <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-neutral">Strategic Stacker</span>
+            <span class="chip chip-neutral">Curiosity hook</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Visual direction</div>
+          <div class="visual-note">Hands pointing to the energy star sticker on a fridge or washing machine, then cut to switching on phone. Fast, curious pacing.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Text sequence</div>
+          <div class="text-seq">
+            <div class="text-seq-item"><span class="step-num">1</span>Your fridge has an energy rating. ⭐⭐⭐⭐</div>
+            <div class="text-seq-item"><span class="step-num">2</span>Your washing machine has an energy rating.</div>
+            <div class="text-seq-item"><span class="step-num">3</span>Your electricity plan doesn't rate itself.</div>
+            <div class="text-seq-item"><span class="step-num">4</span>But you can check it.</div>
+            <div class="text-seq-item"><span class="step-num">5</span>Compare offers from partner retailers.</div>
+            <div class="text-seq-item"><span class="step-num">6</span>See if your house is on a reasonable plan.</div>
+            <div class="text-seq-item"><span class="step-num">7</span>switch.homerun.app</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">Voiceover</div>
+          <div class="script-text">"We put energy star ratings on every appliance to help people make better choices. But your electricity plan doesn't come with a rating. That's where Homerun Switch comes in — compare offers from partner retailers in under three minutes and see if your house is on a good plan."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Your fridge has an energy rating. Your washing machine has an energy rating. Your electricity plan doesn't rate itself — but you can check it. Compare offers for your house in under 3 minutes.
+switch.homerun.app
+
+#sharehouse #electricitybill #australianrenting #energyrating #housemates #switchenergy</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 24 -->
+    <div class="card" data-format="th">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 24 · Talking Head · ~20s</div>
+          <div class="card-title">Get value back — the bill-payer's win</div>
+          <div class="meta-row">
+            <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-neutral">Strategic Stacker</span>
+            <span class="chip chip-neutral">Aspiration</span>
+
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Hook (on-screen text)</div>
+          <div class="hook-box">The switch your sharehouse hasn't made yet. 🏠</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Script</div>
+          <div class="script-text">"Most sharehouses have one person quietly handling all the bills. If that's you, Homerun Switch is one of the easier wins you can give your house. Compare offers from our partner retailers in under three minutes. If there's a better deal, switch. One person, a few minutes, the whole house benefits."</div>
+        </div>
+        <div class="section">
+          <div class="section-label">On-screen overlays</div>
+          <ul class="overlay-list">
+            <li>One person. A few minutes.</li>
+            <li>The whole house wins.</li>
+            <li>switch.homerun.app</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-label">CTA</div>
+          <div class="cta-text">Sort it for the house — link in bio.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">One person manages the bills for the whole house. If that's you — here's an easy win. Compare energy offers in under 3 minutes. Switch if there's a better deal. The whole house benefits.
+switch.homerun.app
+
+#sharehouse #housemates #sharehousetips #australianrenting #electricitybill #billsplitting</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+  function toggle(header) {
+    const card = header.parentElement;
+    card.classList.toggle('open');
+  }
+
+  const btns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.card');
+  const countRow = document.getElementById('count-row');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      let visible = 0;
+      cards.forEach(card => {
+        let show = false;
+        if (f === 'all') show = true;
+        else if (f === 'th') show = card.dataset.format === 'th';
+        else if (f === 'pov') show = card.dataset.format === 'pov';
+
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+      const label = f === 'all' ? 'all 24 scripts' : `${visible} script${visible !== 1 ? 's' : ''}`;
+      countRow.textContent = `Showing ${label}`;
+    });
+  });
+
+  function copyCaption(btn) {
+    const text = btn.previousElementSibling.textContent.trim();
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy caption';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+
