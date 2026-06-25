@@ -1,5 +1,5 @@
 <meta name="robots" content="noindex,nofollow">
-<title>Homerun Switch — Video Script Pack</title>
+<title>Homerun Switch — Content Planner</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -45,49 +45,30 @@
     flex-wrap: wrap;
   }
 
-  header h1 {
-    font-size: 17px;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: -0.01em;
-  }
+  header h1 { font-size: 17px; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
+  header .badge { font-size: 12px; color: var(--orange); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
 
-  header .badge {
-    font-size: 12px;
-    color: var(--orange);
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  .filters {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-  }
+  .filter-group { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
+  .filter-label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; text-transform: uppercase; margin-right: 2px; }
 
   .filter-btn {
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.2);
     color: rgba(255,255,255,0.75);
-    padding: 5px 12px;
+    padding: 4px 11px;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.15s;
     letter-spacing: 0.02em;
   }
-
   .filter-btn:hover { background: rgba(255,255,255,0.18); color: #fff; }
   .filter-btn.active { background: var(--orange); border-color: var(--orange); color: var(--dark); font-weight: 700; }
 
-  main {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 24px 16px 60px;
-  }
+  .filter-sep { width: 1px; height: 16px; background: rgba(255,255,255,0.15); margin: 0 2px; }
+
+  main { max-width: 820px; margin: 0 auto; padding: 24px 16px 60px; }
 
   .notice {
     background: var(--chip-warn);
@@ -101,31 +82,15 @@
     align-items: flex-start;
     gap: 8px;
   }
-
   .notice strong { font-weight: 700; }
 
-  .count-row {
-    font-size: 12px;
-    color: var(--faint);
-    margin-bottom: 16px;
-    letter-spacing: 0.03em;
-    font-variant-numeric: tabular-nums;
-  }
+  .count-row { font-size: 12px; color: var(--faint); margin-bottom: 16px; letter-spacing: 0.03em; font-variant-numeric: tabular-nums; }
 
-  .scripts-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
+  .scripts-grid { display: flex; flex-direction: column; gap: 16px; }
 
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
   .card.hidden { display: none; }
+  .card[data-status="idea"] { border-style: dashed; }
 
   .card-header {
     padding: 14px 16px 12px;
@@ -137,184 +102,75 @@
     gap: 12px;
     user-select: none;
   }
-
   .card-header:hover { background: #fdf9f5; }
-
   .card-header-left { flex: 1; }
 
-  .card-num {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--orange);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-    font-variant-numeric: tabular-nums;
-  }
+  .card-num { font-size: 11px; font-weight: 700; color: var(--orange); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; font-variant-numeric: tabular-nums; }
+  .card-title { font-size: 15px; font-weight: 700; color: var(--dark); line-height: 1.3; text-wrap: balance; }
 
-  .card-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--dark);
-    line-height: 1.3;
-    text-wrap: balance;
-  }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
 
-  .meta-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-top: 8px;
-  }
-
-  .chip {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-
+  .chip { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; }
   .chip-th { background: var(--chip-th); color: var(--chip-th-text); }
   .chip-pov { background: var(--chip-pov); color: var(--chip-pov-text); }
   .chip-warn { background: var(--chip-warn); color: var(--chip-warn-text); }
   .chip-neutral { background: #f0ede9; color: var(--mid); }
+  .chip-carousel { background: #ede8ff; color: #4a1f8a; }
+  .chip-aware { background: #fff8db; color: #6b4a00; }
+  .chip-consider { background: #e0f0ff; color: #1a3c78; }
+  .chip-convert { background: #ffe8e0; color: #8a2800; }
+  .chip-idea { background: #ede0ff; color: #5c1f8e; }
 
-  .chevron {
-    color: var(--faint);
-    font-size: 18px;
-    line-height: 1;
-    transition: transform 0.2s;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
+  .chevron { color: var(--faint); font-size: 18px; line-height: 1; transition: transform 0.2s; flex-shrink: 0; margin-top: 2px; }
   .card.open .chevron { transform: rotate(180deg); }
 
-  .card-body {
-    display: none;
-    padding: 0;
-  }
-
+  .card-body { display: none; padding: 0; }
   .card.open .card-body { display: block; }
 
-  .section {
-    padding: 14px 16px;
-    border-bottom: 1px solid var(--border);
-  }
-
+  .section { padding: 14px 16px; border-bottom: 1px solid var(--border); }
   .section:last-child { border-bottom: none; }
+  .section-label { font-size: 10px; font-weight: 700; color: var(--faint); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
 
-  .section-label {
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--faint);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
+  .hook-box { background: var(--orange-light); border-left: 3px solid var(--orange); padding: 10px 14px; border-radius: 0 6px 6px 0; font-weight: 700; font-size: 15px; color: var(--dark); line-height: 1.4; }
 
-  .hook-box {
-    background: var(--orange-light);
-    border-left: 3px solid var(--orange);
-    padding: 10px 14px;
-    border-radius: 0 6px 6px 0;
-    font-weight: 700;
-    font-size: 15px;
-    color: var(--dark);
-    line-height: 1.4;
-  }
+  .script-text { font-size: 14px; line-height: 1.7; color: var(--dark); white-space: pre-wrap; }
 
-  .script-text {
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--dark);
-    white-space: pre-wrap;
-  }
+  .overlay-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .overlay-list li { font-size: 13px; color: var(--mid); padding-left: 16px; position: relative; }
+  .overlay-list li::before { content: '›'; position: absolute; left: 0; color: var(--orange); font-weight: 700; }
 
-  .overlay-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
+  .visual-note { font-size: 13px; color: var(--mid); font-style: italic; padding: 8px 12px; background: #f7f4f0; border-radius: 6px; line-height: 1.5; }
 
-  .overlay-list li {
-    font-size: 13px;
-    color: var(--mid);
-    padding-left: 16px;
-    position: relative;
-  }
+  .text-seq { display: flex; flex-direction: column; gap: 4px; }
+  .text-seq-item { font-size: 13px; color: var(--dark); padding: 5px 10px; background: #f0ede9; border-radius: 4px; font-variant-numeric: tabular-nums; }
+  .text-seq-item .step-num { font-size: 10px; color: var(--faint); margin-right: 6px; font-weight: 600; }
 
-  .overlay-list li::before {
-    content: '›';
-    position: absolute;
-    left: 0;
-    color: var(--orange);
-    font-weight: 700;
-  }
+  .cta-text { font-size: 14px; font-weight: 600; color: var(--dark); }
 
-  .visual-note {
-    font-size: 13px;
-    color: var(--mid);
-    font-style: italic;
-    padding: 8px 12px;
-    background: #f7f4f0;
-    border-radius: 6px;
-    line-height: 1.5;
-  }
+  .caption-text { font-size: 13px; line-height: 1.6; color: var(--mid); white-space: pre-wrap; }
 
-  .text-seq {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .text-seq-item {
-    font-size: 13px;
-    color: var(--dark);
-    padding: 5px 10px;
-    background: #f0ede9;
-    border-radius: 4px;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .text-seq-item .step-num {
-    font-size: 10px;
-    color: var(--faint);
-    margin-right: 6px;
-    font-weight: 600;
-  }
-
-  .cta-text {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--dark);
-  }
-
-  .caption-text {
-    font-size: 13px;
-    line-height: 1.6;
-    color: var(--mid);
-    white-space: pre-wrap;
-  }
-
-  .copy-btn {
-    margin-top: 8px;
-    background: var(--dark);
-    color: #fff;
-    border: none;
-    padding: 5px 12px;
-    border-radius: 5px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.15s;
-  }
-
+  .copy-btn { margin-top: 8px; background: var(--dark); color: #fff; border: none; padding: 5px 12px; border-radius: 5px; font-size: 12px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
   .copy-btn:hover { background: var(--orange); color: var(--dark); }
   .copy-btn.copied { background: #2d6e2d; color: #fff; }
+
+  .idea-approach { background: #f7f4f0; border-radius: 6px; padding: 10px 14px; font-size: 13px; line-height: 1.6; color: var(--dark); }
+  .idea-approach strong { color: var(--orange); font-weight: 700; }
+
+  .section-divider {
+    margin: 8px 0 4px;
+    padding: 14px 16px;
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .section-divider-left {}
+  .section-divider-title { font-size: 13px; font-weight: 700; color: var(--dark); }
+  .section-divider-sub { font-size: 12px; color: var(--faint); margin-top: 2px; }
+  .section-divider-chips { display: flex; gap: 5px; flex-wrap: wrap; }
 
   @media (max-width: 600px) {
     header { padding: 14px 14px 12px; }
@@ -325,37 +181,45 @@
 <header>
   <div class="top-row">
     <h1>Homerun Switch</h1>
-    <span class="badge">Video Script Pack · Jun 2026</span>
+    <span class="badge">Content Planner · Jun 2026</span>
   </div>
-  <div class="filters">
-    <button class="filter-btn active" data-filter="all">All (24)</button>
+  <div class="filter-group">
+    <button class="filter-btn active" data-filter="all">All (40)</button>
+    <div class="filter-sep"></div>
+    <button class="filter-btn" data-filter="awareness">Awareness</button>
+    <button class="filter-btn" data-filter="consideration">Consideration</button>
+    <button class="filter-btn" data-filter="conversion">Conversion</button>
+    <div class="filter-sep"></div>
     <button class="filter-btn" data-filter="th">Talking Head</button>
     <button class="filter-btn" data-filter="pov">POV / Voiceover</button>
-
+    <button class="filter-btn" data-filter="carousel">Carousel</button>
+    <div class="filter-sep"></div>
+    <button class="filter-btn" data-filter="ready">Scripts ready</button>
+    <button class="filter-btn" data-filter="idea">Ideas only</button>
   </div>
 </header>
 
 <main>
   <div class="notice">
     <span>⚠️</span>
-    <span>No scripts name CIMET directly — CIMET sign-off not required. ACCC stats attributed throughout. Never use "guaranteed savings", "cheapest", "best deal" or "whole of market".</span>
+    <span>No scripts name CIMET directly — CIMET sign-off not required for these. ACCC stats attributed throughout. Never use "guaranteed savings", "cheapest", "best deal" or "whole of market". $221 figure is placeholder — do not publish until confirmed by CIMET.</span>
   </div>
 
-  <div class="count-row" id="count-row">Showing all 24 scripts</div>
+  <div class="count-row" id="count-row">Showing all 40 pieces — 24 scripts ready · 16 guide ideas</div>
 
   <div class="scripts-grid" id="grid">
 
     <!-- SCRIPT 1 -->
-    <div class="card" data-format="th">
+    <div class="card" data-format="th" data-stage="awareness" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 01 · Talking Head · ~25s</div>
           <div class="card-title">69% stat hook</div>
           <div class="meta-row">
             <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-aware">Awareness</span>
             <span class="chip chip-neutral">Reluctant Lifer</span>
             <span class="chip chip-neutral">Data authority</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -395,16 +259,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 2 -->
-    <div class="card" data-format="th">
+    <div class="card" data-format="th" data-stage="awareness" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 02 · Talking Head · ~30s</div>
           <div class="card-title">Energy companies don't have a loyalty programme</div>
           <div class="meta-row">
             <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-aware">Awareness</span>
             <span class="chip chip-neutral">Reluctant Lifer</span>
             <span class="chip chip-neutral">Common enemy</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -444,16 +308,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 3 -->
-    <div class="card" data-format="th">
+    <div class="card" data-format="th" data-stage="conversion" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 03 · Talking Head · ~20s</div>
           <div class="card-title">Just moved in — do this today</div>
           <div class="meta-row">
             <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">Fresh Start</span>
             <span class="chip chip-neutral">Trigger moment</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -492,16 +356,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 4 -->
-    <div class="card" data-format="pov">
+    <div class="card" data-format="pov" data-stage="awareness" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 04 · POV / Text on screen · ~25s</div>
           <div class="card-title">Bill shock group chat</div>
           <div class="meta-row">
             <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-aware">Awareness</span>
             <span class="chip chip-neutral">Reluctant Lifer</span>
             <span class="chip chip-neutral">Sharehouse scenario</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -543,16 +407,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 5 -->
-    <div class="card" data-format="pov">
+    <div class="card" data-format="pov" data-stage="conversion" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 05 · POV / Screen recording · ~25s</div>
           <div class="card-title">Under 3 minutes — live demo</div>
           <div class="meta-row">
             <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">Strategic Stacker</span>
             <span class="chip chip-neutral">Done-for-you</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -590,16 +454,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 6 -->
-    <div class="card" data-format="pov">
+    <div class="card" data-format="pov" data-stage="consideration" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 06 · POV / Lifestyle B-roll · ~20s</div>
           <div class="card-title">Sort it as a house</div>
           <div class="meta-row">
             <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-consider">Consideration</span>
             <span class="chip chip-neutral">Social Connector</span>
             <span class="chip chip-neutral">Collective action</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -638,16 +502,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 7 -->
-    <div class="card" data-format="th">
+    <div class="card" data-format="th" data-stage="conversion" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 07 · Talking Head · ~20s</div>
           <div class="card-title">No pushy call — objection kill</div>
           <div class="meta-row">
             <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">Reluctant Lifer</span>
             <span class="chip chip-neutral">Objection / trust</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -687,16 +551,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 8 -->
-    <div class="card" data-format="th">
+    <div class="card" data-format="th" data-stage="awareness" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 08 · Talking Head · ~25s</div>
           <div class="card-title">Your retailer is hoping you never look</div>
           <div class="meta-row">
             <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-aware">Awareness</span>
             <span class="chip chip-neutral">All personas</span>
             <span class="chip chip-neutral">Reverse-tell</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -736,16 +600,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 9 -->
-    <div class="card" data-format="th">
+    <div class="card" data-format="th" data-stage="consideration" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 09 · Talking Head · ~25s</div>
           <div class="card-title">Big Three vs challengers</div>
           <div class="meta-row">
             <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-consider">Consideration</span>
             <span class="chip chip-neutral">Strategic Stacker</span>
             <span class="chip chip-neutral">Panel composition</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -784,16 +648,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 10 -->
-    <div class="card" data-format="th">
+    <div class="card" data-format="th" data-stage="awareness" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 10 · Talking Head · ~25s</div>
           <div class="card-title">DMO — the default isn't your best deal</div>
           <div class="meta-row">
             <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-aware">Awareness</span>
             <span class="chip chip-neutral">Cost-of-Living Senior</span>
             <span class="chip chip-neutral">Education</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -833,16 +697,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 11 -->
-    <div class="card" data-format="th">
+    <div class="card" data-format="th" data-stage="consideration" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 11 · Talking Head · ~20s</div>
           <div class="card-title">Honest about how we make money</div>
           <div class="meta-row">
             <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-consider">Consideration</span>
             <span class="chip chip-neutral">All personas</span>
             <span class="chip chip-neutral">Radical transparency</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -881,16 +745,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 12 -->
-    <div class="card" data-format="th">
+    <div class="card" data-format="th" data-stage="conversion" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 12 · Talking Head · ~20s</div>
           <div class="card-title">Call the bluff in 3 minutes</div>
           <div class="meta-row">
             <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">Reluctant Lifer</span>
             <span class="chip chip-neutral">Inertia / curiosity</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -929,16 +793,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 13 -->
-    <div class="card" data-format="th">
+    <div class="card" data-format="th" data-stage="conversion" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 13 · Talking Head · ~20s</div>
           <div class="card-title">Run your sharehouse like a pro</div>
           <div class="meta-row">
             <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">Property Player</span>
             <span class="chip chip-neutral">Identity / competence</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -978,16 +842,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 14 -->
-    <div class="card" data-format="th">
+    <div class="card" data-format="th" data-stage="consideration" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 14 · Talking Head · ~25s</div>
           <div class="card-title">Plain and simple — for the cautious</div>
           <div class="meta-row">
             <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-consider">Consideration</span>
             <span class="chip chip-neutral">Cost-of-Living Senior</span>
             <span class="chip chip-neutral">Trust-first</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -1027,16 +891,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 15 -->
-    <div class="card" data-format="pov">
+    <div class="card" data-format="pov" data-stage="conversion" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 15 · POV / Text on screen · ~20s</div>
           <div class="card-title">Post-switch reassurance — your lights stay on</div>
           <div class="meta-row">
             <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">Reluctant Lifer</span>
             <span class="chip chip-neutral">Fear of switching</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -1076,16 +940,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 16 -->
-    <div class="card" data-format="pov">
+    <div class="card" data-format="pov" data-stage="conversion" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 16 · POV / Text on screen · ~20s</div>
           <div class="card-title">Myth bust — switching is complicated</div>
           <div class="meta-row">
             <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">Reluctant Lifer</span>
             <span class="chip chip-neutral">Myth-busting</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -1121,16 +985,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 17 -->
-    <div class="card" data-format="pov">
+    <div class="card" data-format="pov" data-stage="conversion" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 17 · POV / Text on screen · ~20s</div>
           <div class="card-title">Myth bust — switching locks you in</div>
           <div class="meta-row">
             <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">Reluctant Lifer</span>
             <span class="chip chip-neutral">Myth-busting / objection</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -1166,16 +1030,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 18 -->
-    <div class="card" data-format="pov">
+    <div class="card" data-format="pov" data-stage="awareness" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 18 · POV / Text on screen · ~20s</div>
           <div class="card-title">Myth bust — your provider would tell you if there's a better deal</div>
           <div class="meta-row">
             <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-aware">Awareness</span>
             <span class="chip chip-neutral">Strategic Stacker</span>
             <span class="chip chip-neutral">Myth-busting / ACCC</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -1211,16 +1075,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 19 -->
-    <div class="card" data-format="pov">
+    <div class="card" data-format="pov" data-stage="awareness" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 19 · POV / Text on screen · ~25s</div>
           <div class="card-title">Street vox-pop — "do you know what plan you're on?"</div>
           <div class="meta-row">
             <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-aware">Awareness</span>
             <span class="chip chip-neutral">All personas</span>
             <span class="chip chip-neutral">Awareness / relatable</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -1261,16 +1125,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 20 -->
-    <div class="card" data-format="pov">
+    <div class="card" data-format="pov" data-stage="conversion" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 20 · POV / Text on screen · ~20s</div>
           <div class="card-title">Winter bills just landed</div>
           <div class="meta-row">
             <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">All personas</span>
             <span class="chip chip-neutral">Seasonal urgency</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -1310,16 +1174,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 21 -->
-    <div class="card" data-format="pov">
+    <div class="card" data-format="pov" data-stage="conversion" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 21 · POV / Split-screen · ~20s</div>
           <div class="card-title">Same house, two prices</div>
           <div class="meta-row">
             <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">Strategic Stacker</span>
             <span class="chip chip-neutral">Visual comparison</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -1360,16 +1224,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 22 -->
-    <div class="card" data-format="pov">
+    <div class="card" data-format="pov" data-stage="conversion" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 22 · POV / Text on screen · ~15s</div>
           <div class="card-title">Cooling-off period — nothing is permanent</div>
           <div class="meta-row">
             <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">Reluctant Lifer</span>
             <span class="chip chip-neutral">De-risk</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -1404,16 +1268,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 23 -->
-    <div class="card" data-format="pov">
+    <div class="card" data-format="pov" data-stage="awareness" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 23 · POV / Hands + text · ~20s</div>
           <div class="card-title">Appliance sticker bridge</div>
           <div class="meta-row">
             <span class="chip chip-pov">POV / Voiceover</span>
+            <span class="chip chip-aware">Awareness</span>
             <span class="chip chip-neutral">Strategic Stacker</span>
             <span class="chip chip-neutral">Curiosity hook</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -1452,16 +1316,16 @@ switch.homerun.app
     </div>
 
     <!-- SCRIPT 24 -->
-    <div class="card" data-format="th">
+    <div class="card" data-format="th" data-stage="conversion" data-status="ready">
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 24 · Talking Head · ~20s</div>
           <div class="card-title">Get value back — the bill-payer's win</div>
           <div class="meta-row">
             <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">Strategic Stacker</span>
             <span class="chip chip-neutral">Aspiration</span>
-
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -1499,6 +1363,434 @@ switch.homerun.app
       </div>
     </div>
 
+    <!-- SECTION DIVIDER -->
+    <div class="section-divider">
+      <div class="section-divider-left">
+        <div class="section-divider-title">Guide-based content ideas</div>
+        <div class="section-divider-sub">16 ideas from switch.homerun.app/guides — carousel + video approaches. Not yet scripted.</div>
+      </div>
+      <div class="section-divider-chips">
+        <span class="chip chip-carousel">Carousel</span>
+        <span class="chip chip-idea">Idea</span>
+      </div>
+    </div>
+
+    <!-- IDEA 1 -->
+    <div class="card" data-format="carousel" data-stage="consideration" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 01 · Idea · Carousel + Video</div>
+          <div class="card-title">How to Set Up Energy for a Share House</div>
+          <div class="meta-row">
+            <span class="chip chip-carousel">Carousel</span>
+            <span class="chip chip-consider">Consideration</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Carousel approach — ~6 slides</div>
+          <div class="idea-approach"><strong>Hook:</strong> "New sharehouse? Sort energy before the first bill hits." S2: Don't just inherit the last tenant's plan. S3: Decide whose name goes on the account (head tenant). S4: Compare offers before setting up — not after. S5: Just your postcode to start, under 3 minutes. S6: switch.homerun.app — high save potential for "just moved in" audience.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Video approach</div>
+          <div class="idea-approach"><strong>Format:</strong> Talking Head. <strong>Hook:</strong> "The one thing new sharehouses forget to do on move-in day." Note: Script 03 already covers this territory — use this guide for a longer or more step-by-step version.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEA 2 -->
+    <div class="card" data-format="carousel" data-stage="consideration" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 02 · Idea · Carousel + Video</div>
+          <div class="card-title">How to Split Power Bills with Housemates Fairly</div>
+          <div class="meta-row">
+            <span class="chip chip-carousel">Carousel</span>
+            <span class="chip chip-consider">Consideration</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Carousel approach — ~5 slides</div>
+          <div class="idea-approach"><strong>Hook:</strong> "How to split the power bill without the drama." S2: Option 1 — even split (simple, works for most houses). S3: Option 2 — weighted by room or usage (better for unequal setups). S4: Track it — Splitwise, spreadsheet, or your notes app. S5: First step: make sure you're not overpaying to begin with. switch.homerun.app</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Video approach</div>
+          <div class="idea-approach"><strong>Format:</strong> Talking Head. <strong>Hook:</strong> "How does your sharehouse split the power bill?" Open with a question, show the 3 main approaches, no wrong answer.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEA 3 -->
+    <div class="card" data-format="carousel" data-stage="consideration" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 03 · Idea · Carousel + Video</div>
+          <div class="card-title">Can You Switch Energy When You Rent?</div>
+          <div class="meta-row">
+            <span class="chip chip-carousel">Carousel</span>
+            <span class="chip chip-consider">Consideration</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Carousel approach — ~5 slides</div>
+          <div class="idea-approach"><strong>Hook:</strong> "Can renters switch energy? Yes. Here's exactly what you need." S2: No landlord permission required to change retailers. S3: You need your NMI (on your bill) and an ID. S4: The switch happens at retailer level — nothing physical changes. S5: Compare offers for your rental — switch.homerun.app</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Video approach</div>
+          <div class="idea-approach"><strong>Format:</strong> Talking Head — objection kill. <strong>Hook:</strong> "A lot of renters think they can't switch energy. They can." Short, direct myth-bust.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEA 4 -->
+    <div class="card" data-format="carousel" data-stage="consideration" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 04 · Idea · Carousel</div>
+          <div class="card-title">What Are No-Lock-In Energy Plans?</div>
+          <div class="meta-row">
+            <span class="chip chip-carousel">Carousel</span>
+            <span class="chip chip-consider">Consideration</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Carousel approach — ~4 slides</div>
+          <div class="idea-approach"><strong>Hook:</strong> "What does 'no lock-in' actually mean on an energy plan?" S2: No fixed term — you can leave any time. S3: No exit fee — switching away costs nothing. S4: Why it matters for sharehouses: housemates change, you might move. switch.homerun.app</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Video approach</div>
+          <div class="idea-approach"><strong>Note:</strong> Script 17 already covers lock-in as a video myth-bust. Prioritise carousel to differentiate formats and avoid repeating the same video territory.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEA 5 -->
+    <div class="card" data-format="carousel" data-stage="conversion" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 05 · Idea · Carousel — HIGH SAVE POTENTIAL</div>
+          <div class="card-title">Moving House Energy Checklist for Renters</div>
+          <div class="meta-row">
+            <span class="chip chip-carousel">Carousel</span>
+            <span class="chip chip-convert">Conversion</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Carousel approach — ~7 slides</div>
+          <div class="idea-approach"><strong>Hook:</strong> "Moving house? Energy checklist — save this 📎" S2: Moving OUT — notify your current retailer 3 days before. S3: Get your final bill sorted before you go. S4: Moving IN — don't assume the last tenant's plan is good. S5: Compare offers for your new postcode before setting up. S6: Under 3 minutes. No sales calls. S7: switch.homerun.app — strong save/share potential, lead slide should be visually list-forward.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Video approach</div>
+          <div class="idea-approach"><strong>Format:</strong> Checklist POV with text overlays. Fast-paced. <strong>Hook:</strong> "Moving house checklist — the energy version." Tick-off format works well on Reels.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEA 6 -->
+    <div class="card" data-format="carousel" data-stage="consideration" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 06 · Idea · Carousel + Video</div>
+          <div class="card-title">Whose Name Goes on the Energy Bill in a Share House?</div>
+          <div class="meta-row">
+            <span class="chip chip-carousel">Carousel</span>
+            <span class="chip chip-consider">Consideration</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Carousel approach — ~5 slides</div>
+          <div class="idea-approach"><strong>Hook:</strong> "Whose name should go on the energy bill in a share house?" S2: Usually the head tenant — whoever signed the lease. S3: Add other housemates as account contacts for shared visibility. S4: What happens when that person moves out — account needs to transfer. S5: Sort it from the start so it doesn't become drama later. switch.homerun.app</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Video approach</div>
+          <div class="idea-approach"><strong>Format:</strong> Talking Head. <strong>Hook:</strong> "Who's the energy bill in your sharehouse under?" Relatable question, short answer, strong sharehouse identity hook.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEA 7 -->
+    <div class="card" data-format="carousel" data-stage="consideration" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 07 · Idea · Carousel + Video</div>
+          <div class="card-title">What Happens to the Energy Bill When a Housemate Moves Out</div>
+          <div class="meta-row">
+            <span class="chip chip-carousel">Carousel</span>
+            <span class="chip chip-consider">Consideration</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Carousel approach — ~5 slides</div>
+          <div class="idea-approach"><strong>Hook:</strong> "Housemate moving out? Don't forget the energy bill." S2: If the bill is in their name — transfer it before they leave. S3: Get a final meter read (or ask your retailer for a date-based split). S4: If they leave without transferring — you lose access and could get cut off. S5: Sort it before their last day. switch.homerun.app — situational, high relevance for sharehouses.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Video approach</div>
+          <div class="idea-approach"><strong>Format:</strong> POV text sequence. <strong>Hook:</strong> "The energy bill task everyone forgets when a housemate moves out." Relatable sharehouse moment.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEA 8 -->
+    <div class="card" data-format="carousel" data-stage="awareness" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 08 · Idea · Carousel + Video</div>
+          <div class="card-title">How the Australian Energy Market Works</div>
+          <div class="meta-row">
+            <span class="chip chip-carousel">Carousel</span>
+            <span class="chip chip-aware">Awareness</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Carousel approach — ~6 slides</div>
+          <div class="idea-approach"><strong>Hook:</strong> "Who actually controls your power bill?" S2: Generators — make the electricity. S3: The grid (distributors) — deliver it to your house. S4: Retailers — sell it to you. This is where you have a choice. S5: The government sets a price cap (the DMO). S6: But your retailer sets your actual rate — and that's the part you can change. switch.homerun.app</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Video approach</div>
+          <div class="idea-approach"><strong>Format:</strong> Talking Head explainer. <strong>Hook:</strong> "Three companies touch your electricity before it reaches you. Only one is yours to change." Authoritative tone, builds trust and expertise.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEA 9 -->
+    <div class="card" data-format="pov" data-stage="conversion" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 09 · Idea · Video (screen rec) + Carousel</div>
+          <div class="card-title">How to Switch Energy Plans, Step by Step</div>
+          <div class="meta-row">
+            <span class="chip chip-pov">POV / Screen rec</span>
+            <span class="chip chip-convert">Conversion</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Video approach — primary format</div>
+          <div class="idea-approach"><strong>Format:</strong> Screen recording / live demo (longer-form, 45–60s). Builds on Script 05 — this version can be more detailed, showing the full switch completion not just the comparison. <strong>Hook:</strong> "How to switch energy plans — the full walkthrough." Ideal for Reels with save caption.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Carousel approach — ~6 slides</div>
+          <div class="idea-approach"><strong>Hook:</strong> "How to switch energy in under 3 minutes — step by step." S2: Go to switch.homerun.app, enter your postcode. S3: Select electricity, gas or both. S4: Compare offers from partner retailers. S5: If you find a better deal, complete the switch online. S6: No phone calls. No paperwork. Your lights stay on. switch.homerun.app</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEA 10 -->
+    <div class="card" data-format="carousel" data-stage="awareness" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 10 · Idea · Carousel + Video</div>
+          <div class="card-title">Understanding Your Energy Bill</div>
+          <div class="meta-row">
+            <span class="chip chip-carousel">Carousel</span>
+            <span class="chip chip-aware">Awareness</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Carousel approach — ~8 slides, HIGH SAVE</div>
+          <div class="idea-approach"><strong>Hook:</strong> "Every line on your energy bill explained." S2: Supply charge — what you pay just for being connected (daily flat rate). S3: Usage rate — what you pay per unit used (c/kWh). S4: Peak vs off-peak — when you use power can affect your rate. S5: GST — 10% on everything. S6: Reference price comparison — how your plan compares to the DMO cap. S7: "Better offers message" — sometimes a marketing trick (ACCC flagged this). S8: Worth comparing — switch.homerun.app. High save/share potential — practical reference content.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Video approach</div>
+          <div class="idea-approach"><strong>Format:</strong> POV bill walkthrough. Camera pointed at a printed or phone-screen bill. "Let me walk through every section of an Australian energy bill." Relatable, practical, strong save hook.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEA 11 -->
+    <div class="card" data-format="carousel" data-stage="awareness" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 11 · Idea · Carousel (video already covered)</div>
+          <div class="card-title">The Loyalty Tax</div>
+          <div class="meta-row">
+            <span class="chip chip-carousel">Carousel</span>
+            <span class="chip chip-aware">Awareness</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Carousel approach — ~5 slides</div>
+          <div class="idea-approach"><strong>Hook:</strong> "The loyalty tax — what energy companies don't tell you." S2: New customers get the best deals. S3: Existing customers quietly drift to higher rates. S4: The ACCC calls it the loyalty penalty — about $221/yr more on average (results vary, unconfirmed — hold until verified). S5: The fix: just don't stay. switch.homerun.app — stat-led, shareable, strong save hook for awareness audience.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Video note</div>
+          <div class="idea-approach"><strong>Note:</strong> Scripts 01, 02, 08, and 21 already cover the loyalty penalty as video content. Carousel format differentiates — prioritise this as carousel only.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEA 12 -->
+    <div class="card" data-format="carousel" data-stage="awareness" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 12 · Idea · Carousel (video already covered)</div>
+          <div class="card-title">What Is the Reference Price? (DMO and VDO Explained)</div>
+          <div class="meta-row">
+            <span class="chip chip-carousel">Carousel</span>
+            <span class="chip chip-aware">Awareness</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Carousel approach — ~5 slides</div>
+          <div class="idea-approach"><strong>Hook:</strong> "The government set a maximum price on electricity. Here's what it actually means." S2: DMO = Default Market Offer — the government price cap for electricity (most states). S3: VDO = Victorian Default Offer — same concept, Victoria only. S4: The DMO is a ceiling, not a recommendation — plans can and should be below it. S5: Compare where your house sits — switch.homerun.app</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Video note</div>
+          <div class="idea-approach"><strong>Note:</strong> Script 10 already covers DMO as a talking-head video. Prioritise carousel to differentiate. The carousel can go deeper on the VDO (Victoria) angle that the video doesn't cover.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEA 13 -->
+    <div class="card" data-format="carousel" data-stage="awareness" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 13 · Idea · Carousel + Video</div>
+          <div class="card-title">Single-Rate vs Time-of-Use</div>
+          <div class="meta-row">
+            <span class="chip chip-carousel">Carousel</span>
+            <span class="chip chip-aware">Awareness</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Carousel approach — ~6 slides</div>
+          <div class="idea-approach"><strong>Hook:</strong> "Two types of electricity pricing. Do you know which one you're on?" S2: Single-rate — one flat rate per kWh, no matter when you use it. S3: Time-of-use — peak (expensive), off-peak (cheaper), shoulder (middle). S4: For sharehouses: single-rate is usually simpler and predictable. S5: But if your house uses most power at off-peak times (nights, weekends), ToU can save you. S6: Worth comparing both — switch.homerun.app</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Video approach</div>
+          <div class="idea-approach"><strong>Format:</strong> Talking Head. <strong>Hook:</strong> "Two electricity pricing models. One of them might be costing your sharehouse more than it needs to." Builds energy literacy, positions Homerun Switch as the expert.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEA 14 -->
+    <div class="card" data-format="carousel" data-stage="consideration" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 14 · Idea · Carousel + Video — value-add, no hard sell</div>
+          <div class="card-title">How to Cut Energy Use in a Rental</div>
+          <div class="meta-row">
+            <span class="chip chip-carousel">Carousel</span>
+            <span class="chip chip-consider">Consideration</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Carousel approach — ~7 slides, HIGH SAVE</div>
+          <div class="idea-approach"><strong>Hook:</strong> "10 ways to lower your energy bill without touching a thing (renter-safe)." S2: Wash on cold — same clean, fraction of the cost. S3: Use the microwave instead of the oven where you can. S4: Turn off standby power on TVs and consoles. S5: Draught-stop under doors with a rolled towel. S6: Lower your hot water temperature slightly (ask your property manager). S7: First and easiest: check you're on a good plan. switch.homerun.app — pure value content, not a sales piece. High saves expected.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Video approach</div>
+          <div class="idea-approach"><strong>Format:</strong> Lifestyle B-roll with text overlays. Cosy sharehouse shots. No hard sell — caption should focus on tips, with switch.homerun.app as the final tip only.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEA 15 -->
+    <div class="card" data-format="carousel" data-stage="consideration" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 15 · Idea · Carousel — empathy-led, not a sales piece</div>
+          <div class="card-title">Struggling with an Energy Bill? Payment Plans and Hardship Help</div>
+          <div class="meta-row">
+            <span class="chip chip-carousel">Carousel</span>
+            <span class="chip chip-consider">Consideration</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Carousel approach — ~6 slides</div>
+          <div class="idea-approach"><strong>Hook:</strong> "Struggling with your energy bill? You have more options than you think." S2: Ask your retailer for a payment plan — they're legally required to offer one. S3: Ask about their hardship programme — most retailers have one. S4: If you hold a government concession card, you may be eligible for a bill reduction. S5: Free financial counselling — National Debt Helpline: 1800 007 007. S6: And separately: compare if you're on a better plan. switch.homerun.app</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Tone note</div>
+          <div class="idea-approach">Lead with support, not the tool. This post builds trust and community goodwill — the switch.homerun.app CTA should be secondary, not the lead message. Caption should open with "if you're doing it tough right now" not a comparison hook.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEA 16 -->
+    <div class="card" data-format="carousel" data-stage="awareness" data-status="idea">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Guide 16 · Idea · Carousel + Video — niche, high relevance for apartments</div>
+          <div class="card-title">Embedded Networks — if you live in an apartment, read this</div>
+          <div class="meta-row">
+            <span class="chip chip-carousel">Carousel</span>
+            <span class="chip chip-aware">Awareness</span>
+            <span class="chip chip-idea">Idea</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Carousel approach — ~5 slides</div>
+          <div class="idea-approach"><strong>Hook:</strong> "If you live in an apartment, your energy setup might be completely different." S2: Embedded networks — the building owner buys electricity in bulk and on-sells to residents. S3: You may not be able to switch to a retailer of your choice. S4: You're still protected — the AER says you can't be charged more than the DMO. S5: Not sure which you're on? Check your bill — it'll say who's billing you. Note: switch.homerun.app may not be applicable for embedded network customers — confirm before publishing.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Video approach</div>
+          <div class="idea-approach"><strong>Format:</strong> Talking Head. <strong>Hook:</strong> "If you're in an apartment building, your electricity situation is different — and a lot of people don't know." Niche but very high relevance for the audience it hits. Note the CTA caveat above before scripting.</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </main>
 
@@ -1523,12 +1815,21 @@ switch.homerun.app
         if (f === 'all') show = true;
         else if (f === 'th') show = card.dataset.format === 'th';
         else if (f === 'pov') show = card.dataset.format === 'pov';
-
+        else if (f === 'carousel') show = card.dataset.format === 'carousel';
+        else if (f === 'awareness') show = card.dataset.stage === 'awareness';
+        else if (f === 'consideration') show = card.dataset.stage === 'consideration';
+        else if (f === 'conversion') show = card.dataset.stage === 'conversion';
+        else if (f === 'ready') show = card.dataset.status === 'ready';
+        else if (f === 'idea') show = card.dataset.status === 'idea';
         card.classList.toggle('hidden', !show);
         if (show) visible++;
       });
-      const label = f === 'all' ? 'all 24 scripts' : `${visible} script${visible !== 1 ? 's' : ''}`;
-      countRow.textContent = `Showing ${label}`;
+      if (f === 'all') {
+        countRow.textContent = 'Showing all 40 pieces — 24 scripts ready · 16 guide ideas';
+      } else {
+        const labels = { th: 'Talking Head', pov: 'POV / Voiceover', carousel: 'Carousel', awareness: 'Awareness', consideration: 'Consideration', conversion: 'Conversion', ready: 'Scripts ready', idea: 'Ideas only' };
+        countRow.textContent = `Showing ${visible} piece${visible !== 1 ? 's' : ''} — ${labels[f] || f}`;
+      }
     });
   });
 
@@ -1537,12 +1838,7 @@ switch.homerun.app
     navigator.clipboard.writeText(text).then(() => {
       btn.textContent = 'Copied!';
       btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = 'Copy caption';
-        btn.classList.remove('copied');
-      }, 2000);
+      setTimeout(() => { btn.textContent = 'Copy caption'; btn.classList.remove('copied'); }, 2000);
     });
   }
 </script>
-
-
