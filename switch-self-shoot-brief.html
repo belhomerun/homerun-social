@@ -1,0 +1,675 @@
+<title>Homerun Switch — Self-Shoot Brief</title>
+<style>
+  :root {
+    --bg: #24211e;
+    --surface: #2d2926;
+    --card: #38322c;
+    --orange: #fc8f29;
+    --orange-dim: rgba(252,143,41,0.13);
+    --text: #f0ebe4;
+    --text-muted: #8a7e74;
+    --divider: #3d3530;
+
+    --chip-hook: #fc8f29;
+    --chip-feature: #3db8c9;
+    --chip-social: #e8b840;
+    --chip-problem: #e05555;
+    --chip-broll: #5e5850;
+    --chip-benefits: #52b875;
+    --chip-warn: #e05555;
+
+    --persona-rl: #9b6cde;
+    --persona-ss: #3db8c9;
+    --persona-fs: #52b875;
+    --persona-cl: #e8b840;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .header {
+    background: var(--orange);
+    color: #24211e;
+    padding: 48px 40px 44px;
+  }
+  .header-eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0.65;
+  }
+  .header h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.0;
+    text-wrap: balance;
+    margin-bottom: 20px;
+  }
+  .header-meta {
+    font-size: 15px;
+    font-weight: 500;
+    opacity: 0.72;
+    line-height: 1.9;
+  }
+  .header-meta strong { font-weight: 800; opacity: 1; }
+
+  .content { max-width: 880px; margin: 0 auto; padding: 0 28px 100px; }
+  section { margin-top: 60px; }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    text-wrap: balance;
+    margin-bottom: 18px;
+  }
+  h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+
+  p { color: var(--text-muted); font-size: 15px; margin-bottom: 10px; }
+  p:last-child { margin-bottom: 0; }
+  p strong { color: var(--text); }
+
+  .section-header {
+    border-left: 4px solid var(--orange);
+    padding: 18px 22px;
+    background: var(--surface);
+    border-radius: 0 10px 10px 0;
+    margin-bottom: 24px;
+  }
+  .section-header h2 { margin-bottom: 6px; }
+  .section-header p { margin: 0; font-size: 14px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 14px;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+  ul { list-style: none; padding: 0; }
+  ul li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--divider);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  ul li:last-child { border-bottom: none; }
+  ul li::before { content: '→'; color: var(--orange); flex-shrink: 0; font-weight: 700; margin-top: 1px; }
+  .dont-list li::before { content: '✕'; color: var(--chip-warn); }
+  .check-list li::before { content: '✓'; color: var(--chip-benefits); }
+
+  .callout {
+    background: var(--orange-dim);
+    border: 1px solid rgba(252,143,41,0.28);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+  .callout p { color: var(--text); margin: 0; font-size: 14px; }
+  .callout strong { color: var(--orange); }
+
+  .warn-callout {
+    background: rgba(224,85,85,0.1);
+    border: 1px solid rgba(224,85,85,0.3);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+  .warn-callout p { color: var(--text); margin: 0; font-size: 14px; }
+  .warn-callout strong { color: var(--chip-warn); }
+
+  .note {
+    background: var(--surface);
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    padding: 13px 18px;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 12px;
+    line-height: 1.55;
+  }
+  .note strong { color: var(--text); }
+
+  /* PERSONA BLOCKS */
+  .persona-block {
+    background: var(--surface);
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .persona-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .persona-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .persona-name { font-size: 17px; font-weight: 800; color: var(--text); }
+  .persona-meta { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+  .persona-enemy {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 12px 22px;
+    border-bottom: 1px solid var(--divider);
+    background: rgba(255,255,255,0.02);
+  }
+  .persona-enemy strong { color: var(--orange); font-style: normal; }
+  .persona-hooks { padding: 16px 22px; }
+
+  /* HOOK ITEMS */
+  .hook-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--divider);
+  }
+  .hook-item:last-child { border-bottom: none; }
+  .hook-num {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--orange);
+    background: var(--orange-dim);
+    border-radius: 6px;
+    padding: 4px 9px;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+    white-space: nowrap;
+  }
+  .hook-text {
+    font-size: 15px;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.5;
+    padding-top: 4px;
+  }
+  .hook-note {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: normal;
+    margin-top: 5px;
+  }
+
+  /* CHIP */
+  .chip {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 20px;
+    color: #1a1714;
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .chip-hook     { background: var(--chip-hook); }
+  .chip-feature  { background: var(--chip-feature); }
+  .chip-social   { background: var(--chip-social); }
+  .chip-problem  { background: var(--chip-problem); color: #fff; }
+  .chip-broll    { background: var(--chip-broll); color: var(--text); }
+  .chip-benefits { background: var(--chip-benefits); }
+  .chip-warn     { background: var(--chip-warn); color: #fff; }
+
+  .chip-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+
+  /* SHOT LIST */
+  .shot-grid { display: flex; flex-direction: column; gap: 10px; }
+  .shot-row {
+    display: grid;
+    grid-template-columns: 148px 1fr;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--divider);
+    border-radius: 10px;
+    padding: 16px 20px;
+    align-items: start;
+  }
+  @media (max-width: 520px) { .shot-row { grid-template-columns: 1fr; } }
+  .shot-desc { font-size: 14px; color: var(--text); line-height: 1.5; padding-top: 4px; }
+  .shot-note { display: block; font-size: 13px; color: var(--text-muted); font-style: normal; margin-top: 5px; line-height: 1.45; }
+
+  /* FILE NAMING */
+  .file-block {
+    background: var(--card);
+    border: 1px solid var(--divider);
+    border-radius: 10px;
+    padding: 16px 22px;
+    font-family: 'SF Mono','Fira Code','Consolas',monospace;
+    font-size: 15px;
+    margin-bottom: 10px;
+    overflow-x: auto;
+  }
+  .file-block.primary { color: var(--orange); }
+  .file-block.example { color: var(--text-muted); }
+
+  .identifiers { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+
+  .persona-code {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-family: 'SF Mono','Fira Code','Consolas',monospace;
+    color: #1a1714;
+    white-space: nowrap;
+  }
+  .pc-rl { background: var(--persona-rl); color: #fff; }
+  .pc-ss { background: var(--persona-ss); }
+  .pc-fs { background: var(--persona-fs); }
+  .pc-cl { background: var(--persona-cl); }
+  .pc-gen { background: var(--chip-broll); color: var(--text); }
+</style>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-eyebrow">Homerun Switch</div>
+  <h1>Self-Shoot Brief</h1>
+  <div class="header-meta">
+    <strong>4 Personas · 12 Hooks · 20 Clips</strong> — all shot in 9:16<br>
+    <strong>Goal:</strong> Mix-and-match hooks + b-roll into organic ad variations<br>
+    <strong>Product:</strong> switch.homerun.app — energy comparison for sharehouses<br>
+    <strong>Status:</strong> All clips require Scott approval before posting
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- COMPLIANCE -->
+  <section>
+    <div class="eyebrow">Before you film</div>
+    <h2>Compliance — read first</h2>
+
+    <div class="warn-callout">
+      <p><strong>Never name CIMET.</strong> Do not mention CIMET, name the backend provider, or describe the tech behind the comparison. Refer only to Homerun Switch.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Safe to say</h3>
+        <ul class="check-list">
+          <li>"Compare energy offers from our partner retailers"</li>
+          <li>"Could your house be paying $221 more than it needs to?" — question/conditional framing only</li>
+          <li>"We may earn a commission if you switch"</li>
+          <li>"Under 3 minutes"</li>
+          <li>"No sales calls. No forms. No login."</li>
+          <li>"I compared ours and…" — personal experience, no guarantees</li>
+          <li>"Made it easier", "took 3 minutes", "helped us"</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Never say</h3>
+        <ul class="dont-list">
+          <li>"Save $221" — this is a claim, not a question</li>
+          <li>"Guaranteed savings" or any guaranteed outcome</li>
+          <li>"Cheapest plan", "best deal", "best price"</li>
+          <li>"Compare all plans" or "whole of market"</li>
+          <li>Any specific dollar amount you personally saved</li>
+          <li>CIMET, or any mention of who runs the comparison</li>
+          <li>"Cash back" or "cashback" — ever, for any Homerun product</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>$221 framing:</strong> This is an ACCC loyalty-tax stat — not a personal savings promise. Always frame as a question: "Could your house be paying $221 more a year than it needs to?" Never: "Switch and save $221."</p>
+    </div>
+
+    <div class="note"><strong>Disclosure line for captions:</strong> "We compare a panel of partner retailers and may earn a commission if you switch." — include in every published caption.</div>
+  </section>
+
+  <!-- PERSONAS -->
+  <section>
+    <div class="section-header">
+      <div class="eyebrow">Verbal clips</div>
+      <h2>12 Hooks — film as short individual clips</h2>
+      <p>Read directly to camera. 5–15 seconds each. Keep it natural — these should sound like something you'd say to a friend. Different hooks = different ad variations without re-filming.</p>
+    </div>
+
+    <div class="callout">
+      <p><strong>Tip:</strong> Film each hook 2–3 times — different energy, slightly different wording. You want options in the edit.</p>
+    </div>
+
+    <!-- Reluctant Lifer -->
+    <div class="persona-block">
+      <div class="persona-header">
+        <div class="persona-dot" style="background:var(--persona-rl)"></div>
+        <div>
+          <div class="persona-name">The Reluctant Lifer</div>
+          <div class="persona-meta">~30% of sharehouses · admin martyr · 28–42 · PRIMARY</div>
+        </div>
+      </div>
+      <div class="persona-enemy"><strong>Their enemy:</strong> Being everyone's accountant, forever.</div>
+      <div class="persona-hooks">
+        <div class="hook-item">
+          <span class="hook-num">RL 01</span>
+          <span class="hook-text">"If you're the one who manages every bill in your sharehouse — I did this in 3 minutes and I wish I'd done it sooner."
+            <span class="hook-note">Best with phone in hand showing switch.homerun.app.</span>
+          </span>
+        </div>
+        <div class="hook-item">
+          <span class="hook-num">RL 02</span>
+          <span class="hook-text">"69% of Aussie sharehouses haven't checked their energy plan in 12 months. I was one of them — until I actually looked."
+            <span class="hook-note">Stat sourced: 2026 survey, 3,672 sharehouses. Say it with the stat or without — both work.</span>
+          </span>
+        </div>
+        <div class="hook-item">
+          <span class="hook-num">RL 03</span>
+          <span class="hook-text">"I basically run a small business out of this sharehouse. Lease, bond, bills, the whole thing. The energy plan was the last thing I finally sorted — and it took three minutes."</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Strategic Stacker -->
+    <div class="persona-block">
+      <div class="persona-header">
+        <div class="persona-dot" style="background:var(--persona-ss)"></div>
+        <div>
+          <div class="persona-name">The Strategic Stacker</div>
+          <div class="persona-meta">~22% of sharehouses · deposit saver · 26–34 · PRIMARY</div>
+        </div>
+      </div>
+      <div class="persona-enemy"><strong>Their enemy:</strong> Dead money — paying $800–$1,400/month with nothing to show for it.</div>
+      <div class="persona-hooks">
+        <div class="hook-item">
+          <span class="hook-num">SS 01</span>
+          <span class="hook-text">"Could your house be paying $221 more a year than it needs to? That's the loyalty penalty — and it took me 3 minutes to check."
+            <span class="hook-note">$221 = ACCC stat, question framing only. Never "save $221".</span>
+          </span>
+        </div>
+        <div class="hook-item">
+          <span class="hook-num">SS 02</span>
+          <span class="hook-text">"Every dollar counts when you're saving for a place. Your energy retailer is counting on you never checking your plan. I checked."</span>
+        </div>
+        <div class="hook-item">
+          <span class="hook-num">SS 03</span>
+          <span class="hook-text">"I audit every bill in this house. The energy plan was the one I hadn't touched. Just compared it — takes 3 minutes, no forms, no phone calls."</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fresh Start -->
+    <div class="persona-block">
+      <div class="persona-header">
+        <div class="persona-dot" style="background:var(--persona-fs)"></div>
+        <div>
+          <div class="persona-name">The Fresh Start</div>
+          <div class="persona-meta">~15% of sharehouses · move-in trigger · 35–49 · TERTIARY</div>
+        </div>
+      </div>
+      <div class="persona-enemy"><strong>Their enemy:</strong> Starting from scratch — inheriting someone else's mess.</div>
+      <div class="persona-hooks">
+        <div class="hook-item">
+          <span class="hook-num">FS 01</span>
+          <span class="hook-text">"Just moved into a new place — I sorted the energy plan on day one. Here's why."
+            <span class="hook-note">Works well as a screen-recording hook — go straight to switch.homerun.app after the line.</span>
+          </span>
+        </div>
+        <div class="hook-item">
+          <span class="hook-num">FS 02</span>
+          <span class="hook-text">"Don't inherit the last tenant's energy plan. Moving house is the easiest time to compare — you're already sorting everything else anyway."</span>
+        </div>
+        <div class="hook-item">
+          <span class="hook-num">FS 03</span>
+          <span class="hook-text">"New sharehouse checklist: lease ✓, bond ✓, energy plan ✓ — that last one took 3 minutes and no one calls you."</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cost-of-Living Senior -->
+    <div class="persona-block">
+      <div class="persona-header">
+        <div class="persona-dot" style="background:var(--persona-cl)"></div>
+        <div>
+          <div class="persona-name">Cost-of-Living</div>
+          <div class="persona-meta">55+ · fastest-growing segment (+21% YoY) · EMERGING</div>
+        </div>
+      </div>
+      <div class="persona-enemy"><strong>Their enemy:</strong> Costs creeping up while income stays flat — everything getting harder.</div>
+      <div class="persona-hooks">
+        <div class="hook-item">
+          <span class="hook-num">CL 01</span>
+          <span class="hook-text">"Your energy retailer's best deals are for new customers. The longer you stay, the more they quietly charge you. That's not an accident."</span>
+        </div>
+        <div class="hook-item">
+          <span class="hook-num">CL 02</span>
+          <span class="hook-text">"I'd been meaning to look at the power bill for ages. Finally did — took 3 minutes, no login, no phone number, nothing."</span>
+        </div>
+        <div class="hook-item">
+          <span class="hook-num">CL 03</span>
+          <span class="hook-text">"No forms. No sales calls. Just your postcode. That's actually all it takes to compare energy offers for your house."</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOT LIST -->
+  <section>
+    <div class="section-header">
+      <div class="eyebrow">Visual clips — no speaking needed</div>
+      <h2>Short Clips — film as individual takes</h2>
+      <p>5–15 seconds each. No talking. We cut these with hooks to make variations. More is more — film everything, trim later.</p>
+    </div>
+
+    <div class="chip-legend">
+      <span class="chip chip-hook">Hook</span>
+      <span class="chip chip-feature">Feature</span>
+      <span class="chip chip-problem">Problem</span>
+      <span class="chip chip-broll">B-Roll</span>
+      <span class="chip chip-benefits">Resolution</span>
+    </div>
+
+    <div class="shot-grid">
+
+      <div class="shot-row">
+        <span class="chip chip-hook">Hook</span>
+        <div class="shot-desc">
+          Open switch.homerun.app on phone — swipe to comparison results
+          <span class="shot-note">Screen brightness all the way up. Tap around naturally. Results screen is the money shot.</span>
+        </div>
+      </div>
+
+      <div class="shot-row">
+        <span class="chip chip-hook">Hook</span>
+        <div class="shot-desc">
+          Phone in hand, typing postcode into switch.homerun.app — results load
+          <span class="shot-note">Go slowly enough to show each step. POV angle (looking down at phone) works well.</span>
+        </div>
+      </div>
+
+      <div class="shot-row">
+        <span class="chip chip-hook">Hook</span>
+        <div class="shot-desc">
+          Hold phone up showing comparison results — scroll the offers slowly
+          <span class="shot-note">Frame fills with phone screen. The list of offers is the point — make it readable.</span>
+        </div>
+      </div>
+
+      <div class="shot-row">
+        <span class="chip chip-feature">Feature</span>
+        <div class="shot-desc">
+          Full flow: postcode → fuel type selection → results → pick an offer
+          <span class="shot-note">Longer take, 20–30 sec. We'll speed-cut or trim. Capture every screen transition.</span>
+        </div>
+      </div>
+
+      <div class="shot-row">
+        <span class="chip chip-feature">Feature</span>
+        <div class="shot-desc">
+          Selecting electricity, gas, or both — the fuel-type screen
+          <span class="shot-note">Quick tap. Shows the tool is flexible for different house setups.</span>
+        </div>
+      </div>
+
+      <div class="shot-row">
+        <span class="chip chip-problem">Problem</span>
+        <div class="shot-desc">
+          Electricity bill on the kitchen bench or stuck to the fridge
+          <span class="shot-note">Real, slightly messy. Classic sharehouse detail. Works as problem cutaway.</span>
+        </div>
+      </div>
+
+      <div class="shot-row">
+        <span class="chip chip-problem">Problem</span>
+        <div class="shot-desc">
+          Phone screen showing group chat reacting to a big bill — "why is it $483??"
+          <span class="shot-note">Mock up a realistic group chat. Recreate the scenario — doesn't need to be real messages.</span>
+        </div>
+      </div>
+
+      <div class="shot-row">
+        <span class="chip chip-problem">Problem</span>
+        <div class="shot-desc">
+          Someone looking at a bill or phone with mild stress — kitchen table, natural light
+          <span class="shot-note">Relatable, not dramatic. The "before" moment — not a performance.</span>
+        </div>
+      </div>
+
+      <div class="shot-row">
+        <span class="chip chip-problem">Problem</span>
+        <div class="shot-desc">
+          Before/after: stack of bills on bench → same angle with phone showing switch.homerun.app
+          <span class="shot-note">Film both from exact same position. Cut between them in edit.</span>
+        </div>
+      </div>
+
+      <div class="shot-row">
+        <span class="chip chip-broll">B-Roll</span>
+        <div class="shot-desc">
+          Wide shot of a lived-in sharehouse kitchen or living room
+          <span class="shot-note">Natural light. Real sharehouse energy — not staged or styled.</span>
+        </div>
+      </div>
+
+      <div class="shot-row">
+        <span class="chip chip-broll">B-Roll</span>
+        <div class="shot-desc">
+          Lights on in a sharehouse room — ceiling light, lamp, TV glow
+          <span class="shot-note">Simple visual shorthand for energy use. Evening light preferred.</span>
+        </div>
+      </div>
+
+      <div class="shot-row">
+        <span class="chip chip-broll">B-Roll</span>
+        <div class="shot-desc">
+          Kettle boiling, heater on, or oven in use — everyday appliance shots
+          <span class="shot-note">Connects electricity use to the comparison hook. Fast cuts work well here.</span>
+        </div>
+      </div>
+
+      <div class="shot-row">
+        <span class="chip chip-broll">B-Roll</span>
+        <div class="shot-desc">
+          Bills or letters stuck to the fridge with magnets
+          <span class="shot-note">Universal sharehouse detail. Use as a cutaway in the problem section.</span>
+        </div>
+      </div>
+
+      <div class="shot-row">
+        <span class="chip chip-broll">B-Roll</span>
+        <div class="shot-desc">
+          Someone walking in the front door, dropping bag, checking phone
+          <span class="shot-note">Coming-home moment. Works as an establishing shot.</span>
+        </div>
+      </div>
+
+      <div class="shot-row">
+        <span class="chip chip-benefits">Resolution</span>
+        <div class="shot-desc">
+          Visibly relaxed after checking phone — small smile, put phone down, move on
+          <span class="shot-note">The "sorted" moment. Keep it brief and casual — not a big reaction.</span>
+        </div>
+      </div>
+
+      <div class="shot-row">
+        <span class="chip chip-benefits">Resolution</span>
+        <div class="shot-desc">
+          Housemates casually hanging out — no tension, good energy, someone on their phone in background
+          <span class="shot-note">The "after" feeling. Easy and real — don't stage it, just film a normal moment.</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FILE NAMING -->
+  <section>
+    <div class="eyebrow">Organisation</div>
+    <h2>File Naming Convention</h2>
+    <p>Label every clip before uploading so it's easy to pull the right hook for each variation.</p>
+
+    <div class="file-block primary">CreatorName_PERSONA_IDENTIFIER_Description.mp4</div>
+    <div class="file-block example">Example: BelD_RL_HOOK_3minutes.mp4</div>
+    <div class="file-block example">Example: BelD_GEN_BROLL_kettle.mp4</div>
+
+    <div class="card" style="margin-top: 20px;">
+      <h3>Persona codes</h3>
+      <div class="identifiers">
+        <span class="persona-code pc-rl">RL — Reluctant Lifer</span>
+        <span class="persona-code pc-ss">SS — Strategic Stacker</span>
+        <span class="persona-code pc-fs">FS — Fresh Start</span>
+        <span class="persona-code pc-cl">CL — Cost-of-Living</span>
+        <span class="persona-code pc-gen">GEN — General / no persona</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Clip identifiers</h3>
+      <div class="identifiers">
+        <span class="chip chip-hook">HOOK</span>
+        <span class="chip chip-feature">FEATURE</span>
+        <span class="chip chip-problem">PROBLEM</span>
+        <span class="chip chip-broll">BROLL</span>
+        <span class="chip chip-benefits">RESOLUTION</span>
+      </div>
+    </div>
+
+    <div class="note"><strong>Approval gate:</strong> All Switch content requires Scott sign-off before posting. Upload clips to the shared folder before sending — don't post direct from camera roll.</div>
+  </section>
+
+</div>
