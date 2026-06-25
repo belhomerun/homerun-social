@@ -193,9 +193,6 @@
     <button class="filter-btn" data-filter="th">Talking Head</button>
     <button class="filter-btn" data-filter="pov">POV / Voiceover</button>
     <button class="filter-btn" data-filter="carousel">Carousel</button>
-    <div class="filter-sep"></div>
-    <button class="filter-btn" data-filter="ready">Scripts ready</button>
-    <button class="filter-btn" data-filter="idea">Ideas only</button>
   </div>
 </header>
 
@@ -1819,15 +1816,13 @@ switch.homerun.app
         else if (f === 'awareness') show = card.dataset.stage === 'awareness';
         else if (f === 'consideration') show = card.dataset.stage === 'consideration';
         else if (f === 'conversion') show = card.dataset.stage === 'conversion';
-        else if (f === 'ready') show = card.dataset.status === 'ready';
-        else if (f === 'idea') show = card.dataset.status === 'idea';
         card.classList.toggle('hidden', !show);
         if (show) visible++;
       });
       if (f === 'all') {
         countRow.textContent = 'Showing all 40 pieces — 24 scripts ready · 16 guide ideas';
       } else {
-        const labels = { th: 'Talking Head', pov: 'POV / Voiceover', carousel: 'Carousel', awareness: 'Awareness', consideration: 'Consideration', conversion: 'Conversion', ready: 'Scripts ready', idea: 'Ideas only' };
+        const labels = { th: 'Talking Head', pov: 'POV / Voiceover', carousel: 'Carousel', awareness: 'Awareness', consideration: 'Consideration', conversion: 'Conversion' };
         countRow.textContent = `Showing ${visible} piece${visible !== 1 ? 's' : ''} — ${labels[f] || f}`;
       }
     });
