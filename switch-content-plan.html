@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Homerun Switch — Content Launch Plan</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --orange: #fc8f29;
+    --dark: #24211e;
+    --mid: #5c5650;
+    --faint: #8a837d;
+    --bg: #f7f4f0;
+    --card: #ffffff;
+    --border: #e8e3dc;
+    --green: #1a7a4a;
+    --green-bg: #eaf7f0;
+    --red: #b83232;
+    --red-bg: #fdf0f0;
+    --amber: #9a5e00;
+    --amber-bg: #fff8ed;
+    --blue: #1a4a7a;
+    --blue-bg: #eaf0f7;
+    --ig: #c13584;
+    --ig-bg: #fdf0f7;
+    --tt: #333;
+    --tt-bg: #f0f0f0;
+    --paid: #5c1a80;
+    --paid-bg: #f5f0ff;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--dark); line-height: 1.5; font-size: 15px; }
+
+  header { background: var(--dark); padding: 20px 24px 16px; border-bottom: 2px solid var(--orange); }
+  header h1 { font-size: 18px; font-weight: 700; color: #fff; }
+  header .sub { font-size: 12px; color: var(--orange); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 3px; }
+
+  .container { max-width: 980px; margin: 0 auto; padding: 24px 16px 60px; }
+
+  /* Gates */
+  .gates { background: var(--red-bg); border: 1px solid #f5c6c6; border-radius: 10px; padding: 14px 16px; margin-bottom: 24px; }
+  .gates h3 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; color: var(--red); margin-bottom: 8px; }
+  .gates ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .gates li { font-size: 13px; color: var(--dark); padding-left: 20px; position: relative; }
+  .gates li::before { content: "🚫"; position: absolute; left: 0; }
+
+  /* Pillar strip */
+  .pillar { background: var(--dark); border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; display: flex; gap: 12px; align-items: flex-start; }
+  .pillar-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); flex-shrink: 0; padding-top: 2px; }
+  .pillar-text { font-size: 14px; color: rgba(255,255,255,0.9); line-height: 1.5; font-style: italic; }
+
+  /* Phase */
+  .phase { background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
+  .phase-header { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--border); background: var(--bg); }
+  .phase-num { width: 30px; height: 30px; background: var(--orange); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0; }
+  .phase-meta { flex: 1; }
+  .phase-title { font-size: 15px; font-weight: 700; }
+  .phase-dates { font-size: 12px; color: var(--faint); margin-top: 1px; }
+  .phase-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 4px 10px; border-radius: 20px; flex-shrink: 0; }
+  .badge-film { background: var(--amber-bg); color: var(--amber); }
+  .badge-live { background: var(--green-bg); color: var(--green); }
+  .badge-prep { background: #f0f0f0; color: var(--mid); }
+  .badge-scale { background: var(--blue-bg); color: var(--blue); }
+
+  .phase-body { padding: 16px; }
+
+  /* Context */
+  .ctx { background: var(--bg); border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; font-size: 13px; color: var(--mid); line-height: 1.6; }
+  .ctx strong { color: var(--dark); }
+
+  /* Section label */
+  .slabel { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; color: var(--faint); margin: 16px 0 8px; display: flex; align-items: center; gap: 8px; }
+  .slabel:first-child { margin-top: 0; }
+  .slabel-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* Two-col layout */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+
+  /* Channel card */
+  .channel-card { border-radius: 8px; padding: 12px 14px; border: 1px solid var(--border); }
+  .channel-ig { background: var(--ig-bg); border-color: #f0d0e8; }
+  .channel-tt { background: var(--tt-bg); border-color: #d8d8d8; }
+  .channel-paid { background: var(--paid-bg); border-color: #d8c0f0; }
+  .channel-all { background: var(--blue-bg); border-color: #c0d8f0; }
+  .channel-name { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .channel-ig .channel-name { color: var(--ig); }
+  .channel-tt .channel-name { color: var(--tt); }
+  .channel-paid .channel-name { color: var(--paid); }
+  .channel-all .channel-name { color: var(--blue); }
+  .channel-card p { font-size: 13px; line-height: 1.5; }
+
+  /* Content row */
+  .content-list { display: flex; flex-direction: column; gap: 6px; }
+  .content-row { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--card); }
+  .content-row.highlight { border-color: #fcd9a8; background: #fffbf5; }
+  .cr-rank { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+  .rank-1 { background: var(--orange); color: #fff; }
+  .rank-2 { background: #fde3c4; color: #7a3d00; }
+  .rank-3 { background: #f0f0f0; color: var(--mid); }
+  .rank-day { background: var(--dark); color: #fff; font-size: 10px; }
+  .rank-ad { background: var(--paid-bg); color: var(--paid); }
+  .cr-body { flex: 1; }
+  .cr-id { font-size: 11px; font-weight: 700; color: var(--faint); }
+  .cr-title { font-size: 14px; font-weight: 600; color: var(--dark); margin: 1px 0 4px; }
+  .cr-note { font-size: 12px; color: var(--mid); }
+  .chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+  .chip { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 20px; }
+  .chip-aw { background: #e8f4ff; color: #1a5276; }
+  .chip-co { background: #f0eaff; color: #4a1a80; }
+  .chip-cv { background: var(--green-bg); color: var(--green); }
+  .chip-ig { background: var(--ig-bg); color: var(--ig); }
+  .chip-tt { background: var(--tt-bg); color: var(--tt); }
+  .chip-both { background: #f5f0e8; color: #5a3d00; }
+  .chip-paid { background: var(--paid-bg); color: var(--paid); }
+  .chip-seasonal { background: #fef0f0; color: #8b1a1a; }
+  .chip-carousel { background: #f0f5ff; color: #1a3a7a; }
+  .chip-new { background: #fff0e0; color: #7a3d00; border: 1px solid #fcd9a8; }
+  .chip-th { background: #f5f5f0; color: var(--mid); }
+
+  /* Post schedule */
+  .post-schedule { display: flex; flex-direction: column; gap: 6px; }
+  .post-day { display: flex; gap: 10px; padding: 9px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; align-items: flex-start; }
+  .pd-label { font-weight: 800; color: var(--orange); min-width: 48px; flex-shrink: 0; font-size: 12px; padding-top: 1px; }
+  .pd-body { flex: 1; }
+  .pd-body strong { color: var(--dark); }
+  .pd-body span { color: var(--mid); }
+  .pd-ad { font-size: 11px; color: var(--paid); margin-top: 2px; }
+
+  /* Gap cards */
+  .gap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .gap-card { border: 1px dashed #fcd9a8; border-radius: 8px; padding: 12px; background: #fffbf5; }
+  .gap-card .gap-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--orange); margin-bottom: 4px; }
+  .gap-card .gap-hook { font-size: 13px; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+  .gap-card .gap-why { font-size: 12px; color: var(--mid); }
+
+  /* Flag */
+  .flag { background: var(--amber-bg); border: 1px solid #f5dca0; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--dark); margin-top: 12px; }
+  .flag strong { color: var(--amber); }
+
+  /* Rules */
+  .rules { background: var(--dark); border-radius: 10px; padding: 16px; margin-top: 24px; }
+  .rules h3 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; color: var(--orange); margin-bottom: 10px; }
+  .rules ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .rules li { font-size: 13px; color: rgba(255,255,255,0.8); padding-left: 16px; position: relative; }
+  .rules li::before { content: "→"; color: var(--orange); position: absolute; left: 0; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } .gap-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Homerun Switch — Content Launch Plan</h1>
+  <div class="sub">Organic scripts · Hub messaging · Scott's rollout · 28 June 2026</div>
+</header>
+
+<div class="container">
+
+  <!-- Gates -->
+  <div class="gates">
+    <h3>Hard gates — content is blocked until these clear</h3>
+    <ul>
+      <li>CIMET approval — Scott emails Mon 30 Jun. Turnaround unknown. No Switch content goes public until confirmed</li>
+      <li>TikTok FYP recovery check — hold utility-switching content on TikTok until confirmed restored. Check before next week</li>
+    </ul>
+  </div>
+
+  <!-- Lead pillar -->
+  <div class="pillar">
+    <div class="pillar-label">Lead message</div>
+    <div class="pillar-text">"You've probably never compared your sharehouse's energy. So you're probably leaving money on the table." — Messaging matrix primary hook. Every piece of content should ladder back to this.</div>
+  </div>
+
+  <!-- STAGE 1 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">1</div>
+      <div class="phase-meta">
+        <div class="phase-title">Film bank — F&amp;F internal testing</div>
+        <div class="phase-dates">30 Jun – 4 Jul &nbsp;·&nbsp; Nothing public &nbsp;·&nbsp; 10–20 people, private URL</div>
+      </div>
+      <div class="phase-badge badge-film">Film only</div>
+    </div>
+    <div class="phase-body">
+
+      <div class="ctx">
+        <strong>Scott's action this week:</strong> Email CIMET Monday 30 Jun with the $221 V1 page — this starts the approval clock. F&amp;F testers get the private URL. Team completes end-to-end testing. Page stays noindexed.<br><br>
+        <strong>Your job this week:</strong> Bank content ready for Stage 2 drop. Nothing goes live. Restart TikTok with non-utility content to recover FYP.
+      </div>
+
+      <div class="slabel">What to film — priority order <span class="slabel-line"></span></div>
+      <div class="content-list">
+
+        <div class="content-row highlight">
+          <div class="cr-rank rank-1">1</div>
+          <div class="cr-body">
+            <div class="cr-id">Script 20 &nbsp;·&nbsp; Aligns with hub ad S18</div>
+            <div class="cr-title">Winter bills just landed</div>
+            <div class="cr-note">Peak seasonal right now. Same hook as paid ad S18 "Bill bigger than last time?" Film first — this is your Stage 2 day-one post.</div>
+            <div class="chips"><span class="chip chip-cv">Conversion</span><span class="chip chip-seasonal">Film now — seasonal</span><span class="chip chip-ig">IG</span></div>
+          </div>
+        </div>
+
+        <div class="content-row highlight">
+          <div class="cr-rank rank-1">2</div>
+          <div class="cr-body">
+            <div class="cr-id">Script 05 &nbsp;·&nbsp; Aligns with hub ads S06, S17</div>
+            <div class="cr-title">Under 3 minutes — live screen demo</div>
+            <div class="cr-note">Shows the product working end-to-end. Warm audience just needs proof. Mirrors "60 seconds to start" / "momentum UI" paid ads — use "under 3 minutes" not "60 seconds" for consistency.</div>
+            <div class="chips"><span class="chip chip-cv">Conversion</span><span class="chip chip-ig">IG</span></div>
+          </div>
+        </div>
+
+        <div class="content-row highlight">
+          <div class="cr-rank rank-1">3</div>
+          <div class="cr-body">
+            <div class="cr-id">Script 24 &nbsp;·&nbsp; Aligns with hub ads S12, S22</div>
+            <div class="cr-title">Get value back — bill-payer's win</div>
+            <div class="cr-note">One person does it, whole house benefits. Direct connection to Homerun app users — they're already the bill manager in the house.</div>
+            <div class="chips"><span class="chip chip-cv">Conversion</span><span class="chip chip-ig">IG</span><span class="chip chip-tt">TikTok (if FYP clear)</span></div>
+          </div>
+        </div>
+
+        <div class="content-row highlight">
+          <div class="cr-rank rank-1">4</div>
+          <div class="cr-body">
+            <div class="cr-id">Script 07 &nbsp;·&nbsp; Aligns with hub ad S03</div>
+            <div class="cr-title">No pushy call — objection kill</div>
+            <div class="cr-note">Kills biggest friction point. Exact same hook as paid ad S03 "No pushy phone calls" — organic version gives this more room to breathe.</div>
+            <div class="chips"><span class="chip chip-cv">Conversion</span><span class="chip chip-ig">IG</span></div>
+          </div>
+        </div>
+
+        <div class="content-row highlight">
+          <div class="cr-rank rank-1">5</div>
+          <div class="cr-body">
+            <div class="cr-id">Script 12 &nbsp;·&nbsp; Aligns with hub ad S15</div>
+            <div class="cr-title">Call the bluff in 3 minutes</div>
+            <div class="cr-note">Antagonistic energy. Same "call the bluff" hook as paid ad S15. Strong scroll-stopper — energy companies profit from your inertia.</div>
+            <div class="chips"><span class="chip chip-cv">Conversion</span><span class="chip chip-ig">IG</span><span class="chip chip-tt">TikTok (if FYP clear)</span></div>
+          </div>
+        </div>
+
+        <div class="content-row">
+          <div class="cr-rank rank-2">6</div>
+          <div class="cr-body">
+            <div class="cr-id">Script 11 &nbsp;·&nbsp; Aligns with hub ad S19</div>
+            <div class="cr-title">Honest about how we make money</div>
+            <div class="cr-note">Trust builder for fence-sitters. Organic works harder here than paid — S19 even references energymadeeasy.gov.au (govt tool). Lean into radical transparency.</div>
+            <div class="chips"><span class="chip chip-co">Consideration</span><span class="chip chip-ig">IG</span></div>
+          </div>
+        </div>
+
+        <div class="content-row">
+          <div class="cr-rank rank-2">7</div>
+          <div class="cr-body">
+            <div class="cr-id">Scripts 16 + 17 &nbsp;·&nbsp; No direct paid equivalent</div>
+            <div class="cr-title">Myth busts — complicated / locks you in</div>
+            <div class="cr-note">Objection depth only organic can do. No lock-in, most plans have cooling-off. Film both in the same session — same setting, same energy.</div>
+            <div class="chips"><span class="chip chip-cv">Conversion</span><span class="chip chip-ig">IG</span></div>
+          </div>
+        </div>
+
+        <div class="content-row">
+          <div class="cr-rank rank-2">8</div>
+          <div class="cr-body">
+            <div class="cr-id">Script 15 &nbsp;·&nbsp; Aligns with hub ad S20 (partial)</div>
+            <div class="cr-title">Post-switch reassurance — lights stay on</div>
+            <div class="cr-note">Kills the "what if it goes wrong" fear. Current provider supplies until new one takes over. Film this — it closes the funnel for anyone still sitting on it.</div>
+            <div class="chips"><span class="chip chip-cv">Conversion</span><span class="chip chip-ig">IG</span></div>
+          </div>
+        </div>
+
+        <div class="content-row">
+          <div class="cr-rank rank-3">9</div>
+          <div class="cr-body">
+            <div class="cr-id">Scripts 01, 08 &nbsp;·&nbsp; Aligns with hub ads S01, S07, S23</div>
+            <div class="cr-title">Loyalty penalty / retailer banking on your inertia</div>
+            <div class="cr-note">Bank for Stage 3 cold audience. ACCC $221 stat — always attribute. "Your retailer is hoping you never look" is the organic version of paid ad S07 "loyalty tax is a scam."</div>
+            <div class="chips"><span class="chip chip-aw">Awareness</span><span class="chip chip-both">Stage 3 bank</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <hr>
+      <div class="slabel">TikTok restart — non-utility, film this week too <span class="slabel-line"></span></div>
+      <div class="content-list">
+        <div class="content-row">
+          <div class="cr-rank rank-1">A</div>
+          <div class="cr-body">
+            <div class="cr-id">Self-shoot RL01</div>
+            <div class="cr-title">Admin martyr — 3 min hook</div>
+            <div class="cr-note">General Homerun app content. No utility switching. Safe for FYP recovery. Post this first on TikTok before any Switch content.</div>
+            <div class="chips"><span class="chip chip-tt">TikTok first</span><span class="chip chip-aw">Awareness</span></div>
+          </div>
+        </div>
+        <div class="content-row">
+          <div class="cr-rank rank-1">B</div>
+          <div class="cr-body">
+            <div class="cr-id">Self-shoot FS01</div>
+            <div class="cr-title">Move-in day</div>
+            <div class="cr-note">Sharehouse culture. High engagement, zero compliance risk. Good FYP recovery content — relatable, no product push.</div>
+            <div class="chips"><span class="chip chip-tt">TikTok</span><span class="chip chip-aw">Awareness</span></div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+      <div class="slabel">Post this week — warm-up content (no product mention, no CTA) <span class="slabel-line"></span></div>
+      <div class="ctx" style="margin-bottom:12px;">These 4 pieces go live this week. They seed the problem — stale plans, rising bills, nobody checking — without naming Switch. When Stage 2 drops, audience already feels like the solution is coming.</div>
+
+      <div class="content-list">
+
+        <div class="content-row highlight">
+          <div class="cr-rank rank-day">Mon</div>
+          <div class="cr-body">
+            <div class="cr-id">Carousel C1 — NEW · Post Mon 30 Jun</div>
+            <div class="cr-title">"5 signs your sharehouse might be overpaying for electricity 👀"</div>
+            <div class="cr-note"><strong>Slide 1:</strong> 5 signs your sharehouse might be overpaying for electricity 👀<br>
+            <strong>Slide 2:</strong> You haven't looked at your plan in over 12 months<br>
+            <strong>Slide 3:</strong> You're on whatever the last tenants or the first housemate set up<br>
+            <strong>Slide 4:</strong> Your bill went up but your usage didn't change<br>
+            <strong>Slide 5:</strong> You don't actually know who your electricity provider is<br>
+            <strong>Slide 6:</strong> You've never compared plans — because you didn't know you could<br>
+            <strong>Slide 7:</strong> If any of these sound familiar — more on this very soon 👀</div>
+            <div class="chips"><span class="chip chip-carousel">Carousel</span><span class="chip chip-aw">Awareness</span><span class="chip chip-ig">IG</span><span class="chip chip-tt">TikTok</span></div>
+          </div>
+        </div>
+
+        <div class="content-row highlight">
+          <div class="cr-rank rank-day">Wed</div>
+          <div class="cr-body">
+            <div class="cr-id">Video W3 — NEW · Post Wed 2 Jul</div>
+            <div class="cr-title">"Why your sharehouse electricity bill goes up every winter — and it's not just the heater"</div>
+            <div class="cr-note"><strong>Script:</strong> Most people blame the heater. The heater is part of it. But the other part nobody talks about: your energy plan hasn't changed. Rates creep up quietly, especially on older plans. Less daylight means more lights. Hot showers go way up. And if your house is still on whatever plan the last tenants set up — you're probably paying the most. Not the least. More on this soon.<br><br>
+            <strong>Format:</strong> Talking head ~25s. Winter vibes — heater, blankets, indoor shots. No product mention. End on "more on this soon."</div>
+            <div class="chips"><span class="chip chip-aw">Awareness</span><span class="chip chip-ig">IG</span><span class="chip chip-tt">TikTok</span></div>
+          </div>
+        </div>
+
+        <div class="content-row highlight">
+          <div class="cr-rank rank-day">Thu</div>
+          <div class="cr-body">
+            <div class="cr-id">Carousel C2 — NEW · Post Thu 3 Jul</div>
+            <div class="cr-title">"How to cut your electricity bill in a rental — no landlord permission needed"</div>
+            <div class="cr-note"><strong>Slide 1:</strong> How to cut your electricity bill in a rental — no landlord permission needed<br>
+            <strong>Slide 2:</strong> Switch to LED globes (screw them back in when you leave)<br>
+            <strong>Slide 3:</strong> Set your heater to 18–20° — every extra degree adds ~10% to heating cost<br>
+            <strong>Slide 4:</strong> Wash clothes in cold water — 90% of the energy used is just heating the water<br>
+            <strong>Slide 5:</strong> Turn appliances off at the wall — standby power adds up across a whole house<br>
+            <strong>Slide 6:</strong> And the big one — check if your house is actually on a decent plan. More soon 👀</div>
+            <div class="chips"><span class="chip chip-carousel">Carousel</span><span class="chip chip-co">Consideration</span><span class="chip chip-ig">IG</span><span class="chip chip-tt">TikTok</span></div>
+          </div>
+        </div>
+
+        <div class="content-row highlight">
+          <div class="cr-rank rank-day">Sat</div>
+          <div class="cr-body">
+            <div class="cr-id">Video W1 — NEW · Post Sat 5 Jul</div>
+            <div class="cr-title">"5 things I didn't know about electricity bills before I moved into a sharehouse"</div>
+            <div class="cr-note"><strong>Script:</strong> 1. Whoever set up the plan when you moved in probably just picked whoever was easiest — not who was cheapest. 2. The "default" plan on your bill is actually the worst deal — it's a government price cap, not a recommendation. 3. Your bill has a "better offer message" on it that is often completely useless. 4. One person ends up managing the whole bill for the whole house — and never gets credit for it. 5. You can actually just... switch. Most people think you're stuck with whoever you're with.<br><br>
+            <strong>Format:</strong> Talking head ~20s. List format — count them off on fingers. No CTA. End on "more on this soon 👀" or let it sit.</div>
+            <div class="chips"><span class="chip chip-aw">Awareness</span><span class="chip chip-ig">IG</span><span class="chip chip-tt">TikTok</span></div>
+          </div>
+        </div>
+
+        <div class="content-row">
+          <div class="cr-rank rank-day">TBD</div>
+          <div class="cr-body">
+            <div class="cr-id">Video W2 — TBD · Format to confirm</div>
+            <div class="cr-title">"Sharehouse bills ranked by how often anyone actually checks them"</div>
+            <div class="cr-note">Concept approved. Format TBD — text pop-up, split screen, phone POV, or sticky notes. Slot in mid-week once filming approach locked.</div>
+            <div class="chips"><span class="chip chip-new">Format TBD</span><span class="chip chip-aw">Awareness</span></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- STAGE 2 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">2</div>
+      <div class="phase-meta">
+        <div class="phase-title">Stage 2 — Warm audience launch</div>
+        <div class="phase-dates">7 Jul+ (post CIMET approval) &nbsp;·&nbsp; Existing users + 3,600 email list &nbsp;·&nbsp; 200–500 people</div>
+      </div>
+      <div class="phase-badge badge-live">Go live</div>
+    </div>
+    <div class="phase-body">
+
+      <div class="ctx">
+        <strong>Scott/Matt's action:</strong> Personal email to existing Homerun users + 3.6k list — soft "we built something for you" framing. Tracking confirmed live. Align your first post with the day the email goes out. Confirm date with Scott before scheduling.<br><br>
+        <strong>Messaging for warm audience:</strong> These people already use Homerun or are on the list — they trust the brand. Lead with conversion (show the product, kill objections), not raw awareness.
+      </div>
+
+      <div class="slabel">Organic post order — IG (align day 1 with email send) <span class="slabel-line"></span></div>
+      <div class="post-schedule">
+        <div class="post-day">
+          <div class="pd-label">Day 1</div>
+          <div class="pd-body">
+            <strong>Script 20 — Winter bills just landed</strong><span> · Drop same day as email. Peak seasonal, highest urgency.</span>
+            <div class="pd-ad">Hub ad S18 running in parallel: "Bill bigger than last time?"</div>
+          </div>
+        </div>
+        <div class="post-day">
+          <div class="pd-label">Day 2</div>
+          <div class="pd-body">
+            <strong>Script 05 — Under 3 min live demo</strong><span> · Show the product. Warm audience needs proof it's real and fast.</span>
+            <div class="pd-ad">Hub ads S06, S17 running: "Electricity, gas or both?" / "60 seconds to start"</div>
+          </div>
+        </div>
+        <div class="post-day">
+          <div class="pd-label">Day 4</div>
+          <div class="pd-body">
+            <strong>Script 24 — Get value back / bill-payer's win</strong><span> · One person, few minutes, whole house benefits. Connects to the Homerun app use case.</span>
+            <div class="pd-ad">Hub ads S12, S22: "Get value back on a switch"</div>
+          </div>
+        </div>
+        <div class="post-day">
+          <div class="pd-label">Day 5</div>
+          <div class="pd-body">
+            <strong>Script 07 — No pushy call</strong><span> · Kills objection for people who opened the email but didn't click.</span>
+            <div class="pd-ad">Hub ad S03: "No pushy phone calls"</div>
+          </div>
+        </div>
+        <div class="post-day">
+          <div class="pd-label">Day 7</div>
+          <div class="pd-body">
+            <strong>Script 11 — Honest about how we make money</strong><span> · Trust piece for anyone still sitting on it. Radical transparency closes fence-sitters.</span>
+            <div class="pd-ad">Hub ad S19: "Honest about how this works"</div>
+          </div>
+        </div>
+        <div class="post-day">
+          <div class="pd-label">Day 9</div>
+          <div class="pd-body">
+            <strong>Carousel G11 — The Loyalty Tax</strong><span> · Education. $221/yr ACCC stat. High save/share — broadens reach.</span>
+            <div class="pd-ad">Hub ads S01, S09: data viz creatives running</div>
+          </div>
+        </div>
+        <div class="post-day">
+          <div class="pd-label">Day 10</div>
+          <div class="pd-body">
+            <strong>Script 12 — Call the bluff in 3 minutes</strong><span> · Final push. Antagonistic hook pulls in anyone who's been ignoring it.</span>
+            <div class="pd-ad">Hub ad S15: "Call the bluff in 3 minutes"</div>
+          </div>
+        </div>
+        <div class="post-day">
+          <div class="pd-label">Day 12</div>
+          <div class="pd-body">
+            <strong>Script 15 — Lights stay on / post-switch reassurance</strong><span> · Closes the loop for anyone with cold feet.</span>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+      <div class="slabel">TikTok — only if FYP recovery confirmed <span class="slabel-line"></span></div>
+      <div class="two-col">
+        <div class="channel-card channel-tt">
+          <div class="channel-name">TikTok (FYP confirmed)</div>
+          <p>Start with Script 20 (Winter bills) or Script 12 (Call the bluff) — high energy, short. Stagger 1–2 days behind IG, not same day. Hold the screen-rec demo (Script 05) for IG first.</p>
+        </div>
+        <div class="channel-card channel-tt">
+          <div class="channel-name">TikTok (FYP not confirmed)</div>
+          <p>Keep posting sharehouse culture content (RL01, FS01 style). No utility-switching until FYP is restored. Don't risk suppression right before Stage 3.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- STAGE 3 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">3</div>
+      <div class="phase-meta">
+        <div class="phase-title">Stage 3 — Partnerships + small paid</div>
+        <div class="phase-dates">Date TBD (once Stage 2 unit economics visible) &nbsp;·&nbsp; Punters, Flatmate Finders, Meta test</div>
+      </div>
+      <div class="phase-badge badge-prep">Prep now</div>
+    </div>
+    <div class="phase-body">
+
+      <div class="ctx">
+        <strong>Scott's action:</strong> Punters Politics list (Konrad sign-off), Flatmate Finders (FF sign-off), small Meta test. Stage 2 conversion data tells which creative angle wins — that shapes what runs in Stage 3.
+      </div>
+
+      <div class="slabel">By audience — what content and which paid ads align <span class="slabel-line"></span></div>
+
+      <div class="two-col">
+        <div class="channel-card channel-all">
+          <div class="channel-name">Punters Politics</div>
+          <p><strong>Tone:</strong> Antagonistic. "Loyalty tax is a scam."<br><br>
+          <strong>Organic:</strong> Script 08 (Your retailer banking on your inertia) + Script 01 (Loyalty penalty hook)<br><br>
+          <strong>Paid ads:</strong> S07 "The loyalty tax is a scam", S23 "Follow the money: energy"</p>
+        </div>
+        <div class="channel-card channel-all">
+          <div class="channel-name">Flatmate Finders</div>
+          <p><strong>Tone:</strong> Renter-first, sharehouse-specific identity.<br><br>
+          <strong>Organic:</strong> Script 04 (Bill shock group chat), Carousel G03 (Can you switch when you rent?)<br><br>
+          <strong>Paid ads:</strong> S04 "Built for renters", S10 "Sort it as a house", S11 "Sorted from day one"</p>
+        </div>
+      </div>
+
+      <div class="slabel">Content gaps — three scripts to write for Stage 3 cold audience <span class="slabel-line"></span></div>
+      <div class="gap-grid">
+        <div class="gap-card">
+          <div class="gap-label">New script needed</div>
+          <div class="gap-hook">"Built for renters, not landlords"</div>
+          <div class="gap-why">Paid ad S04 is a top performer for Flatmate Finders audience. No organic equivalent exists. Identity-led angle — "apps like this were built for landlords. We're not."</div>
+        </div>
+        <div class="gap-card">
+          <div class="gap-label">New script needed</div>
+          <div class="gap-hook">"Sort it as a house"</div>
+          <div class="gap-why">Paid ads S10 + S22 use collaborative group framing. No organic equivalent. Strong for social connector persona — "one of you does it, everyone benefits."</div>
+        </div>
+        <div class="gap-card">
+          <div class="gap-label">New script needed</div>
+          <div class="gap-hook">"Run your sharehouse like a pro"</div>
+          <div class="gap-why">Paid ad S13 uses competency/identity frame. No organic equivalent. Good for Property Player persona — energy is just another thing a smart house manager handles.</div>
+        </div>
+      </div>
+
+      <div class="slabel">Awareness bank to film in Stage 1 and post in Stage 3 <span class="slabel-line"></span></div>
+      <div class="content-list">
+        <div class="content-row">
+          <div class="cr-rank rank-2">↑</div>
+          <div class="cr-body">
+            <div class="cr-title">Scripts 01, 02, 10, 18, 19 — Awareness set</div>
+            <div class="cr-note">Loyalty penalty, DMO, retailer myth-bust, vox-pop. Bank in Stage 1. Roll out across Stage 3 for cold audiences.</div>
+            <div class="chips"><span class="chip chip-aw">Awareness</span><span class="chip chip-both">Stage 3 bank</span></div>
+          </div>
+        </div>
+        <div class="content-row">
+          <div class="cr-rank rank-2">↑</div>
+          <div class="cr-body">
+            <div class="cr-title">Carousels G01, G03, G09, G10, G14 — Education set</div>
+            <div class="cr-note">How to set up energy, can you switch as a renter, step-by-step switch, cut energy use. High save/share — warm up cold audiences before conversion ask.</div>
+            <div class="chips"><span class="chip chip-carousel">Carousel</span><span class="chip chip-co">Consideration</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flag"><strong>UGC creator brief:</strong> Confirm Scott's approval workflow for utility-switching content first. Once confirmed, build Switch creator brief from ugc-creator-brief.html template. Don't start until workflow is locked.</div>
+
+    </div>
+  </div>
+
+  <!-- STAGE 4 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">4</div>
+      <div class="phase-meta">
+        <div class="phase-title">Stage 4 — Full scale</div>
+        <div class="phase-dates">Date TBD &nbsp;·&nbsp; Public launch, noindex removed, full organic + paid, WhatsApp agent live</div>
+      </div>
+      <div class="phase-badge badge-scale">Scale</div>
+    </div>
+    <div class="phase-body">
+      <div class="ctx">
+        <strong>At this point:</strong> All content types running. Winning creative from Stage 3 shapes what scales. Full organic cadence across IG + TikTok (FYP should be recovered by now). UGC creator brief in rotation if approval workflow confirmed.
+      </div>
+      <div class="content-list">
+        <div class="content-row">
+          <div class="cr-rank rank-3">→</div>
+          <div class="cr-body">
+            <div class="cr-title">Scripts 09, 21, 23 + remaining carousels</div>
+            <div class="cr-note">Challenger panel, same house two prices, appliance sticker bridge — creative angles for a warmed-up audience. Rotate in at full scale.</div>
+            <div class="chips"><span class="chip chip-aw">Awareness</span><span class="chip chip-co">Consideration</span></div>
+          </div>
+        </div>
+        <div class="content-row">
+          <div class="cr-rank rank-3">→</div>
+          <div class="cr-body">
+            <div class="cr-title">3 new scripts (built for renters · sort as a house · run like a pro)</div>
+            <div class="cr-note">Write and film these once Stage 3 data confirms which persona converts best. Mirror the winning paid creative angle in organic.</div>
+            <div class="chips"><span class="chip chip-new">Write in Stage 3</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compliance -->
+  <div class="rules">
+    <h3>Compliance — applies to every piece</h3>
+    <ul>
+      <li>$221/yr loyalty penalty = ACCC 2025. Always attribute — never present as Homerun research</li>
+      <li>69% haven't compared = 2026 survey of 3,672 AU sharehousers. Cite source on external use</li>
+      <li>No "guaranteed savings", "cheapest", "best deal", "whole of market" — ever</li>
+      <li>No "cash back", "cashback", "savings toward deposit" — hard ban</li>
+      <li>All savings framing: "see if you're overpaying" not "you will save $X"</li>
+      <li>General energy-switching copy = no CIMET sign-off needed. Only copy naming CIMET requires it</li>
+      <li>Rewards wording: "rewards" / "value back" / "perks" — never "cashback" or "savings toward deposit"</li>
+      <li>Time claim: use "under 3 minutes" across organic — matches the messaging matrix. Not "60 seconds" (paid ad S17 uses this for entry step only)</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>
