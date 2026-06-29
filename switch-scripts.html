@@ -140,6 +140,7 @@
   .chip-consider { background: rgba(61,120,230,0.2);   color: #6ba3f5; }
   .chip-convert  { background: rgba(224,85,85,0.18);   color: #e05555; }
   .chip-idea     { background: rgba(155,108,222,0.18); color: #9b6cde; }
+  .chip-original { background: rgba(255,200,80,0.12); color: #c9a84c; border: 1px dashed rgba(255,200,80,0.35); }
 
   .chevron { color: var(--muted); font-size: 18px; line-height: 1; transition: transform 0.2s; flex-shrink: 0; margin-top: 2px; }
   .card.open .chevron { transform: rotate(180deg); }
@@ -202,7 +203,7 @@
 <header>
   <div class="eyebrow"><a href="switch-hub.html" style="color:var(--dark);opacity:0.55;text-decoration:none;font-weight:800;">← Hub</a> · Homerun Switch</div>
   <h1>Content Planner</h1>
-  <div class="header-sub">22 scripts ready · 16 guide ideas · Awareness / Consideration / Conversion</div>
+  <div class="header-sub">25 scripts ready · 16 guide ideas · Awareness / Consideration / Conversion</div>
 </header>
 <div class="filter-bar">
   <span class="filter-bar-label">Filter</span>
@@ -214,10 +215,10 @@
 <main>
   <div class="notice">
     <span>⚠️</span>
-    <span>No scripts name CIMET directly — CIMET sign-off not required for these. ACCC stats attributed throughout. Never use "guaranteed savings", "cheapest", "best deal" or "whole of market". $221 is an ACCC loyalty-penalty stat — use question framing only: "Could your house be paying $221 more?" Never use as a savings promise.</span>
+    <span>No scripts name CIMET directly — CIMET sign-off not required for these. ACCC stats attributed throughout (ACCC, 2025). 69% stat: owned survey (Homerun, 2026, n=3,672) — not ACCC, do not attribute to ACCC. Never use "guaranteed savings", "cheapest", "best deal" or "whole of market". $221/yr is ACCC loyalty-penalty data — frame as "about $221/yr more on average (ACCC, 2025, average — results vary)." Never position as a savings promise. Scripts marked <strong>★ Original</strong> are not in the CIMET messaging matrix — review manually before CIMET submission.</span>
   </div>
 
-  <div class="count-row" id="count-row">38 pieces — 22 scripts ready · 16 guide ideas · click a tab to filter</div>
+  <div class="count-row" id="count-row">41 pieces — 25 scripts ready · 16 guide ideas · click a tab to filter</div>
 
   <div class="scripts-grid" id="grid">
 
@@ -249,7 +250,7 @@
           <div class="section-label">On-screen overlays</div>
           <ul class="overlay-list">
             <li>The loyalty penalty — ACCC, December 2025</li>
-            <li>$221/yr more — average, results vary</li>
+            <li>$221/yr more — ACCC 2025, average, results vary</li>
             <li>switch.homerun.app</li>
           </ul>
         </div>
@@ -298,7 +299,7 @@ switch.homerun.app
           <ul class="overlay-list">
             <li>No loyalty programme. Not by accident.</li>
             <li>Loyalty penalty — ACCC, Dec 2025</li>
-            <li>$221/yr more (average — results vary)</li>
+            <li>$221/yr more — ACCC 2025, average, results vary</li>
             <li>3 minutes. switch.homerun.app</li>
           </ul>
         </div>
@@ -349,7 +350,7 @@ switch.homerun.app
             <div class="text-seq-item"><span class="step-num">5</span>...</div>
             <div class="text-seq-item"><span class="step-num">6</span>nobody knows.</div>
             <div class="text-seq-item"><span class="step-num">7</span>Most Aussie sharehouses are on whatever plan they started with.</div>
-            <div class="text-seq-item"><span class="step-num">8</span>ACCC: households on old plans pay about $221/yr more — average, results vary</div>
+            <div class="text-seq-item"><span class="step-num">8</span>ACCC, 2025: households on old plans pay about $221/yr more — average, results vary</div>
             <div class="text-seq-item"><span class="step-num">9</span>Compare offers for your house in under 3 minutes.</div>
             <div class="text-seq-item"><span class="step-num">10</span>switch.homerun.app 🔗</div>
           </div>
@@ -496,7 +497,7 @@ switch.homerun.app
           <ul class="overlay-list">
             <li>Their best deals are for new customers.</li>
             <li>Loyalty penalty — ACCC, Dec 2025</li>
-            <li>$221/yr more — average, results vary</li>
+            <li>$221/yr more — ACCC 2025, average, results vary</li>
             <li>3 minutes. switch.homerun.app</li>
           </ul>
         </div>
@@ -521,7 +522,7 @@ switch.homerun.app
       <div class="card-header" onclick="toggle(this)">
         <div class="card-header-left">
           <div class="card-num">Script 09 · Talking Head · ~25s</div>
-          <div class="card-title">Big Three vs challengers</div>
+          <div class="card-title">Challenger retailers vs the big names</div>
           <div class="meta-row">
             <span class="chip chip-th">Talking Head</span>
             <span class="chip chip-consider">Consideration</span>
@@ -534,28 +535,30 @@ switch.homerun.app
       <div class="card-body">
         <div class="section">
           <div class="section-label">Hook (on-screen text)</div>
-          <div class="hook-box">We don't compare AGL, Origin or EnergyAustralia. Here's why.</div>
+          <div class="hook-box">Homerun Switch focuses on challenger retailers. Not the big-name retailers. Here's why that matters.</div>
         </div>
         <div class="section">
           <div class="section-label">Script</div>
-          <div class="script-text">"Homerun Switch doesn't compare the Big Three energy retailers. We compare a panel of value-challenger retailers — Alinta, Powershop, OVO, Dodo, ENGIE, 1st Energy and others. That's a deliberate call. The Big Three spend billions on brand. Challenger retailers compete on rates. We're transparent about who we compare and we may earn a commission if you switch. Worth having a look."</div>
+          <div class="script-text">"Most people default to the big-name energy retailers and never look further. Homerun Switch takes a different approach. We compare a panel of value-challenger retailers — Alinta, Powershop, OVO, Dodo, ENGIE, 1st Energy and others. That's a deliberate call. The big-name retailers spend billions on brand. Challenger retailers compete on rates. We're transparent about who we compare and we may earn a commission if you switch. A panel, not the whole market — worth having a look."</div>
         </div>
         <div class="section">
           <div class="section-label">On-screen overlays</div>
           <ul class="overlay-list">
-            <li>Not AGL. Not Origin. Not EnergyAustralia.</li>
+            <li>Not the big-name retailers.</li>
             <li>Alinta · Powershop · OVO · Dodo · ENGIE · 1st Energy</li>
             <li>Challenger retailers. Curated panel.</li>
+            <li>A panel, not the whole market.</li>
             <li>switch.homerun.app</li>
           </ul>
         </div>
         <div class="section">
           <div class="section-label">CTA</div>
-          <div class="cta-text">Compare challenger retailers — link in bio.</div>
+          <div class="cta-text">Look past the big names — link in bio.</div>
         </div>
         <div class="section">
           <div class="section-label">Caption</div>
-          <div class="caption-text">Homerun Switch compares a panel of value-challenger retailers — Alinta, Powershop, OVO, Dodo, ENGIE, 1st Energy and others. Not the Big Three. Transparent about who we compare and we may earn a commission if you switch.
+          <div class="caption-text">Most people default to the big-name energy retailers and never look further. Homerun Switch compares a panel of value-challenger retailers — Alinta, Powershop, OVO, Dodo, ENGIE, 1st Energy and others. The deals the big names hope you never go looking for. A panel, not the whole market.
+We compare a panel of partner retailers and may earn a commission if you switch.
 switch.homerun.app
 
 #energycomparison #electricitybill #sharehouse #australianrenting #switchenergy #housemates</div>
@@ -575,6 +578,7 @@ switch.homerun.app
             <span class="chip chip-aware">Awareness</span>
             <span class="chip chip-neutral">Cost-of-Living Senior</span>
             <span class="chip chip-neutral">Education</span>
+            <span class="chip chip-original">★ Original</span>
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -722,6 +726,7 @@ switch.homerun.app
             <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">Reluctant Lifer</span>
             <span class="chip chip-neutral">Fear of switching</span>
+            <span class="chip chip-original">★ Original</span>
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -816,6 +821,7 @@ switch.homerun.app
             <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">Reluctant Lifer</span>
             <span class="chip chip-neutral">Myth-busting / objection</span>
+            <span class="chip chip-original">★ Original</span>
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -861,6 +867,7 @@ switch.homerun.app
             <span class="chip chip-aware">Awareness</span>
             <span class="chip chip-neutral">Strategic Stacker</span>
             <span class="chip chip-neutral">Myth-busting / ACCC</span>
+            <span class="chip chip-original">★ Original</span>
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -906,6 +913,7 @@ switch.homerun.app
             <span class="chip chip-aware">Awareness</span>
             <span class="chip chip-neutral">All personas</span>
             <span class="chip chip-neutral">Awareness / relatable</span>
+            <span class="chip chip-original">★ Original</span>
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -923,8 +931,9 @@ switch.homerun.app
             <div class="text-seq-item"><span class="step-num">3</span>"whatever came with the house I think"</div>
             <div class="text-seq-item"><span class="step-num">4</span>"one of us set it up when we moved in 2 years ago"</div>
             <div class="text-seq-item"><span class="step-num">5</span>"is that something we're supposed to check??"</div>
-            <div class="text-seq-item"><span class="step-num">6</span>See if there's a better deal for yours.</div>
-            <div class="text-seq-item"><span class="step-num">7</span>switch.homerun.app</div>
+            <div class="text-seq-item"><span class="step-num">6</span>Turns out: 69% of Aussie sharehouses haven't compared their energy in 12 months. (Homerun survey, 2026)</div>
+            <div class="text-seq-item"><span class="step-num">7</span>See if there's a better deal for yours.</div>
+            <div class="text-seq-item"><span class="step-num">8</span>switch.homerun.app</div>
           </div>
         </div>
         <div class="section">
@@ -933,7 +942,7 @@ switch.homerun.app
         </div>
         <div class="section">
           <div class="section-label">Caption</div>
-          <div class="caption-text">"Do you know what electricity plan your sharehouse is on?" — Most people don't. Most sharehouses are on whatever plan they started with — and quietly paying more for it. See if there's a better deal for yours.
+          <div class="caption-text">"Do you know what electricity plan your sharehouse is on?" — Most people don't. 69% of Aussie sharehouses haven't compared their energy in the last 12 months. (Homerun survey, 2026) Most are on whatever plan they started with — and quietly paying more for it. See if there's a better deal for yours.
 We compare a panel of partner retailers and may earn a commission if you switch.
 switch.homerun.app
 
@@ -954,6 +963,7 @@ switch.homerun.app
             <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">All personas</span>
             <span class="chip chip-neutral">Seasonal urgency</span>
+            <span class="chip chip-original">★ Original</span>
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -1053,6 +1063,7 @@ switch.homerun.app
             <span class="chip chip-convert">Conversion</span>
             <span class="chip chip-neutral">Reluctant Lifer</span>
             <span class="chip chip-neutral">De-risk</span>
+            <span class="chip chip-original">★ Original</span>
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -1097,6 +1108,7 @@ switch.homerun.app
             <span class="chip chip-aware">Awareness</span>
             <span class="chip chip-neutral">Strategic Stacker</span>
             <span class="chip chip-neutral">Curiosity hook</span>
+            <span class="chip chip-original">★ Original</span>
           </div>
         </div>
         <div class="chevron">⌄</div>
@@ -1177,6 +1189,167 @@ We compare a panel of partner retailers and may earn a commission if you switch.
 switch.homerun.app
 
 #sharehouse #housemates #sharehousetips #australianrenting #electricitybill #billsplitting</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 25 -->
+    <div class="card" data-format="th" data-stage="awareness" data-status="ready">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 25 · Creator / UGC · Talking Head · ~30s</div>
+          <div class="card-title">POV: saved for a deposit but never checked the energy plan 💀</div>
+          <div class="meta-row">
+            <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-aware">Awareness</span>
+            <span class="chip chip-neutral">Strategic Stacker</span>
+            <span class="chip chip-neutral">Matrix: UGC creator script</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Hook (on-screen text / caption opener)</div>
+          <div class="hook-box">POV: you've been saving for a deposit for 3 years but never once checked if your energy plan is ripping you off 💀</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Scene direction</div>
+          <div class="visual-note">Creator, handheld, kitchen. Casual confessional tone. Strategic Stacker persona — deposit-saver who tracks every dollar.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Talking points (beats)</div>
+          <ul class="overlay-list">
+            <li>Okay so I track EVERYTHING. Rent, groceries, my coffee budget.</li>
+            <li>But I just realised our whole house has been on the same energy plan since we moved in.</li>
+            <li>The ACCC reckons that costs you around $221 a year more (ACCC, 2025, average — results vary).</li>
+            <li>So I used our last bill, compared a bunch of retailers in like 3 minutes.</li>
+            <li>No one called me, no spam. Do it for your house.</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-label">On-card headline</div>
+          <div class="cta-text">I check everything but missed this</div>
+        </div>
+        <div class="section">
+          <div class="section-label">CTA</div>
+          <div class="cta-text">switch.homerun.app — link in bio.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">POV: you track every dollar toward your deposit but the energy plan has been on autopilot since move-in 💀 The ACCC found households on the same plan for 3+ years pay about $221/yr more on average (ACCC, 2025, average — results vary). Compared in 3 minutes using our last bill. No sales calls, no spam.
+We compare a panel of partner retailers and may earn a commission if you switch.
+switch.homerun.app
+
+#sharehouse #depositgoals #australianrenting #electricitybill #energybills #housemates #costofliving</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 26 -->
+    <div class="card" data-format="th" data-stage="awareness" data-status="ready">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 26 · Creator / UGC · Talking Head · ~30s</div>
+          <div class="card-title">Things the unpaid house manager finally sorted in 3 minutes 🧾</div>
+          <div class="meta-row">
+            <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-aware">Awareness</span>
+            <span class="chip chip-neutral">Reluctant Lifer</span>
+            <span class="chip chip-neutral">Matrix: UGC creator script</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Hook (on-screen text / caption opener)</div>
+          <div class="hook-box">Things I, the unpaid manager of this sharehouse, finally sorted in under 3 minutes 🧾</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Scene direction</div>
+          <div class="visual-note">Creator, tired-but-funny, on couch. Reluctant Lifer persona — the responsible one who handles everything for the house.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Talking points (beats)</div>
+          <ul class="overlay-list">
+            <li>Number one: the energy plan we've been on since 2021.</li>
+            <li>Apparently being loyal to your provider just means you pay more.</li>
+            <li>Used our last bill, compared a few retailers, no one called me trying to sell me stuff.</li>
+            <li>That's it.</li>
+            <li>If you're the house person... this one's painless, I promise.</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-label">On-card headline</div>
+          <div class="cta-text">The house admin, but painless</div>
+        </div>
+        <div class="section">
+          <div class="section-label">CTA</div>
+          <div class="cta-text">switch.homerun.app — link in bio.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">Things I, the unpaid manager of this sharehouse, finally sorted in under 3 minutes 🧾 Including the energy plan we'd been on since 2021. Staying loyal to your provider just means you pay more — used the last bill, compared a few retailers, no sales calls. Done. If you're the house person, this one's painless.
+We compare a panel of partner retailers and may earn a commission if you switch.
+switch.homerun.app
+
+#sharehouse #housemates #sharehousetips #australianrenting #electricitybill #energybills #costofliving</div>
+          <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT 27 -->
+    <div class="card" data-format="th" data-stage="awareness" data-status="ready">
+      <div class="card-header" onclick="toggle(this)">
+        <div class="card-header-left">
+          <div class="card-num">Script 27 · Creator / UGC · Talking Head · ~20s</div>
+          <div class="card-title">Things our house actually did instead of just talking about it 📲</div>
+          <div class="meta-row">
+            <span class="chip chip-th">Talking Head</span>
+            <span class="chip chip-aware">Awareness</span>
+            <span class="chip chip-neutral">Social Connector</span>
+            <span class="chip chip-neutral">Matrix: UGC creator script</span>
+          </div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Hook (on-screen text / caption opener)</div>
+          <div class="hook-box">things our house finally did instead of just talking about it in the group chat 📲</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Scene direction</div>
+          <div class="visual-note">Creator with multiple housemates on couch. Casual, group energy. Social Connector persona — keeps the vibes good, makes admin invisible.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Talking points (beats)</div>
+          <ul class="overlay-list">
+            <li>We compared our energy.</li>
+            <li>Took like 3 minutes, used the last bill, nobody from a call centre rang us.</li>
+            <li>Turns out we'd just... never checked.</li>
+            <li>Anyway. Vibes preserved, admin done.</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-label">On-card headline</div>
+          <div class="cta-text">We actually did the thing</div>
+        </div>
+        <div class="section">
+          <div class="section-label">CTA</div>
+          <div class="cta-text">Sort it as a house — switch.homerun.app — link in bio.</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Caption</div>
+          <div class="caption-text">things our house finally did instead of just talking about it in the group chat 📲 We compared our energy. 3 minutes, used the last bill, nobody called us. Turns out we'd never checked. Vibes preserved, admin done.
+We compare a panel of partner retailers and may earn a commission if you switch.
+switch.homerun.app
+
+#sharehouse #housemates #australianrenting #electricitybill #energybills #groupchat #sharehousetips</div>
           <button class="copy-btn" onclick="copyCaption(this)">Copy caption</button>
         </div>
       </div>
@@ -1471,7 +1644,7 @@ switch.homerun.app
       <div class="card-body">
         <div class="section">
           <div class="section-label">Carousel approach — ~5 slides</div>
-          <div class="idea-approach"><strong>Hook:</strong> "The loyalty tax — what energy companies don't tell you." S2: New customers get the best deals. S3: Existing customers quietly drift to higher rates. S4: The ACCC calls it the loyalty penalty — about $221/yr more on average (results vary, unconfirmed — hold until verified). S5: The fix: just don't stay. switch.homerun.app — stat-led, shareable, strong save hook for awareness audience.</div>
+          <div class="idea-approach"><strong>Hook:</strong> "The loyalty tax — what energy companies don't tell you." S2: New customers get the best deals. S3: Existing customers quietly drift to higher rates. S4: The ACCC calls it the loyalty penalty — about $221/yr more on average (ACCC, 2025, average — results vary). S5: The fix: just don't stay. switch.homerun.app — stat-led, shareable, strong save hook for awareness audience.</div>
         </div>
         <div class="section">
           <div class="section-label">Video note</div>
@@ -1629,7 +1802,7 @@ switch.homerun.app
       btns.forEach(b => b.classList.remove('active'));
       if (isActive) {
         cards.forEach(card => card.classList.remove('hidden'));
-        countRow.textContent = '38 pieces — 22 scripts ready · 16 guide ideas · click a tab to filter';
+        countRow.textContent = '41 pieces — 25 scripts ready · 16 guide ideas · click a tab to filter';
       } else {
         btn.classList.add('active');
         const f = btn.dataset.filter;
