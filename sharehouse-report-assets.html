@@ -5,50 +5,65 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Homerun — Sharehouse Report Assets</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #fdfcfc; --surface: #ffffff; --surface2: #fcefe3; --border: #d7d6d5;
-  --orange: #fc8f29; --orange-dark: #ea7e03; --orange-light: #fcefe3;
-  --text: #24211e; --text2: #3f3b37; --muted: #5c5451; --ink: #24211e;
-  --radius: 11px;
+:root{
+  --orange-50:#fff6ed; --orange-100:#ffe5cc; --orange-200:#fcc592; --orange-300:#fcb26d;
+  --orange-500:#fc8b21; --orange-700:#d66406;
+  --neutral-50:#fdfcfc; --neutral-100:#f5f5f4; --neutral-200:#e9e8e7; --neutral-400:#b7b4b3;
+  --neutral-600:#706966; --neutral-900:#24211e;
+  --background-1:var(--neutral-50); --text-primary:var(--neutral-900); --text-secondary:var(--neutral-600);
+  --accent-text:var(--orange-700);
+  --border:color-mix(in srgb, var(--text-primary) 15%, transparent);
+  --radius-lg:1rem;
+  font-family:"DM Sans","Helvetica Neue",Arial,sans-serif;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); color: var(--text); font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5; }
-header { padding: 28px 36px; border-bottom: 1px solid var(--border); }
-.wordmark { font-size: 20px; font-weight: 700; letter-spacing: -.3px; }
-.wordmark span { color: var(--orange); }
-h1 { font-size: 22px; margin-top: 10px; }
-.sub { color: var(--muted); font-size: 13px; margin-top: 6px; max-width: 640px; }
-main { padding: 28px 36px; max-width: 1400px; }
-.chapter-block { margin-bottom: 48px; }
-.chapter-hd { font-size: 15px; font-weight: 700; color: var(--orange-dark); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
-.chapter-sub { color: var(--muted); font-size: 12px; margin-bottom: 18px; }
-.asset-group { margin-bottom: 28px; }
-.asset-label { font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: .04em; }
-.cards-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start; }
+*{box-sizing:border-box; margin:0; padding:0;}
+body{background:var(--neutral-100); color:var(--text-primary); font-family:inherit; font-size:14px; line-height:1.5;}
+header{padding:28px 36px; border-bottom:1px solid var(--border); background:var(--neutral-50);}
+.wordmark{font-size:20px; font-weight:600; letter-spacing:-.02em;}
+.wordmark span{color:var(--orange-500);}
+h1{font-size:22px; font-weight:600; margin-top:10px; letter-spacing:-.015em;}
+.sub{color:var(--text-secondary); font-size:13px; margin-top:6px; max-width:640px;}
+main{padding:28px 36px; max-width:1400px;}
+.chapter-block{margin-bottom:48px;}
+.chapter-hd{font-size:.75rem; font-weight:600; color:var(--accent-text); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;}
+.chapter-sub{color:var(--text-secondary); font-size:13px; margin-bottom:18px;}
+.asset-group{margin-bottom:28px;}
+.asset-label{font-size:12px; font-weight:600; color:var(--text-secondary); margin-bottom:10px; text-transform:uppercase; letter-spacing:.04em;}
+.cards-row{display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start;}
 
-/* ── The actual card, 4:5 IG portrait ratio. Screenshot this element. ── */
-.card { width: 300px; aspect-ratio: 4 / 5; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 28px 24px; display: flex; flex-direction: column; position: relative; overflow: hidden; flex-shrink: 0; }
-.card.dark { background: var(--ink); color: #fdfcfc; }
-.card-eyebrow { font-size: 10px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: .06em; }
-.card-mark { font-size: 12px; font-weight: 700; margin-top: 4px; }
-.card-mark span { color: var(--orange); }
-.card-body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-.card-stat { font-size: 64px; font-weight: 800; letter-spacing: -1.5px; color: var(--orange-dark); line-height: 1; }
-.card.dark .card-stat { color: var(--orange); }
-.card-line { font-size: 17px; font-weight: 600; margin-top: 10px; line-height: 1.35; }
-.card-sub { font-size: 12px; color: var(--muted); margin-top: 8px; line-height: 1.4; }
-.card.dark .card-sub { color: #cfc9c4; }
-.card-title { font-size: 24px; font-weight: 800; line-height: 1.2; }
-.card-hint { font-size: 12px; color: var(--muted); margin-top: 14px; }
-.card.dark .card-hint { color: #cfc9c4; }
-.card-cta { font-size: 15px; font-weight: 700; }
-.card-footer { font-size: 8px; color: var(--muted); letter-spacing: .01em; margin-top: 10px; }
-.card.dark .card-footer { color: #8a827c; }
-.slide-num { position: absolute; top: 20px; right: 22px; font-size: 11px; font-weight: 700; color: var(--muted); }
-.card.dark .slide-num { color: #8a827c; }
+/* ── The actual card, 4:5 IG portrait ratio, matching the live report page's design tokens ── */
+.card{
+  width:300px; aspect-ratio:4/5; background:var(--background-1);
+  border:.094rem solid var(--border); border-radius:var(--radius-lg);
+  padding:28px 24px; display:flex; flex-direction:column; position:relative;
+  overflow:hidden; flex-shrink:0;
+}
+.card.dark{background:var(--neutral-900); color:var(--neutral-50); border-color:color-mix(in srgb, var(--neutral-50) 15%, transparent);}
+.card-eyebrow{font-size:.75rem; font-weight:600; color:var(--accent-text); text-transform:uppercase; letter-spacing:.05em;}
+.card.dark .card-eyebrow{color:var(--orange-300);}
+.card-mark{font-size:12px; font-weight:600; margin-top:4px;}
+.card-mark span{color:var(--orange-500);}
+.card-body{flex:1; display:flex; flex-direction:column; justify-content:center;}
+.card-stat{
+  font-size:clamp(2.75rem,9vw,4rem); font-weight:600; letter-spacing:-.045em;
+  line-height:.92; color:var(--accent-text); font-variant-numeric:tabular-nums lining-nums;
+}
+.card.dark .card-stat{color:var(--orange-500);}
+.card-line{font-size:17px; font-weight:600; margin-top:10px; line-height:1.35; letter-spacing:-.01em;}
+.card-sub{font-size:12px; color:var(--text-secondary); margin-top:8px; line-height:1.45;}
+.card.dark .card-sub{color:#cfc9c4;}
+.card-title{font-size:24px; font-weight:600; line-height:1.25; letter-spacing:-.02em;}
+.card-hint{font-size:12px; color:var(--text-secondary); margin-top:14px;}
+.card.dark .card-hint{color:#cfc9c4;}
+.card-cta{font-size:16px; font-weight:600; letter-spacing:-.01em;}
+.card-footer{font-size:8px; color:var(--text-secondary); letter-spacing:.01em; margin-top:10px;}
+.card.dark .card-footer{color:#8a827c;}
+.slide-num{position:absolute; top:20px; right:22px; font-size:11px; font-weight:600; color:var(--text-secondary); font-variant-numeric:tabular-nums;}
+.card.dark .slide-num{color:#8a827c;}
 
-.export-note { background: #fff8e6; border: 1px solid #f0c060; border-radius: 6px; padding: 10px 14px; font-size: 12px; color: #7a5a00; margin: 18px 36px 0; max-width: 900px; }
+.export-note{background:var(--orange-50); border:.094rem solid var(--orange-200); border-radius:var(--radius-lg); padding:12px 16px; font-size:12px; color:var(--accent-text); margin:18px 36px 0; max-width:900px;}
 </style>
 </head>
 <body>
@@ -56,10 +71,10 @@ main { padding: 28px 36px; max-width: 1400px; }
 <header>
   <div class="wordmark">home<span>run</span></div>
   <h1>The Sharehouse Generation — content bank assets</h1>
-  <div class="sub">Draft visual assets for static images and carousels. Each box below is one screenshot: right-click → Save Image, or use a screenshot tool at 100% zoom. Carousels are numbered card by card, screenshot each in order and upload as one IG/TikTok carousel post. Working through the sheet chapter by chapter — Chapter 1 is the sample, more to follow once the direction's confirmed.</div>
+  <div class="sub">Draft visual assets for static images and carousels, styled off the actual report landing page's design tokens (DM Sans, orange-700 accent, neutral-900 ink). Each box below is one screenshot: right-click → Save Image, or a screenshot tool at 100% zoom. Carousels are numbered card by card, screenshot each in order and upload as one IG/TikTok carousel post.</div>
 </header>
 
-<div class="export-note">Chapter 1 sample only, for a direction check. Every stat below is verified against the actual PDF report (not the trimmed web page). Attribution line carried on every card per the report's own attribution rule.</div>
+<div class="export-note">Chapter 1 sample only, for a direction check. Every stat below is verified against the PDF report. Attribution line carried on every card per the report's own attribution rule.</div>
 
 <main>
 
