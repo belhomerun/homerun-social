@@ -5,174 +5,1396 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Homerun — Sharehouse Report Assets</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{
-  --orange-50:#fff6ed; --orange-100:#ffe5cc; --orange-200:#fcc592; --orange-300:#fcb26d;
-  --orange-500:#fc8b21; --orange-700:#d66406;
-  --neutral-50:#fdfcfc; --neutral-100:#f5f5f4; --neutral-200:#e9e8e7; --neutral-400:#b7b4b3;
-  --neutral-600:#706966; --neutral-900:#24211e;
-  --background-1:var(--neutral-50); --text-primary:var(--neutral-900); --text-secondary:var(--neutral-600);
-  --accent-text:var(--orange-700);
-  --border:color-mix(in srgb, var(--text-primary) 15%, transparent);
-  --radius-lg:1rem;
-  font-family:"DM Sans","Helvetica Neue",Arial,sans-serif;
+  --page-bg:#f5f5f4; --surface:#fdfcfc;
+  --ink:#24211e; --ink-soft:#706966; --ink-faint:#b7b4b3;
+  --accent:#fc8b21; --accent-soft:#fff6ed; --accent-line:#fcc592;
+  --border:#e9e8e7;
+  --radius:1.1rem;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
-body{background:var(--neutral-100); color:var(--text-primary); font-family:inherit; font-size:14px; line-height:1.5;}
-header{padding:28px 36px; border-bottom:1px solid var(--border); background:var(--neutral-50);}
-.wordmark{font-size:20px; font-weight:600; letter-spacing:-.02em;}
-.wordmark span{color:var(--orange-500);}
-h1{font-size:22px; font-weight:600; margin-top:10px; letter-spacing:-.015em;}
-.sub{color:var(--text-secondary); font-size:13px; margin-top:6px; max-width:640px;}
-main{padding:28px 36px; max-width:1400px;}
-.chapter-block{margin-bottom:48px;}
-.chapter-hd{font-size:.75rem; font-weight:600; color:var(--accent-text); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;}
-.chapter-sub{color:var(--text-secondary); font-size:13px; margin-bottom:18px;}
-.asset-group{margin-bottom:28px;}
-.asset-label{font-size:12px; font-weight:600; color:var(--text-secondary); margin-bottom:10px; text-transform:uppercase; letter-spacing:.04em;}
-.cards-row{display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start;}
+body{
+  background:var(--page-bg); color:var(--ink);
+  font-family:"DM Sans","Helvetica Neue",Arial,sans-serif; font-weight:500;
+  font-size:15px; line-height:1.55; padding:44px 20px 72px;
+}
+.wrap{max-width:1180px; margin:0 auto;}
 
-/* ── The actual card, 4:5 IG portrait ratio, matching the live report page's design tokens ── */
+.masthead{display:flex; flex-direction:column; gap:14px; padding-bottom:32px; border-bottom:1px solid var(--border); margin-bottom:20px;}
+.wordmark{font-size:19px; font-weight:600; letter-spacing:-.02em;}
+.wordmark span{color:var(--accent);}
+h1{font-size:clamp(24px,3vw,30px); font-weight:600; letter-spacing:-.018em; margin:0;}
+.dek{color:var(--ink-soft); font-size:14.5px; max-width:640px; margin:0;}
+
+.source-note{
+  display:flex; gap:12px; align-items:flex-start;
+  background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:var(--radius);
+  padding:16px 18px; margin:20px 0 44px; max-width:900px;
+}
+.source-note .dot{width:7px; height:7px; border-radius:50%; background:var(--accent); margin-top:7px; flex-shrink:0;}
+.source-note p{margin:0; font-size:13.5px; color:var(--ink);}
+.source-note strong{font-weight:600;}
+
+.toc{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:48px;}
+.toc a{font-size:12.5px; font-weight:600; color:var(--ink-soft); text-decoration:none; background:var(--surface); border:1px solid var(--border); border-radius:999px; padding:6px 14px;}
+.toc a:hover{color:var(--accent); border-color:var(--accent-line);}
+
+.chapter-header{display:flex; align-items:baseline; gap:14px; margin:64px 0 8px; padding-top:32px; border-top:2px solid var(--ink);}
+.chapter-header:first-of-type{margin-top:0; padding-top:0; border-top:none;}
+.chapter-num{font-size:13px; font-weight:600; color:var(--accent); text-transform:uppercase; letter-spacing:.06em; white-space:nowrap;}
+.chapter-title{font-size:20px; font-weight:600; letter-spacing:-.012em;}
+
+section{margin-bottom:40px;}
+.section-hd{display:flex; align-items:baseline; gap:10px; margin-bottom:4px; flex-wrap:wrap;}
+.section-eyebrow{font-size:.72rem; font-weight:600; color:var(--accent); text-transform:uppercase; letter-spacing:.06em;}
+.section-title{font-size:13.5px; color:var(--ink-soft);}
+.asset-row{display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start; margin-top:20px;}
+
+.card-unit{display:flex; flex-direction:column;}
 .card{
-  width:300px; aspect-ratio:4/5; background:var(--background-1);
-  border:.094rem solid var(--border); border-radius:var(--radius-lg);
-  padding:28px 24px; display:flex; flex-direction:column; position:relative;
-  overflow:hidden; flex-shrink:0;
+  --c-ink:#24211e; --c-soft:#706966; --c-accent:#fc8b21;
+  width:270px; aspect-ratio:4/5; color:var(--c-ink);
+  background:radial-gradient(140% 110% at 50% 130%, #ffddb0 0%, #fffaf4 42%, #fdfcfc 100%);
+  border:.094rem solid color-mix(in srgb, var(--c-ink) 14%, transparent);
+  border-radius:var(--radius); padding:24px 22px; position:relative; overflow:hidden;
+  display:flex; flex-direction:column; flex-shrink:0;
+  font-family:"DM Sans","Helvetica Neue",Arial,sans-serif;
 }
-.card.dark{background:var(--neutral-900); color:var(--neutral-50); border-color:color-mix(in srgb, var(--neutral-50) 15%, transparent);}
-.card-eyebrow{font-size:.75rem; font-weight:600; color:var(--accent-text); text-transform:uppercase; letter-spacing:.05em;}
-.card.dark .card-eyebrow{color:var(--orange-300);}
-.card-mark{font-size:12px; font-weight:600; margin-top:4px;}
-.card-mark span{color:var(--orange-500);}
-.card-body{flex:1; display:flex; flex-direction:column; justify-content:center;}
-.card-stat{
-  font-size:clamp(2.75rem,9vw,4rem); font-weight:600; letter-spacing:-.045em;
-  line-height:.92; color:var(--accent-text); font-variant-numeric:tabular-nums lining-nums;
+.card.dark{
+  --c-ink:#fdfcfc; --c-soft:#cfc9c4;
+  background:radial-gradient(130% 150% at 100% 0%, #322d28 0%, #1e1b18 62%);
+  border-color:color-mix(in srgb, #fdfcfc 14%, transparent);
 }
-.card.dark .card-stat{color:var(--orange-500);}
-.card-line{font-size:17px; font-weight:600; margin-top:10px; line-height:1.35; letter-spacing:-.01em;}
-.card-sub{font-size:12px; color:var(--text-secondary); margin-top:8px; line-height:1.45;}
-.card.dark .card-sub{color:#cfc9c4;}
-.card-title{font-size:24px; font-weight:600; line-height:1.25; letter-spacing:-.02em;}
-.card-hint{font-size:12px; color:var(--text-secondary); margin-top:14px;}
-.card.dark .card-hint{color:#cfc9c4;}
-.card-cta{font-size:16px; font-weight:600; letter-spacing:-.01em;}
-.card-footer{font-size:8px; color:var(--text-secondary); letter-spacing:.01em; margin-top:10px;}
-.card.dark .card-footer{color:#8a827c;}
-.slide-num{position:absolute; top:20px; right:22px; font-size:11px; font-weight:600; color:var(--text-secondary); font-variant-numeric:tabular-nums;}
-.card.dark .slide-num{color:#8a827c;}
+.card.brand{
+  --c-ink:#2b1c08; --c-soft:color-mix(in srgb, #2b1c08 68%, transparent); --c-accent:#2b1c08;
+  background:radial-gradient(125% 140% at 100% 0%, #ffb15c 0%, #fc8b21 48%, #e2720d 100%);
+  border-color:transparent;
+}
+.card-eyebrow{font-size:.72rem; font-weight:600; color:var(--c-accent); text-transform:uppercase; letter-spacing:.06em; padding-right:38px;}
+.card-mark{height:16px;}
+.card-mark img{height:100%; display:block;}
+.card-body{flex:1; display:flex; flex-direction:column; justify-content:center; min-height:0;}
+.card.cover .card-body, .card.cta-slide .card-body{justify-content:flex-end;}
+.card.cover{padding-top:30px;}
 
-.export-note{background:var(--orange-50); border:.094rem solid var(--orange-200); border-radius:var(--radius-lg); padding:12px 16px; font-size:12px; color:var(--accent-text); margin:18px 36px 0; max-width:900px;}
+.card-stat{font-size:70px; font-weight:800; letter-spacing:-.03em; line-height:.86; color:var(--c-accent); font-variant-numeric:tabular-nums lining-nums; white-space:nowrap;}
+.card-stat.long{font-size:52px;}
+.card-line{font-size:15.5px; font-weight:600; margin-top:9px; line-height:1.32; letter-spacing:-.008em;}
+.card-sub{font-size:11.5px; color:var(--c-soft); margin-top:7px; line-height:1.45;}
+.card-title{font-size:20px; font-weight:600; line-height:1.26; letter-spacing:-.018em; padding-right:30px;}
+.card-hint{font-size:11.5px; color:var(--c-soft); margin-top:14px;}
+.card-footer{font-size:7.5px; color:var(--c-soft); letter-spacing:.01em; margin-top:10px;}
+.slide-num{position:absolute; top:18px; right:20px; font-size:10px; font-weight:600; color:var(--c-soft); font-variant-numeric:tabular-nums;}
+
+.card-foot{margin-top:10px; border-top:1px solid color-mix(in srgb, var(--c-ink) 14%, transparent);}
+.fr{display:flex; align-items:baseline; gap:8px; padding:6px 0; border-bottom:1px solid color-mix(in srgb, var(--c-ink) 10%, transparent);}
+.fr:last-child{border-bottom:none;}
+.fr-val{font-size:15px; font-weight:600; color:var(--c-accent); font-variant-numeric:tabular-nums; flex-shrink:0; min-width:46px;}
+.fr-label{font-size:10.5px; color:var(--c-soft); line-height:1.3;}
+
+.card-cta-btn{
+  display:inline-block; align-self:flex-start; background:var(--c-accent); color:#24211e;
+  font-size:13.5px; font-weight:600; letter-spacing:-.006em;
+  padding:10px 18px; border-radius:999px; margin-top:2px;
+}
+.card.brand .card-cta-btn{background:#2b1c08; color:#ffdcb0;}
+
+.filmstrip{display:flex; gap:14px; overflow-x:auto; padding:20px 2px 8px; margin:0 -2px;}
+.filmstrip .card{width:224px;}
+
+.card-foot-row{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:8px; max-width:270px;}
+.label-chip{font-size:11px; color:var(--ink-soft);}
+.dl-btn{
+  font-size:11px; font-weight:600; color:var(--ink); background:var(--surface);
+  border:1px solid var(--border); border-radius:999px; padding:5px 12px; cursor:pointer;
+  white-space:nowrap; font-family:inherit;
+}
+.dl-btn:hover{border-color:var(--accent); color:var(--accent);}
+.dl-btn[data-state="busy"]{opacity:.55; cursor:wait;}
+.dl-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+footer{margin-top:8px; padding-top:24px; border-top:1px solid var(--border); font-size:12px; color:var(--ink-faint);}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="wordmark">home<span>run</span></div>
-  <h1>The Sharehouse Generation — content bank assets</h1>
-  <div class="sub">Draft visual assets for static images and carousels, styled off the actual report landing page's design tokens (DM Sans, orange-700 accent, neutral-900 ink). Each box below is one screenshot: right-click → Save Image, or a screenshot tool at 100% zoom. Carousels are numbered card by card, screenshot each in order and upload as one IG/TikTok carousel post.</div>
-</header>
+<div class="wrap">
 
-<div class="export-note">Chapter 1 sample only, for a direction check. Every stat below is verified against the PDF report. Attribution line carried on every card per the report's own attribution rule.</div>
-
-<main>
-
-<div class="chapter-block">
-  <div class="chapter-hd">Chapter 1</div>
-  <div class="chapter-sub">The stereotypical sharehouse is the minority</div>
-
-  <div class="asset-group">
-    <div class="asset-label">Static image — 44% of people in a sharehouse are over 40</div>
-    <div class="cards-row">
-      <div class="card">
-        <div class="card-eyebrow">Chapter 1</div>
-        <div class="card-mark">home<span>run</span></div>
-        <div class="card-body">
-          <div class="card-stat">44%</div>
-          <div class="card-line">of people in a sharehouse are over 40</div>
-          <div class="card-sub">The single largest age group in the survey. Not students, people old enough to have adult children.</div>
-        </div>
-        <div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
-      </div>
-    </div>
+  <div class="masthead">
+    <div class="wordmark">home<span>run</span></div>
+    <h1>The Sharehouse Generation — full asset pack</h1>
+    <p class="dek">Every static image and carousel in the content bank, chapter by chapter, straight off the content bank's own hooks and the source PDF. Ready for IG, TikTok or LinkedIn.</p>
   </div>
 
-  <div class="asset-group">
-    <div class="asset-label">Static image — 17% already own their home and rent out rooms</div>
-    <div class="cards-row">
-      <div class="card dark">
-        <div class="card-eyebrow">Chapter 1</div>
-        <div class="card-mark">home<span>run</span></div>
-        <div class="card-body">
-          <div class="card-stat">17%</div>
-          <div class="card-line">already own their home and rent out rooms</div>
-          <div class="card-sub">Rising to 26% among the over 40s. The spare room has become a mortgage buffer.</div>
-        </div>
-        <div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
-      </div>
-    </div>
+  <div class="source-note">
+    <div class="dot"></div>
+    <p><strong>Built off homerun.app's own tokens, not a separate brand doc.</strong> Orange 500 (<code>#fc8b21</code>) as accent, Neutral 900 (<code>#24211e</code>) as ink, DM Sans throughout (full 100–1000 weight range). Every line of copy matches the content bank's own Primary/Secondary Hook fields for that row, or the report PDF/ABS Census directly where a row draws on it — nothing invented. Click <strong>Download PNG</strong> under any card to save it.</p>
   </div>
 
-  <div class="asset-group">
-    <div class="asset-label">Carousel — Three numbers that break the sharehouse stereotype (5 slides)</div>
-    <div class="cards-row">
-
-      <div class="card dark">
-        <div class="slide-num">1 / 5</div>
-        <div class="card-eyebrow">Chapter 1</div>
-        <div class="card-mark">home<span>run</span></div>
-        <div class="card-body">
-          <div class="card-title">The stereotypical sharehouse is the minority</div>
-          <div class="card-hint">Swipe for the real numbers →</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="slide-num">2 / 5</div>
-        <div class="card-eyebrow">Chapter 1</div>
-        <div class="card-body">
-          <div class="card-stat">44%</div>
-          <div class="card-line">of people in a sharehouse are over 40</div>
-          <div class="card-sub">The largest single age group in the survey.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="slide-num">3 / 5</div>
-        <div class="card-eyebrow">Chapter 1</div>
-        <div class="card-body">
-          <div class="card-stat">35%</div>
-          <div class="card-line">have shared for 5 years or more</div>
-          <div class="card-sub">18% have passed the ten year mark.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="slide-num">4 / 5</div>
-        <div class="card-eyebrow">Chapter 1</div>
-        <div class="card-body">
-          <div class="card-stat">17%</div>
-          <div class="card-line">already own a home and rent out rooms</div>
-          <div class="card-sub">To cover a mortgage that no longer works on one income.</div>
-        </div>
-      </div>
-
-      <div class="card dark">
-        <div class="slide-num">5 / 5</div>
-        <div class="card-eyebrow">Chapter 1</div>
-        <div class="card-mark">home<span>run</span></div>
-        <div class="card-body">
-          <div class="card-cta">Read the full Sharehouse Generation Report</div>
-          <div class="card-sub" style="margin-top:14px;">homerun.app</div>
-        </div>
-        <div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
-      </div>
-
-    </div>
+  <div class="toc">
+    <a href="#ch1">Chapter 1</a><a href="#ch2">Chapter 2</a><a href="#ch3">Chapter 3</a>
+    <a href="#ch4">Chapter 4</a><a href="#ch5">Chapter 5</a><a href="#ch6">Chapter 6</a>
+    <a href="#ch7">Chapter 7</a><a href="#chfaq">FAQ</a>
   </div>
+
+<a id="ch1"></a>
+<div class="chapter-header">
+  <div class="chapter-num">Chapter 1</div>
+  <div class="chapter-title">The stereotypical sharehouse is the minority</div>
 </div>
 
-</main>
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Static images</span>
+    <span class="section-title">three cards, post individually</span>
+  </div>
+  <div class="asset-row">
+<div class="card-unit">
+<div class="card" id="card-r4">
+<div class="card-eyebrow">The stereotype is the minority</div>
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">44%</div>
+<div class="card-line">of sharehousers are over 40</div>
+<div class="card-sub">The single largest age group in the survey.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 4</span><button class="dl-btn" data-target="card-r4" data-filename="sharehouse-row4-44pct-over40.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r5">
+<div class="card-eyebrow">Some of them already own it</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">17%</div>
+<div class="card-line">of sharehousers already own a home</div>
+<div class="card-sub">Renting out rooms to cover the mortgage.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 5</span><button class="dl-btn" data-target="card-r5" data-filename="sharehouse-row5-17pct-own.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r6">
+<div class="card-eyebrow">Not a phase</div>
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">48%</div>
+<div class="card-line">of over-40s have shared for 5 years or more</div>
+<div class="card-sub">Sharing isn't a phase for this group.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562), over-40s subset</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 6</span><button class="dl-btn" data-target="card-r6" data-filename="sharehouse-row6-48pct-5yrs.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Carousel</span>
+    <span class="section-title">three numbers that break the sharehouse stereotype, 5 slides</span>
+  </div>
+  <div class="filmstrip">
+<div class="card-unit">
+<div class="card dark cover" id="card-r7-1">
+<div class="slide-num">1 / 5</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">The stereotypical sharehouse is the minority</div>
+<div class="card-hint">Swipe for the real numbers →</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">1 / 5</span><button class="dl-btn" data-target="card-r7-1" data-filename="sharehouse-row7-slide1-cover.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r7-2">
+<div class="slide-num">2 / 5</div>
+<div class="card-eyebrow">Not the age you'd guess</div>
+<div class="card-body">
+<div class="card-stat">44%</div>
+<div class="card-line">of people in a sharehouse are over 40</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">2 / 5</span><button class="dl-btn" data-target="card-r7-2" data-filename="sharehouse-row7-slide2-44pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r7-3">
+<div class="slide-num">3 / 5</div>
+<div class="card-eyebrow">Not a phase</div>
+<div class="card-body">
+<div class="card-stat">35%</div>
+<div class="card-line">have shared for 5 years or more</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">3 / 5</span><button class="dl-btn" data-target="card-r7-3" data-filename="sharehouse-row7-slide3-35pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r7-4">
+<div class="slide-num">4 / 5</div>
+<div class="card-eyebrow">Some of them already own it</div>
+<div class="card-body">
+<div class="card-stat">17%</div>
+<div class="card-line">already own a home and rent out rooms</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">4 / 5</span><button class="dl-btn" data-target="card-r7-4" data-filename="sharehouse-row7-slide4-17pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark cta-slide" id="card-r7-5">
+<div class="slide-num">5 / 5</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title" style="font-size:18px; margin-bottom:14px;">Read the full Sharehouse Generation Report</div>
+<div class="card-cta-btn">homerun.app</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">5 / 5</span><button class="dl-btn" data-target="card-r7-5" data-filename="sharehouse-row7-slide5-cta.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Carousel</span>
+    <span class="section-title">how long each age group has been sharehousing, 4 slides</span>
+  </div>
+  <div class="filmstrip">
+<div class="card-unit">
+<div class="card dark cover" id="card-r8-1">
+<div class="slide-num">1 / 4</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">How long people actually stay in a sharehouse</div>
+<div class="card-hint">It's not just a 20s thing →</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">1 / 4</span><button class="dl-btn" data-target="card-r8-1" data-filename="sharehouse-row8-slide1-cover.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r8-2">
+<div class="slide-num">2 / 4</div>
+<div class="card-eyebrow">Not just a 20s thing</div>
+<div class="card-body">
+<div class="card-stat long">68.8%</div>
+<div class="card-line">of 18 to 21 year olds have shared for under a year</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">2 / 4</span><button class="dl-btn" data-target="card-r8-2" data-filename="sharehouse-row8-slide2-68pt8pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r8-3">
+<div class="slide-num">3 / 4</div>
+<div class="card-body">
+<div class="card-title">Among the over-40s, the single biggest group has shared for 10 years or more</div>
+<div class="card-sub" style="margin-top:12px;">The exact opposite pattern to the 18 to 21s.</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">3 / 4</span><button class="dl-btn" data-target="card-r8-3" data-filename="sharehouse-row8-slide3-10yrs.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark cta-slide" id="card-r8-4">
+<div class="slide-num">4 / 4</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title" style="font-size:18px; margin-bottom:14px;">Read the full Sharehouse Generation Report</div>
+<div class="card-cta-btn">homerun.app</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">4 / 4</span><button class="dl-btn" data-target="card-r8-4" data-filename="sharehouse-row8-slide4-cta.png">Download PNG</button></div>
+</div>
+</div>
+  <div class="label-chip" style="margin-top:6px; max-width:900px;">Row 8 — only the two age bands confirmed in the content bank/PDF are shown; the full age-by-age table lives on the live report page and isn't pulled in here yet.</div>
+</section>
+
+<a id="ch2"></a>
+<div class="chapter-header">
+  <div class="chapter-num">Chapter 2</div>
+  <div class="chapter-title">Nobody expected to still be sharehousing</div>
+</div>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Static images</span>
+    <span class="section-title">three cards, post individually</span>
+  </div>
+  <div class="asset-row">
+<div class="card-unit">
+<div class="card" id="card-r11">
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">69%</div>
+<div class="card-line">didn't expect to still be sharehousing</div>
+<div class="card-sub">For over-40s, it's 78%.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 11</span><button class="dl-btn" data-target="card-r11" data-filename="sharehouse-row11-69pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r12">
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">75%</div>
+<div class="card-line">say rising prices extended how long they've shared</div>
+<div class="card-sub">55% say significantly longer.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 12</span><button class="dl-btn" data-target="card-r12" data-filename="sharehouse-row12-75pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r16">
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">“The current housing market will never have someone my age independently buying a home.”</div>
+<div class="card-sub" style="margin-top:12px;">Survey respondent, 22 to 25.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 16</span><button class="dl-btn" data-target="card-r16" data-filename="sharehouse-row16-quote.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Carousel</span>
+    <span class="section-title">“didn't expect to still be sharehousing” by age, 3 slides</span>
+  </div>
+  <div class="filmstrip">
+<div class="card-unit">
+<div class="card dark cover" id="card-r13-1">
+<div class="slide-num">1 / 3</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">The older you are, the less you expected this</div>
+<div class="card-hint">38% at 18, climbing to 80% by their late 30s →</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">1 / 3</span><button class="dl-btn" data-target="card-r13-1" data-filename="sharehouse-row13-slide1-cover.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r13-2">
+<div class="slide-num">2 / 3</div>
+<div class="card-body">
+<div class="card-stat">38%</div>
+<div class="card-line">of 18 to 21 year olds didn't expect to still be sharehousing</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">2 / 3</span><button class="dl-btn" data-target="card-r13-2" data-filename="sharehouse-row13-slide2-38pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r13-3">
+<div class="slide-num">3 / 3</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">80%</div>
+<div class="card-line">of 35 to 39 year olds say the same</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">3 / 3</span><button class="dl-btn" data-target="card-r13-3" data-filename="sharehouse-row13-slide3-80pct.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Carousel</span>
+    <span class="section-title">“never expect to own a home” by age, 3 slides</span>
+  </div>
+  <div class="filmstrip">
+<div class="card-unit">
+<div class="card dark cover" id="card-r14-1">
+<div class="slide-num">1 / 3</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">Who's given up on owning a home</div>
+<div class="card-hint">It climbs with every age band →</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">1 / 3</span><button class="dl-btn" data-target="card-r14-1" data-filename="sharehouse-row14-slide1-cover.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r14-2">
+<div class="slide-num">2 / 3</div>
+<div class="card-body">
+<div class="card-stat">18%</div>
+<div class="card-line">of 18 to 21 year olds never expect to own a home</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">2 / 3</span><button class="dl-btn" data-target="card-r14-2" data-filename="sharehouse-row14-slide2-18pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r14-3">
+<div class="slide-num">3 / 3</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">41%</div>
+<div class="card-line">of over-40s say the same, against 31% nationally</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">3 / 3</span><button class="dl-btn" data-target="card-r14-3" data-filename="sharehouse-row14-slide3-41pct.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Carousel</span>
+    <span class="section-title">how far away owning feels, the ownership ladder, 3 slides</span>
+  </div>
+  <div class="filmstrip">
+<div class="card-unit">
+<div class="card dark cover" id="card-r17-1">
+<div class="slide-num">1 / 3</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">How far away owning feels</div>
+<div class="card-hint">Most people are at one end or the other →</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">1 / 3</span><button class="dl-btn" data-target="card-r17-1" data-filename="sharehouse-row17-slide1-cover.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r17-2">
+<div class="slide-num">2 / 3</div>
+<div class="card-body">
+<div class="card-stat">16.9%</div>
+<div class="card-line">already own a home</div>
+</div>
+<div class="card-foot">
+<div class="fr"><span class="fr-val">9.1%</span><span class="fr-label">within 2 years</span></div>
+<div class="fr"><span class="fr-val">15.2%</span><span class="fr-label">2 to 5 years</span></div>
+<div class="fr"><span class="fr-val">16.9%</span><span class="fr-label">5 to 10 years</span></div>
+<div class="fr"><span class="fr-val">10.8%</span><span class="fr-label">more than 10 years</span></div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">2 / 3</span><button class="dl-btn" data-target="card-r17-2" data-filename="sharehouse-row17-slide2-ladder.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r17-3">
+<div class="slide-num">3 / 3</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">31.2%</div>
+<div class="card-line">never expect to own</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">3 / 3</span><button class="dl-btn" data-target="card-r17-3" data-filename="sharehouse-row17-slide3-31pt2pct.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<a id="ch3"></a>
+<div class="chapter-header">
+  <div class="chapter-num">Chapter 3</div>
+  <div class="chapter-title">Types of Australian sharehouse</div>
+</div>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Static images</span>
+    <span class="section-title">four cards, post individually</span>
+  </div>
+  <div class="asset-row">
+<div class="card-unit">
+<div class="card" id="card-r20">
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat long">~1 in 10</div>
+<div class="card-line">of over-40s started sharehousing after a divorce, separation or bereavement</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562), over-40s subset</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 20</span><button class="dl-btn" data-target="card-r20" data-filename="sharehouse-row20-restart.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r23">
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">35%</div>
+<div class="card-line">have shared a home for 5+ years</div>
+<div class="card-sub">It's not a stepping stone for this group.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 23</span><button class="dl-btn" data-target="card-r23" data-filename="sharehouse-row23-35pct-longhauler.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r25">
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">17%</div>
+<div class="card-line">already own their home and rent out rooms</div>
+<div class="card-sub">Rising to 26% among over-40s.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 25</span><button class="dl-btn" data-target="card-r25" data-filename="sharehouse-row25-17pct-ownerhost.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r27">
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">45%</div>
+<div class="card-line">of sharehouses are just two people</div>
+<div class="card-sub">The most common shape in the data.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 27</span><button class="dl-btn" data-target="card-r27" data-filename="sharehouse-row27-45pct-pair.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Carousel</span>
+    <span class="section-title">restart quotes, in their own words, 4 slides</span>
+  </div>
+  <div class="filmstrip">
+<div class="card-unit">
+<div class="card dark cover" id="card-r21-1">
+<div class="slide-num">1 / 4</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">Why people really end up sharehousing</div>
+<div class="card-hint">In their own words →</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">1 / 4</span><button class="dl-btn" data-target="card-r21-1" data-filename="sharehouse-row21-slide1-cover.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r21-2">
+<div class="slide-num">2 / 4</div>
+<div class="card-body">
+<div class="card-title">“Divorce stripped me of equity in my home and I cannot afford to re-enter the housing market.”</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">2 / 4</span><button class="dl-btn" data-target="card-r21-2" data-filename="sharehouse-row21-slide2-quote1.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r21-3">
+<div class="slide-num">3 / 4</div>
+<div class="card-body">
+<div class="card-title">“My husband died and I could not afford a rental house on my own. I'm 65. I did not expect this.”</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">3 / 4</span><button class="dl-btn" data-target="card-r21-3" data-filename="sharehouse-row21-slide3-quote2.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r21-4">
+<div class="slide-num">4 / 4</div>
+<div class="card-body">
+<div class="card-title">“Recently separated. Finding my feet.”</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">4 / 4</span><button class="dl-btn" data-target="card-r21-4" data-filename="sharehouse-row21-slide4-quote3.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Carousel</span>
+    <span class="section-title">six types of Australian sharehouse, 7 slides</span>
+  </div>
+  <div class="filmstrip">
+<div class="card-unit">
+<div class="card dark cover" id="card-r30-0">
+<div class="slide-num">1 / 7</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">Six types of Australian sharehouse</div>
+<div class="card-hint">One survey, six very different households →</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">1 / 7</span><button class="dl-btn" data-target="card-r30-0" data-filename="sharehouse-row30-slide1-cover.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r30-2">
+<div class="slide-num">2 / 7</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">The Restart</div>
+<div class="card-line">~1 in 10 of the over-40s</div>
+<div class="card-sub" style="margin-top:12px;">Entered share accommodation after separation, divorce or widowhood.</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">2 / 7</span><button class="dl-btn" data-target="card-r30-2" data-filename="sharehouse-row30-slide2-the-restart.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r30-3">
+<div class="slide-num">3 / 7</div>
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">The Long Hauler</div>
+<div class="card-line">35% of the panel</div>
+<div class="card-sub" style="margin-top:12px;">Five or more years in share accommodation, 18% past the ten year mark.</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">3 / 7</span><button class="dl-btn" data-target="card-r30-3" data-filename="sharehouse-row30-slide3-the-long-hauler.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r30-4">
+<div class="slide-num">4 / 7</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">The Owner Host</div>
+<div class="card-line">17% of the panel</div>
+<div class="card-sub" style="margin-top:12px;">Owns a home and lets rooms to carry the mortgage, rising to 26% of the over-40s.</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">4 / 7</span><button class="dl-btn" data-target="card-r30-4" data-filename="sharehouse-row30-slide4-the-owner-host.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r30-5">
+<div class="slide-num">5 / 7</div>
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">The Pair</div>
+<div class="card-line">45% of the panel</div>
+<div class="card-sub" style="margin-top:12px;">A two person household, the most common shape in the data.</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">5 / 7</span><button class="dl-btn" data-target="card-r30-5" data-filename="sharehouse-row30-slide5-the-pair.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r30-6">
+<div class="slide-num">6 / 7</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">The Priced Out Professional</div>
+<div class="card-line">27% of the panel are in their thirties</div>
+<div class="card-sub" style="margin-top:12px;">Expected to own by now. 80% of the 35 to 39 band didn't expect this.</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">6 / 7</span><button class="dl-btn" data-target="card-r30-6" data-filename="sharehouse-row30-slide6-the-priced-out-professional.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r30-7">
+<div class="slide-num">7 / 7</div>
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">The Found Family</div>
+<div class="card-line">20% of the panel</div>
+<div class="card-sub" style="margin-top:12px;">Describes the household as social and close.</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">7 / 7</span><button class="dl-btn" data-target="card-r30-7" data-filename="sharehouse-row30-slide7-the-found-family.png">Download PNG</button></div>
+</div>
+</div>
+  <div class="label-chip" style="margin-top:6px; max-width:900px;">Types overlap and aren't a segmentation — each sized against its own base, per the report's own caveat.</div>
+</section>
+
+<a id="ch4"></a>
+<div class="chapter-header">
+  <div class="chapter-num">Chapter 4</div>
+  <div class="chapter-title">The revolving door of housemates</div>
+</div>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Static images</span>
+    <span class="section-title">three cards, post individually</span>
+  </div>
+  <div class="asset-row">
+<div class="card-unit">
+<div class="card" id="card-r32">
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">38%</div>
+<div class="card-line">moved into a sharehouse without fully understanding the lease or house rules</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 32</span><button class="dl-btn" data-target="card-r32" data-filename="sharehouse-row32-38pct-lease.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r33">
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">41%</div>
+<div class="card-line">had two or more people move through their house in a year</div>
+<div class="card-sub">The report's own caveat: treat as a floor for this recruited population, not a national rate.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 33</span><button class="dl-btn" data-target="card-r33" data-filename="sharehouse-row33-41pct-moves.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r34">
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">71%</div>
+<div class="card-line">had someone move in or out in the last 12 months</div>
+<div class="card-sub">The report's own caveat: treat as a floor for this recruited population, not a national rate.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 34</span><button class="dl-btn" data-target="card-r34" data-filename="sharehouse-row34-71pct-turnover.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">On hold — not cleared to publish</span>
+    <span class="section-title">money content, rows 37–39 (sequenced for a second-act campaign per Matt's call, not cut)</span>
+  </div>
+  <div class="asset-row">
+<div class="card-unit">
+<div class="card dark" id="card-r37">
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">40%</div>
+<div class="card-line">have overpaid on shared bills at some point</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 37</span><button class="dl-btn" data-target="card-r37" data-filename="sharehouse-row37-40pct-overpaid.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r38">
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">33%</div>
+<div class="card-line">have had to chase a housemate for rent</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 38</span><button class="dl-btn" data-target="card-r38" data-filename="sharehouse-row38-33pct-chasedrent.png">Download PNG</button></div>
+</div>
+</div>
+<div class="filmstrip">
+<div class="card-unit">
+<div class="card dark cover" id="card-r39-1">
+<div class="slide-num">1 / 4</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">The money side of sharing a house</div>
+<div class="card-hint">The numbers behind the arguments →</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">1 / 4</span><button class="dl-btn" data-target="card-r39-1" data-filename="sharehouse-row39-slide1-cover.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r39-2">
+<div class="slide-num">2 / 4</div>
+<div class="card-body">
+<div class="card-stat">40%</div>
+<div class="card-line">have overpaid on shared bills at some point</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">2 / 4</span><button class="dl-btn" data-target="card-r39-2" data-filename="sharehouse-row39-slide2-40pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r39-3">
+<div class="slide-num">3 / 4</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">33%</div>
+<div class="card-line">have had to chase a housemate for rent</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">3 / 4</span><button class="dl-btn" data-target="card-r39-3" data-filename="sharehouse-row39-slide3-33pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark cta-slide" id="card-r39-4">
+<div class="slide-num">4 / 4</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title" style="font-size:18px; margin-bottom:14px;">Read the full Sharehouse Generation Report</div>
+<div class="card-cta-btn">homerun.app</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">4 / 4</span><button class="dl-btn" data-target="card-r39-4" data-filename="sharehouse-row39-slide4-cta.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<a id="ch5"></a>
+<div class="chapter-header">
+  <div class="chapter-num">Chapter 5</div>
+  <div class="chapter-title">What holds it together</div>
+</div>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Static images</span>
+    <span class="section-title">four cards, post individually</span>
+  </div>
+  <div class="asset-row">
+<div class="card-unit">
+<div class="card" id="card-r42">
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">86.1%</div>
+<div class="card-line">describe their household as positive</div>
+<div class="card-sub">Friendly and independent, mostly.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 42</span><button class="dl-btn" data-target="card-r42" data-filename="sharehouse-row42-86pt1pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r43">
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">3.7%</div>
+<div class="card-line">call their household actively tense</div>
+<div class="card-sub">The rest is just getting on with it.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 43</span><button class="dl-btn" data-target="card-r43" data-filename="sharehouse-row43-3pt7pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r44">
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">~25%</div>
+<div class="card-line">name friendship or connection as what they love most</div>
+</div>
+<div class="card-foot">
+<div class="fr"><span class="fr-val">~25%</span><span class="fr-label">name affordability</span></div>
+<div class="fr"><span class="fr-val">16%</span><span class="fr-label">name cultural diversity</span></div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 44</span><button class="dl-btn" data-target="card-r44" data-filename="sharehouse-row44-lovemost.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r45">
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">“It's like living with your family, but you actually chose to live together.”</div>
+<div class="card-sub" style="margin-top:12px;">Melbourne respondent, 26 to 29.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 45</span><button class="dl-btn" data-target="card-r45" data-filename="sharehouse-row45-quote.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Carousel</span>
+    <span class="section-title">household vibe, 5 slides</span>
+  </div>
+  <div class="filmstrip">
+<div class="card-unit">
+<div class="card dark cover" id="card-r46-1">
+<div class="slide-num">1 / 5</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">What sharehouse life actually feels like</div>
+<div class="card-hint">Friendly, close, or somewhere in between →</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">1 / 5</span><button class="dl-btn" data-target="card-r46-1" data-filename="sharehouse-row46-slide1-cover.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r46-2">
+<div class="slide-num">2 / 5</div>
+<div class="card-body">
+<div class="card-stat">66.6%</div>
+<div class="card-line">describe their household as friendly but independent</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">2 / 5</span><button class="dl-btn" data-target="card-r46-2" data-filename="sharehouse-row46-slide2-66pt6pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r46-3">
+<div class="slide-num">3 / 5</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">19.5%</div>
+<div class="card-line">describe it as social and close</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">3 / 5</span><button class="dl-btn" data-target="card-r46-3" data-filename="sharehouse-row46-slide3-19pt5pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r46-4">
+<div class="slide-num">4 / 5</div>
+<div class="card-body">
+<div class="card-stat">3.7%</div>
+<div class="card-line">describe it as actively tense</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">4 / 5</span><button class="dl-btn" data-target="card-r46-4" data-filename="sharehouse-row46-slide4-3pt7pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark cta-slide" id="card-r46-5">
+<div class="slide-num">5 / 5</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title" style="font-size:18px; margin-bottom:14px;">Read the full Sharehouse Generation Report</div>
+<div class="card-cta-btn">homerun.app</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">5 / 5</span><button class="dl-btn" data-target="card-r46-5" data-filename="sharehouse-row46-slide5-cta.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Carousel</span>
+    <span class="section-title">household warmth by age band, 4 slides</span>
+  </div>
+  <div class="filmstrip">
+<div class="card-unit">
+<div class="card dark cover" id="card-r48-1">
+<div class="slide-num">1 / 4</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">How household warmth changes with age</div>
+<div class="card-hint">From 22 to 25 through to 40 plus →</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">1 / 4</span><button class="dl-btn" data-target="card-r48-1" data-filename="sharehouse-row48-slide1-cover.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r48-2">
+<div class="slide-num">2 / 4</div>
+<div class="card-body">
+<div class="card-stat">28.3%</div>
+<div class="card-line">of 22 to 25 year olds call their household social and close</div>
+<div class="card-sub">Falls to 14.8% among the over-40s.</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">2 / 4</span><button class="dl-btn" data-target="card-r48-2" data-filename="sharehouse-row48-slide2-28pt3pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r48-3">
+<div class="slide-num">3 / 4</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">72.0%</div>
+<div class="card-line">of over-40s call their household friendly but independent</div>
+<div class="card-sub">Up from 56.1% at 22 to 25.</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">3 / 4</span><button class="dl-btn" data-target="card-r48-3" data-filename="sharehouse-row48-slide3-72pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r48-4">
+<div class="slide-num">4 / 4</div>
+<div class="card-body">
+<div class="card-stat">4.2%</div>
+<div class="card-line">tension never rises above this, in any age band</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">4 / 4</span><button class="dl-btn" data-target="card-r48-4" data-filename="sharehouse-row48-slide4-4pt2pct.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<a id="ch6"></a>
+<div class="chapter-header">
+  <div class="chapter-num">Chapter 6</div>
+  <div class="chapter-title">The five capitals</div>
+</div>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Static images</span>
+    <span class="section-title">three cards, post individually</span>
+  </div>
+  <div class="asset-row">
+<div class="card-unit">
+<div class="card" id="card-r50">
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">54.4%</div>
+<div class="card-line">of Adelaide sharehousers are 40 or over</div>
+<div class="card-sub">Indicative only (n=147). Melbourne is next at 45.7%.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 50</span><button class="dl-btn" data-target="card-r50" data-filename="sharehouse-row50-adelaide-melbourne.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r52">
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat long">$800/wk</div>
+<div class="card-line">Sydney's median share-house rent</div>
+<div class="card-sub">Against $1,594/week typical full-time take-home pay. Domain + ABS, Homerun's own calculation, not a survey finding.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 52</span><button class="dl-btn" data-target="card-r52" data-filename="sharehouse-row52-sydney-rent.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card brand" id="card-r66">
+<div class="card-eyebrow">The exit keeps moving</div>
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">37.8<span style="font-size:.55em;">%</span></div>
+<div class="card-line">of Brisbane sharehousers never expect to own a home</div>
+</div>
+<div class="card-foot">
+<div class="fr"><span class="fr-val">27.1%</span><span class="fr-label">in Sydney — the lowest of any capital</span></div>
+<div class="fr"><span class="fr-val">31%</span><span class="fr-label">national average</span></div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 66</span><button class="dl-btn" data-target="card-r66" data-filename="sharehouse-row66-brisbane-sydney.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Carousel</span>
+    <span class="section-title">full city comparison, five capitals, 7 slides</span>
+  </div>
+  <div class="filmstrip">
+<div class="card-unit">
+<div class="card dark cover" id="card-r53-0">
+<div class="slide-num">1 / 7</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">Every capital shares differently</div>
+<div class="card-hint">Open the full table →</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">1 / 7</span><button class="dl-btn" data-target="card-r53-0" data-filename="sharehouse-row53-slide1-cover.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r53-2">
+<div class="slide-num">2 / 7</div>
+<div class="card-eyebrow">NATIONAL</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">44%</div>
+<div class="card-line">aged 40 or over</div>
+</div>
+<div class="card-foot">
+<div class="fr"><span class="fr-val">69%</span><span class="fr-label">didn't expect this</span></div>
+<div class="fr"><span class="fr-val">31%</span><span class="fr-label">never expect to own</span></div>
+<div class="fr"><span class="fr-val">71%</span><span class="fr-label">moved this year</span></div>
+<div class="fr"><span class="fr-val">86%</span><span class="fr-label">positive household</span></div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">2 / 7</span><button class="dl-btn" data-target="card-r53-2" data-filename="sharehouse-row53-slide2-national.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r53-3">
+<div class="slide-num">3 / 7</div>
+<div class="card-eyebrow">SYDNEY</div>
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">35%</div>
+<div class="card-line">aged 40 or over</div>
+</div>
+<div class="card-foot">
+<div class="fr"><span class="fr-val">69%</span><span class="fr-label">didn't expect this</span></div>
+<div class="fr"><span class="fr-val">27%</span><span class="fr-label">never expect to own</span></div>
+<div class="fr"><span class="fr-val">71%</span><span class="fr-label">moved this year</span></div>
+<div class="fr"><span class="fr-val">88%</span><span class="fr-label">positive household</span></div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">3 / 7</span><button class="dl-btn" data-target="card-r53-3" data-filename="sharehouse-row53-slide3-sydney.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r53-4">
+<div class="slide-num">4 / 7</div>
+<div class="card-eyebrow">MELBOURNE</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">46%</div>
+<div class="card-line">aged 40 or over</div>
+</div>
+<div class="card-foot">
+<div class="fr"><span class="fr-val">66%</span><span class="fr-label">didn't expect this</span></div>
+<div class="fr"><span class="fr-val">32%</span><span class="fr-label">never expect to own</span></div>
+<div class="fr"><span class="fr-val">72%</span><span class="fr-label">moved this year</span></div>
+<div class="fr"><span class="fr-val">85%</span><span class="fr-label">positive household</span></div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">4 / 7</span><button class="dl-btn" data-target="card-r53-4" data-filename="sharehouse-row53-slide4-melbourne.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r53-5">
+<div class="slide-num">5 / 7</div>
+<div class="card-eyebrow">BRISBANE</div>
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">45%</div>
+<div class="card-line">aged 40 or over</div>
+</div>
+<div class="card-foot">
+<div class="fr"><span class="fr-val">67%</span><span class="fr-label">didn't expect this</span></div>
+<div class="fr"><span class="fr-val">38%</span><span class="fr-label">never expect to own</span></div>
+<div class="fr"><span class="fr-val">69%</span><span class="fr-label">moved this year</span></div>
+<div class="fr"><span class="fr-val">86%</span><span class="fr-label">positive household</span></div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">5 / 7</span><button class="dl-btn" data-target="card-r53-5" data-filename="sharehouse-row53-slide5-brisbane.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r53-6">
+<div class="slide-num">6 / 7</div>
+<div class="card-eyebrow">PERTH</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">41%</div>
+<div class="card-line">aged 40 or over</div>
+</div>
+<div class="card-foot">
+<div class="fr"><span class="fr-val">69%</span><span class="fr-label">didn't expect this</span></div>
+<div class="fr"><span class="fr-val">30%</span><span class="fr-label">never expect to own</span></div>
+<div class="fr"><span class="fr-val">72%</span><span class="fr-label">moved this year</span></div>
+<div class="fr"><span class="fr-val">88%</span><span class="fr-label">positive household</span></div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">6 / 7</span><button class="dl-btn" data-target="card-r53-6" data-filename="sharehouse-row53-slide6-perth.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r53-7">
+<div class="slide-num">7 / 7</div>
+<div class="card-eyebrow">ADELAIDE</div>
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">54%</div>
+<div class="card-line">aged 40 or over</div>
+</div>
+<div class="card-foot">
+<div class="fr"><span class="fr-val">70%</span><span class="fr-label">didn't expect this</span></div>
+<div class="fr"><span class="fr-val">29%</span><span class="fr-label">never expect to own</span></div>
+<div class="fr"><span class="fr-val">71%</span><span class="fr-label">moved this year</span></div>
+<div class="fr"><span class="fr-val">84%</span><span class="fr-label">positive household</span></div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">7 / 7</span><button class="dl-btn" data-target="card-r53-7" data-filename="sharehouse-row53-slide7-adelaide.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<a id="ch7"></a>
+<div class="chapter-header">
+  <div class="chapter-num">Chapter 7</div>
+  <div class="chapter-title">What the Census sees</div>
+</div>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Static images</span>
+    <span class="section-title">three cards, post individually</span>
+  </div>
+  <div class="asset-row">
+<div class="card-unit">
+<div class="card" id="card-r55">
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat long">361,822</div>
+<div class="card-line">group households counted in the 2021 Census</div>
+<div class="card-sub">3.9% of classified occupied private households.</div>
+</div>
+<div class="card-footer">ABS Census 2021</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 55</span><button class="dl-btn" data-target="card-r55" data-filename="sharehouse-row55-361822.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r56">
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">+53.8%</div>
+<div class="card-line">growth in group-household residents aged 55+, 2011 to 2021</div>
+</div>
+<div class="card-footer">ABS Census 2001–2021</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 56</span><button class="dl-btn" data-target="card-r56" data-filename="sharehouse-row56-53pt8pct.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r57">
+<div class="card-mark"><img src="mark-ink.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">26.2%</div>
+<div class="card-line">of households in Melbourne CBD North are group households</div>
+<div class="card-sub">The highest concentration in the country.</div>
+</div>
+<div class="card-footer">ABS Census 2021</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">Row 57</span><button class="dl-btn" data-target="card-r57" data-filename="sharehouse-row57-melbournecbd.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Carousel</span>
+    <span class="section-title">twenty years of Census growth, 3 slides</span>
+  </div>
+  <div class="filmstrip">
+<div class="card-unit">
+<div class="card dark cover" id="card-r58-1">
+<div class="slide-num">1 / 3</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">20 years of sharehouse growth</div>
+<div class="card-hint">Growth is real, but it's slowing →</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">1 / 3</span><button class="dl-btn" data-target="card-r58-1" data-filename="sharehouse-row58-slide1-cover.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r58-2">
+<div class="slide-num">2 / 3</div>
+<div class="card-body">
+<div class="card-title">Group households, 2001 to 2021</div>
+</div>
+<div class="card-foot">
+<div class="fr"><span class="fr-val">262,551</span><span class="fr-label">2001, baseline</span></div>
+<div class="fr"><span class="fr-val">280,856</span><span class="fr-label">2006, +7.0%</span></div>
+<div class="fr"><span class="fr-val">321,007</span><span class="fr-label">2011, +14.3%</span></div>
+<div class="fr"><span class="fr-val">354,911</span><span class="fr-label">2016, +10.6%</span></div>
+<div class="fr"><span class="fr-val">361,822</span><span class="fr-label">2021, +1.9%</span></div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">2 / 3</span><button class="dl-btn" data-target="card-r58-2" data-filename="sharehouse-row58-slide2-table.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark cta-slide" id="card-r58-3">
+<div class="slide-num">3 / 3</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title" style="font-size:18px; margin-bottom:14px;">Read the full Sharehouse Generation Report</div>
+<div class="card-cta-btn">homerun.app</div>
+</div>
+<div class="card-footer">ABS Census 2001–2021</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">3 / 3</span><button class="dl-btn" data-target="card-r58-3" data-filename="sharehouse-row58-slide3-cta.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+
+<a id="chfaq"></a>
+<div class="chapter-header">
+  <div class="chapter-num">Chapter FAQ</div>
+  <div class="chapter-title">The questions people ask first</div>
+</div>
+
+<section>
+  <div class="section-hd">
+    <span class="section-eyebrow">Carousel</span>
+    <span class="section-title">the questions people ask first, 5 slides</span>
+  </div>
+  <div class="filmstrip">
+<div class="card-unit">
+<div class="card dark cover" id="card-r65-1">
+<div class="slide-num">1 / 5</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-title">The questions people ask first</div>
+<div class="card-hint">Straight answers, no spin →</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">1 / 5</span><button class="dl-btn" data-target="card-r65-1" data-filename="sharehouse-row65-slide1-cover.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r65-2">
+<div class="slide-num">2 / 5</div>
+<div class="card-body">
+<div class="card-stat">43.5%</div>
+<div class="card-line">Q1: what age are sharehousers really?</div>
+<div class="card-sub">43.5% are 40 or over.</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">2 / 5</span><button class="dl-btn" data-target="card-r65-2" data-filename="sharehouse-row65-slide2-age.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r65-3">
+<div class="slide-num">3 / 5</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">68.5%</div>
+<div class="card-line">Q2: did people expect to still be sharehousing?</div>
+<div class="card-sub">68.5% didn't expect it at 20.</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">3 / 5</span><button class="dl-btn" data-target="card-r65-3" data-filename="sharehouse-row65-slide3-expectation.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card" id="card-r65-4">
+<div class="slide-num">4 / 5</div>
+<div class="card-body">
+<div class="card-stat">31.2%</div>
+<div class="card-line">Q3: will they ever own a home?</div>
+<div class="card-sub">31.2% never expect to; 16.9% already own.</div>
+</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">4 / 5</span><button class="dl-btn" data-target="card-r65-4" data-filename="sharehouse-row65-slide4-ownership.png">Download PNG</button></div>
+</div>
+<div class="card-unit">
+<div class="card dark" id="card-r65-5">
+<div class="slide-num">5 / 5</div>
+<div class="card-mark"><img src="mark-cream.png" alt="Homerun mark"></div>
+<div class="card-body">
+<div class="card-stat">86.1%</div>
+<div class="card-line">Q4: is it actually a good place to live?</div>
+<div class="card-sub">86.1% say yes; 3.7% call it tense.</div>
+</div>
+<div class="card-footer">The Sharehouse Generation report, Homerun with Flatmate Finders, 2026 (n=3,562)</div>
+</div>
+<div class="card-foot-row"><span class="label-chip">5 / 5</span><button class="dl-btn" data-target="card-r65-5" data-filename="sharehouse-row65-slide5-positivity.png">Download PNG</button></div>
+</div>
+</div>
+</section>
+  <footer>All static image and carousel rows from the content bank are built above (Chapter 4's money content is on hold, not cut, per Matt's call). Founder-led videos aren't asset cards and aren't included here.</footer>
+
+</div>
+
+<script>
+document.querySelectorAll('.dl-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var card = document.getElementById(btn.dataset.target);
+    if (!card || btn.dataset.state === 'busy') return;
+    var original = btn.textContent;
+    btn.dataset.state = 'busy';
+    btn.textContent = 'Saving…';
+    html2canvas(card, { scale: 3, backgroundColor: null, useCORS: true }).then(function(canvas){
+      canvas.toBlob(function(blob){
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = btn.dataset.filename || 'sharehouse-card.png';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        btn.dataset.state = '';
+        btn.textContent = original;
+      });
+    }).catch(function(){
+      btn.dataset.state = '';
+      btn.textContent = 'Failed — retry';
+    });
+  });
+});
+</script>
+
 </body>
 </html>
